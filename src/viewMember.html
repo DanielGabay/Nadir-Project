@@ -3,35 +3,27 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/addMember.css" />
   <title>הוסף חניך למערכת</title>
+  <link rel="stylesheet" type="text/css" href="css/addMember.css" />
   <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
   <link rel="stylesheet" href="css/ndr.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="semantic/semantic.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
   <script src="js/config.js"></script>
-
+  <script>
+      $(function () {
+          $('#navbar').load('topNavbar.html');
+      });
+  </script>
 </head>
 
 
-
 <body class="ndr" dir="rtl">
-
-  <div class="ui borderless main menu">
-      <div class="ui text container">
-        <div class="right floated header item">
-          <img class="ui small image"  src="images/logo.png">
-          פרויקט נדי"ר
-        </div>
-        <a href="homePage.html" class="item">מסך הבית</a>
-        <a href="#" class="item">חניכים</a>
-        <a href="#" class="item">קבוצות</a>
-        <a href="#" class="item">כספים</a>
-      </div>
-    </div>
+  
+  <div id="navbar"></div>
 
     <div class="ndr">
 
