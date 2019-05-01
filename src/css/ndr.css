@@ -3,12 +3,10 @@
     margin-left: 20%;
   }
 
-  .ndr{
-    background-color: #d5dae7;
-  }
+   body{
+    background-color: #E4E9FD;
+    background-image: -webkit-linear-gradient(65deg, #c6cbef 50%, #E4E9FD 50%);
+    min-height: 1000px;
+    font-family: 'helvetica neue';
+  } 
 
-  input[type="text"], textarea {
-
-    background-color : #d1d1d1; 
-  
-  }
