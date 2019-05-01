@@ -1,30 +1,48 @@
 const firestore = firebase.firestore();
 
 setGroups();
-const add_button = document.querySelector("#add-btn");
+const addForm = document.querySelector("#form-Add");
 
-add_button.addEventListener("click", function () {
+addForm.addEventListener("submit", function () {
     /* attach the html elements*/
 
     const firstName = document.querySelector("#first-name").value;
     const lastName = document.querySelector("#last-name").value;
     const date = document.querySelector("#date").value;
-    const city = document.querySelector("#city").value;
     const group = document.querySelector("#group").value;
-    const comments = document.querySelector("#comments").value;
+    const comments = document.querySelector("#comments").value; 
+    const school = document.querySelector("#school").value;
+    const phoneNum = document.querySelector("#phone-num").value;
+    const grade = document.querySelector("#grade").value; //
+    const parentPhoneNum = document.querySelector("#parent-phone-num").value;
+    const youthMovement = document.querySelector("#youth-movement").value;
+    const anotherEducation = document.querySelector("#another-education").value; //
+    const isInstructor = document.querySelector("#is-instructor").value;
 
     /*the data of this user will store in this location*/
-    const Path = "Users/" + firstName + "-" + lastName;
+    const Path = "Members/" + firstName + "-" + lastName;
     const docRef = firestore.doc(Path); // pointer to the place we add the data
+
+    let personalTracking = [];
+    let financialMonitoring = [];
 
     /* make the object to add ===> key : value */
     docRef.set({
         First: firstName,
         Last: lastName,
         Date: date,
-        City: city,
         Group: group,
-        Comments: comments
+        School: school,
+        PhoneNum: phoneNum,
+        Grade: grade,
+        ParentPhoneNum: parentPhoneNum,
+        YouthMovement: youthMovement,
+        AnotherEducation: anotherEducation,
+        IsInstructor: isInstructor,
+        Comments: comments,
+        PersonalTracking :personalTracking,
+        FinancialMonitoring: financialMonitoring
+
     }).then(function () {
         console.log("status  saved");
     }).catch(function (error) {
@@ -51,6 +69,20 @@ function setGroups() {
         }
     });
     
+}
+
+
+function deleteMemeber(firstName,lastName)
+{
+    const Path = "Users/" + firstName + "-" + lastName;
+    const docRef = firestore.doc(Path); // pointer to the place we add the data
+
+    docRef.delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+
 
 }
 
