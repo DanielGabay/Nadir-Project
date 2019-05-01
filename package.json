@@ -1,0 +1,16 @@
+{
+  "name": "nadir",
+  "version": "1.0.0",
+  "description": "Nadir Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js",
+    "package": "",
+    "build": "electron-packager . Nadir"
+  },
+  "author": "Daniel Gabay, Esty Kolin, Sarai Zarbib, Shachar Israeli, Guy Udi",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^5.0.0"
+  }
+}

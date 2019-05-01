@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/addMember.css" />
+  <title>הוסף חניך למערכת</title>
+  <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+  <link rel="stylesheet" href="css/ndr.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="semantic/semantic.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+  <script src="js/config.js"></script>
+
+</head>
+
+
+
+<body class="ndr" dir="rtl">
+
+  <div class="ui borderless main menu">
+      <div class="ui text container">
+        <div class="right floated header item">
+          <img class="ui small image"  src="images/logo.png">
+        </div>
+        <a href="homePage.html" class="item">מסך הבית</a>
+        <a href="#" class="item">חניכים</a>
+        <a href="#" class="item">קבוצות</a>
+        <a href="#" class="item">כספים</a>
+      </div>
+    </div>
+
+    <div class="ndr">
+
+    <div class="ndr-form">
+
+    <form>
+    <div class="ui form">
+      <div class="two fields">
+        <div class="field">
+          <label>שם פרטי:</label>
+          <input type="text" required id="first-name" placeholder="שם פרטי">
+        </div>
+        <div class="field">
+          <label>שם משפחה:</label>
+          <input type="text" required id="last-name" placeholder="שם משפחה ">
+        </div>
+      </div>
+
+      <div class="two fields">
+        <div class="field">
+          <label>טלפון:</label>
+          <input type="text" class="ndr-input" required id="phone-num" placeholder="טלפון">
+        </div>
+        <div class="field">
+          <label>קבוצה:</label>
+          <div id="place-group"></div>
+          
+        </div>
+      </div>
+
+      <div class="two fields">
+        <div class="field">
+          <label>בית ספר:</label>
+          <input type="text" placeholder="בית ספר" id="school">
+        </div>
+
+        <div class="field">
+          <label>כיתה:</label>
+          <select class="ui fluid dropdown" id="grade">
+            <option disabled selected value value="">בחר כיתה</option>
+            <option value="7">ז'</option>
+            <option value="8">ח'</option>
+            <option value="9">ט'</option>
+            <option value="10">י'</option>
+            <option value="11">י"א</option>
+            <option value="12">י"ב</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="two fields">
+        <div class="field">
+          <label>תאריך לידה:</label>
+          <input type="date" name="bday" id="date">
+        </div>
+        <div class="field">
+          <label>טלפון אבא/אמא:</label>
+          <input type="text" placeholder="טלפון אבא/אמא" id="parent-phone-num">
+        </div>
+      </div>
+
+      <div class="three fields">
+        <div class="field">
+          <label>תנועת נוער:</label>
+          <input type="text" placeholder="תנועת נוער" id="youth-movement">
+        </div>
+        <div class="field">
+          <label>האם מדריך:</label>
+          <select class="ui fluid dropdown" id="is-instructor">
+            <option selected value value="false">לא</option>
+            <option value="true">כן</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>מסגרת נוספת:</label>
+          <input type="text" placeholder="מסגרת נוספת" id="another-education">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>הערות:</label>
+        <textarea id="comments" rows="4"></textarea>
+      </div>
+
+      <button id="add-btn" class="left floated ui primary button">שמור</button>
+    </div>
+
+    </div>
+  </div>
+</form>
+
+</body>
+
+<script src ="js/addMember.js"></script>
+
+</html>
