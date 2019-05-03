@@ -3,10 +3,9 @@
     margin-left: 20%;
   }
 
-   body{
-    background-color: #E4E9FD;
-    background-image: -webkit-linear-gradient(65deg, #c6cbef 50%, #E4E9FD 50%);
-    min-height: 1000px;
-    font-family: 'helvetica neue';
+  
+  body{
+    background-image: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%);
+    //min-height: 1000px;
   } 
 
