@@ -15,13 +15,18 @@
         $(function () {
             $('#navbar').load('topNavbar.html');
         });
+        $(function () {
+            $("#members-btn").click(function () {
+                document.location.href = 'members.html';
+            })
+        });
     </script>
-	
+
 </head>
 
 
 <body class="ndr" dir="rtl">
-    
+
     <div id="navbar"></div>
 
     <h2>מסך כניסה</h2><br>
@@ -30,13 +35,5 @@
     <button id="financial-btn">כספים</button><br>
 
 </body>
-
-<script>
-    const members = document.getElementById("members-btn");
-    members.addEventListener('click', function () {
-        document.location.href = 'members.html';
-    });
-</script>
-
 
 </html>
