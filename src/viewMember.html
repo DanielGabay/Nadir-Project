@@ -19,6 +19,7 @@
 <body class="ndr" dir="rtl">
 
   <div id="navbar"></div>
+
   <div class="title">
     <h1>++שם חניך++</h1>
   </div>
@@ -36,18 +37,18 @@
             </div>
             <div class="field">
               <label>שם משפחה:</label>
-              <input type="text" readonly=""  id="last-name">
+              <input type="text" readonly="" id="last-name">
             </div>
           </div>
 
           <div class="two fields">
             <div class="field">
               <label>טלפון:</label>
-              <input type="number" readonly="" class="ndr-input"  id="phone-num" maxlength="10">
+              <input type="number" readonly="" id="phone-num" maxlength="10">
             </div>
             <div class="field">
               <label>קבוצה:</label>
-              <input type="text" readonly="" class="ui fluid dropdown" id="group">
+              <input type="text" readonly="" id="group">
             </div>
           </div>
 
@@ -60,7 +61,7 @@
 
             <div class="field">
               <label>כיתה:</label>
-              <input class="ui fluid dropdown" readonly="" id="grade">
+              <input readonly="" id="grade">
             </div>
           </div>
 
@@ -82,7 +83,7 @@
             </div>
             <div class="field">
               <label>האם מדריך:</label>
-              <input class="ui fluid dropdown" readonly="" id="is-instructor">
+              <input readonly="" id="is-instructor">
             </div>
             <div class="field">
               <label>מסגרת נוספת:</label>
@@ -95,14 +96,11 @@
             <textarea id="comments" readonly="" rows="4"></textarea>
           </div>
 
-          <!--<div class="view-ndr">-->
-            <button id="payment-track-btn" class="right floated ui primary button ">מעקב כספי</button>
-            <button id="personal-track-btn" class="left floated ui primary button ">מעקב אישי</button>
-          <!-- </div> -->
-
-
         </div>
       </form>
+      <br>
+      <button id="payment-track-btn" class="ui primary button ml-3">מעקב כספי</button>
+      <button id="personal-track-btn" class="ui primary button">מעקב אישי</button>
     </div>
   </div>
 </body>
