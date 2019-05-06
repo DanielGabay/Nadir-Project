@@ -15,6 +15,10 @@
         $(function () {
             $('#navbar').load('topNavbar.html');
         });
+        $(function (){
+       $("#addMemberBtn").click(function () {
+        document.location.href = 'addMember.html';}) 
+    });
     </script>
 </head>
 
@@ -25,11 +29,5 @@
     <button id = "search-members_bu" class="ui button"> חיפוש</button>
     <button id ="addMemberBtn" class="ui button">הוסף חניך</button>
     <button id = "arcive_bu" class="ui button">בוגרים</button>
-    <script>
-      const addMemberBtn = document.getElementById("addMemberBtn");
-      addMemberBtn.addEventListener('click',function(){
-        document.location.href = 'addMember.html';
-      });
-    </script>
   </body>
 </html>
