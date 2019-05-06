@@ -1,0 +1,27 @@
+h3{
+    font-family: Calibri; 
+    font-size: 25pt;         
+    font-style: normal; 
+    font-weight: bold; 
+    color:SlateBlue;
+    text-align: center; 
+    text-decoration: underline
+  }
+
+ 
+  .search-ndr{
+    text-align: center !important; 
+    margin: 20px;
+  }
+
+  .wrapper {
+    text-align: center;
+}
+  .button{
+    margin: 0 auto;
+    background: #0b0b0e !important;
+  }
+  
+  .result{
+    text-align: center !important; 
+  }
