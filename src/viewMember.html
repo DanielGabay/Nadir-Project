@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>הוסף חניך למערכת</title>
-  <link rel="stylesheet" type="text/css" href="css/addMember.css" />
+  <link rel="stylesheet" type="text/css" href="css/viewMember.css" />
   <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
   <link rel="stylesheet" href="css/ndr.css">
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -12,115 +11,100 @@
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
   <script src="js/config.js"></script>
-  <script>
-      $(function () {
-          $('#navbar').load('topNavbar.html');
-      });
-  </script>
+  <script src="js/viewMember.js"></script>
+
 </head>
 
 
 <body class="ndr" dir="rtl">
-  
+
   <div id="navbar"></div>
 
-    <div class="ndr">
+  <div class="title">
+    <h1 id="nameTitle">
+    </h1>
+  </div>
 
+  <div class="ndr">
     <div class="ndr-form">
+      <form id="form-Add">
+        <div class="ui form">
 
-    <form>
-    <div class="ui form">
-      <div class="two fields">
-        <div class="field">
-          <label>שם פרטי:</label>
-          <input type="text" required id="first-name" placeholder="שם פרטי">
-        </div>
-        <div class="field">
-          <label>שם משפחה:</label>
-          <input type="text" required id="last-name" placeholder="שם משפחה ">
-        </div>
-      </div>
 
-      <div class="two fields">
-        <div class="field">
-          <label>טלפון:</label>
-          <input type="text" class="ndr-input" required id="phone-num" placeholder="טלפון">
-        </div>
-        <div class="field">
-          <label>קבוצה:</label>
-          <select class="ui fluid dropdown" id="group">
-            <option disabled selected value value="">בחר קבוצה</option>
-            <div id="select-group">
+          <div class="two fields">
+            <div class="field">
+              <label>שם פרטי:</label>
+              <input type="text" readonly="" id="first-name">
             </div>
-          </select>
-        </div>
-      </div>
+            <div class="field">
+              <label>שם משפחה:</label>
+              <input type="text" readonly="" id="last-name">
+            </div>
+          </div>
 
-      <div class="two fields">
-        <div class="field">
-          <label>בית ספר:</label>
-          <input type="text" placeholder="בית ספר" id="school">
-        </div>
+          <div class="two fields">
+            <div class="field">
+              <label>טלפון:</label>
+              <input type="number" readonly="" id="phone-num" maxlength="10">
+            </div>
+            <div class="field">
+              <label>קבוצה:</label>
+              <input type="text" readonly="" id="group">
+            </div>
+          </div>
 
-        <div class="field">
-          <label>כיתה:</label>
-          <select class="ui fluid dropdown" id="grade">
-            <option disabled selected value value="">בחר כיתה</option>
-            <option value="7">ז'</option>
-            <option value="8">ח'</option>
-            <option value="9">ט'</option>
-            <option value="10">י'</option>
-            <option value="11">י"א</option>
-            <option value="12">י"ב</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="two fields">
-        <div class="field">
-          <label>תאריך לידה:</label>
-          <input type="date" name="bday" id="date">
-        </div>
-        <div class="field">
-          <label>טלפון אבא/אמא:</label>
-          <input type="text" placeholder="טלפון אבא/אמא" id="parent-phone-num">
-        </div>
-      </div>
+          <div class="two fields">
+            <div class="field">
+              <label>בית ספר:</label>
+              <input type="text" readonly="" id="school">
+            </div>
 
-      <div class="three fields">
-        <div class="field">
-          <label>תנועת נוער:</label>
-          <input type="text" placeholder="תנועת נוער" id="youth-movement">
-        </div>
-        <div class="field">
-          <label>האם מדריך:</label>
-          <select class="ui fluid dropdown" id="is-instructor">
-            <option selected value value="false">לא</option>
-            <option value="true">כן</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>מסגרת נוספת:</label>
-          <input type="text" placeholder="מסגרת נוספת" id="another-education">
-        </div>
-      </div>
+            <div class="field">
+              <label>כיתה:</label>
+              <input readonly="" id="grade">
+            </div>
+          </div>
 
-      <div class="field">
-        <label>הערות:</label>
-        <textarea id="comments" rows="4"></textarea>
-      </div>
+          <div class="two fields">
+            <div class="field">
+              <label>תאריך לידה:</label>
+              <input type="text" id="date" readonly="">
+            </div>
+            <div class="field">
+              <label>טלפון אבא/אמא:</label>
+              <input type="number" readonly="" maxlength="10" id="parent-phone-num">
+            </div>
+          </div>
 
-      <button id="btn-save" class="left floated ui primary button">שמור</button>
-    </div>
+          <div class="three fields">
+            <div class="field">
+              <label>תנועת נוער:</label>
+              <input type="text" readonly="" id="youth-movement">
+            </div>
+            <div class="field">
+              <label>האם מדריך:</label>
+              <input readonly="" id="is-instructor">
+            </div>
+            <div class="field">
+              <label>מסגרת נוספת:</label>
+              <input type="text" readonly="" id="another-education">
+            </div>
+          </div>
 
+          <div class="field">
+            <label>הערות:</label>
+            <textarea id="comments" readonly="" rows="4"></textarea>
+          </div>
+
+        </div>
+      </form>
+      <br>
+      <button id="payment-track-btn" class="ui primary button ml-3">מעקב כספי</button>
+      <button id="personal-track-btn" class="ui primary button">מעקב אישי</button>
     </div>
   </div>
-</form>
-
 </body>
 
-<script>
-  require('./js/addMember.js')
-</script>
 
 </html>

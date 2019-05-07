@@ -3,7 +3,6 @@ const firestore = firebase.firestore();
 /*when document is ready*/
 $(document).ready(function () {
     setGroups();
-
     $("#form-Add").submit(function (event) {
         event.preventDefault();
         /* attach html elements*/
@@ -86,4 +85,5 @@ function deleteMemeber(firstName, lastName) {
         console.error("Error removing document: ", error);
     });
 }
+
 
