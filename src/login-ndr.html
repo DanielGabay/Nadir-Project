@@ -2,20 +2,15 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-	<link rel="stylesheet" type="text/css" href="css/login-ndr.css" />
+		<meta charset="utf-8">
+		<script src="js/jquery-3.3.1.min.js"></script>
+ 	  <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+	  <link rel="stylesheet" type="text/css" href="css/login-ndr.css" />
     <script src="semantic/semantic.min.js"></script>
     <link rel="stylesheet" href="css/ndr.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
-    <script src="js/config.js"></script>
-    <script>
-        $(function () {
-            $('#navbar').load('topNavbar.html');
-        });
-    </script>
+		<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/login-ndr.js"></script>
 </head>
 
 
@@ -44,14 +39,14 @@
 				  <input class = "text-ndr" type="password" id="password" placeholder="סיסמא">
 				</div>
 			  </div>
-			  <div class="ui fluid large teal submit button">כניסה</div>
+			  <div class="ui fluid large teal submit button" id ="signInBtn">כניסה</div>
 			</div>
 	  
 			<div class="ui error message"></div>
 	  
 		  </form>
 	  
-		  <div class="ui message">
+		  <div class="ui message" id="signUpBtn">
 			משתמש חדש? <a href="#">הירשם</a>
 		  </div>
 		</div>
