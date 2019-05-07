@@ -8,7 +8,12 @@ h3{
     text-decoration: underline
   }
 
- 
+ th{
+  text-align: center !important;
+  text-size-adjust:  100px !important;
+  font-size: 20px;
+
+ }
   .search-ndr{
     text-align: center !important; 
     margin: 20px;
@@ -22,7 +27,7 @@ h3{
 }
   .button{
     margin: 0 auto;
-    background: #0b0b0e !important;
+    /* background: #bebec4 !important; */
   }
   
   .result{

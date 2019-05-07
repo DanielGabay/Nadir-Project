@@ -48,13 +48,13 @@ function setFields(doc){
     $("#nameTitle").append(member.First + " " + member.Last);
     $("#first-name").val(member.First);
     $("#last-name").val(member.Last);
-    $("#date").val(member.Date);
+    $("#date").val(member.Date.split('-').reverse().join('/'));  // will show in the right way dd/mm/yyyy
     $("#group").val(member.Group);
     $("#comments").val(member.Comments);
     $("#school").val(member.School);
-    $("#phone-num").val(member.PhoneNum);
-    $("#grade").val(member.Grade); 
-    $("#parent-phone-num").val(member.ParentPhoneNum);
+    $("#phone-num").val([member.PhoneNum.slice(0, 3), "-", member.PhoneNum.slice(3)].join(''));
+    $("#grade").val(member.Grade); //member.ParentPhoneNum
+    $("#parent-phone-num").val([member.ParentPhoneNum.slice(0, 3), "-", member.ParentPhoneNum.slice(3)].join(''));
     $("#youth-movement").val(member.YouthMovement);
     $("#another-education").val(member.AnotherEducation)
     if(member.IsInstructor == "false")

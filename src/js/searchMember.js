@@ -39,6 +39,7 @@ $("#search").click(function () {         //// need to fix this 1!!!!!!! doesting
     var lol = "אסף";
     localStorage.setItem('name',memberName);
     document.location.href = 'viewMember.html';
+   
 
 })
 
@@ -49,7 +50,10 @@ function showTable() {
     firestore.collection("Members").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             let person = doc.data(); // pointer for document
-            str +='<tr> <td>' + person.First + ' ' + person.Last + '</td> <td>' + person.Group + '</td> </tr>'
+            if(person.Group)
+            str +='<tr> <td>' + person.First + ' ' + person.Last + '</td> <td>' + person.Group + '</td> </tr>';
+            else
+            str +='<tr> <td>' + person.First + ' ' + person.Last + '</td> <td>' + "לא משויך לקבוצה" + '</td> </tr>';
         }
         )
         str += '</tbody>';
