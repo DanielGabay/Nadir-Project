@@ -1,0 +1,22 @@
+body {
+  background-color: #DADADA !important;
+}
+body > .grid {
+  height: 100%;
+}
+.image {
+  margin-top: -100px;
+}
+.column {
+  max-width: 450px;
+}
+
+.button {
+  background-color: #3a9c86 !important;
+  padding: 10px !important;
+
+}
+
+.text-ndr{
+  text-align: right !important; 
+}
