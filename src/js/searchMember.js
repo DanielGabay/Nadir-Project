@@ -4,18 +4,16 @@ const firestore = firebase.firestore();
 $(document).ready(function () {
 
     creatNamesList();
-
-   // $( "#my_search" ).trigger( "search" );
+    showTable();
+    // $( "#my_search" ).trigger( "search" );
 
 
 });
 
 
-
 function creatNamesList() {
     var content = []; // array of all names
-    
-  
+
 
     firestore.collection("Members").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -23,25 +21,37 @@ function creatNamesList() {
             let personName = person.First + " " + person.Last; // shirshur the name
             let d = { title: personName };
             content.push(d); // add for array of all names
-            
         });
-            $('.ui.search')
+        $('.ui.search')
             .search({
                 source: content
             })
-    });       
+    });
 }
 
-// $("#search").select(function(){
-//     console.log("got it ");
-// })
+$(".title").click(function () {
+    console.log("ייי");
+    const search = $(this).text();
+    console.log(search);
+})
 
-$("#search").keyup(function(){
-    $("#inputId").blur();
-    $("#inputId").focus();
-});
 
-$("#search").change(function(){
-    console.log("got it ");
-    //do whatever you need to do on actual change of the value of the input field
-});
+
+function showTable() {
+    let str = '<thead> <tr> <th>שם </th> <th> </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
+
+    firestore.collection("Members").get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            let person = doc.data(); // pointer for document
+            console.log(person.First);
+            str +='<tr> <td>' + person.First + '</td> <td>' + person.Last + '</td> <td>' + person.Group + '</td> </tr>'
+        }
+        )
+
+        str += '</tbody>';
+        console.log(str);
+        $("#membersTable").append(str);
+    });
+
+}
+
