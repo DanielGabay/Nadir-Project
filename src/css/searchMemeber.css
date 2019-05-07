@@ -13,7 +13,10 @@ h3{
     text-align: center !important; 
     margin: 20px;
   }
-
+  .table-ndr{
+    text-align: right !important; 
+    margin: 110px;
+  }
   .wrapper {
     text-align: center;
 }

@@ -1,12 +1,15 @@
 const firestore = firebase.firestore();
 
+
 /*when document is ready*/
 $(document).ready(function () {
 
     creatNamesList();
-    showTable();
-    // $( "#my_search" ).trigger( "search" );
+    $("#show-all").click(function(){
+        showTable();
 
+    });
+    // $( "#my_search" ).trigger( "search" );
 
 });
 
@@ -29,29 +32,28 @@ function creatNamesList() {
     });
 }
 
-$(".title").click(function () {
+$("#search").click(function () {         //// need to fix this 1!!!!!!! doesting catch the right name
     console.log("ייי");
-    const search = $(this).text();
-    console.log(search);
+    const memberName = $(this).text();
+    console.log( memberName);
+    var lol = "אסף";
+    localStorage.setItem('name',memberName);
+    document.location.href = 'viewMember.html';
+
 })
 
 
-
 function showTable() {
-    let str = '<thead> <tr> <th>שם </th> <th> </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
+    let str = '<thead> <tr> <th>שם </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
 
     firestore.collection("Members").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             let person = doc.data(); // pointer for document
-            console.log(person.First);
-            str +='<tr> <td>' + person.First + '</td> <td>' + person.Last + '</td> <td>' + person.Group + '</td> </tr>'
+            str +='<tr> <td>' + person.First + ' ' + person.Last + '</td> <td>' + person.Group + '</td> </tr>'
         }
         )
-
         str += '</tbody>';
-        console.log(str);
-        $("#membersTable").append(str);
+        $("#membersTable").html(str);
     });
 
 }
-

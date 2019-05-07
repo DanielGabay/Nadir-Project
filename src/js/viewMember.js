@@ -1,16 +1,18 @@
-
-
 const firestore = firebase.firestore();
 
 $(document).ready(function () {
-  let first = "שרי";
-  let last = "זרביב";
-  getName(first,last);
+  var text = window.location.hash.substring(1);
+  var name = localStorage.getItem('name').split(" ");
+  console.log("we passed this 1:"+ localStorage.getItem('name'));
+  
+  let first =name[0];
+  let last = name[2];
 
+  console.log("the names are: "+first);
+  getName("אלה","ישראלי");
 
 
  // $( "#my_search" ).trigger( "search" );
-
 
 });
 

@@ -19,15 +19,11 @@ $(document).ready(function () {
         const anotherEducation = $("#another-education").val();
         const isInstructor = $("#is-instructor").val();
 
-        /*the data of this user will be stored at this location*/
-        const Path = "Members/" + firstName + "-" + lastName;
-        const docRef = firestore.doc(Path); // pointer to the place we add the data
-
         let personalTracking = [];
         let financialMonitoring = [];
 
         /* make the object to add ===> key : value */
-        docRef.set({
+        firestore.collection("Members").add({    // add the member with Auto id 
             First: firstName,
             Last: lastName,
             Date: date,
