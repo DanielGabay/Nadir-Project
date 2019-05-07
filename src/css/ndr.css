@@ -6,6 +6,8 @@
   
   body{
     background-image: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%);
-    //min-height: 1000px;
+    min-height: 1000px;
+    text-align: center;
   } 
 
+  
