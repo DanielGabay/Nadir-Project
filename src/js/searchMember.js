@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     creatNamesList();
 
-    $( "#my_search" ).trigger( "search" );
+   // $( "#my_search" ).trigger( "search" );
 
 
 });
@@ -32,7 +32,16 @@ function creatNamesList() {
     });       
 }
 
-$("#search").click(function(){
-    console.log("sadfdsa");
-})
+// $("#search").select(function(){
+//     console.log("got it ");
+// })
 
+$("#search").keyup(function(){
+    $("#inputId").blur();
+    $("#inputId").focus();
+});
+
+$("#search").change(function(){
+    console.log("got it ");
+    //do whatever you need to do on actual change of the value of the input field
+});
