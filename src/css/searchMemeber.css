@@ -16,18 +16,39 @@ h3{
  }
   .search-ndr{
     text-align: center !important; 
-    margin: 20px;
+    max-width: 211px;
+    margin: 20px auto;
   }
+
+ #search-input{
+    text-align: right !important;
+    padding: 10px 15px 10px 30px !important;
+  }
+  #membersTable {
+    display: none;
+  }
+
   .table-ndr{
     text-align: right !important; 
     margin: 110px;
   }
+
+  .table-wrapper {
+    margin-top: 20px;
+    padding: 0 210px;
+  }
+
   .wrapper {
     text-align: center;
 }
   .button{
     margin: 0 auto;
     /* background: #bebec4 !important; */
+  }
+
+  .search.icon {
+    left: 0 !important;
+    right: auto !important;
   }
   
   .result{

@@ -38,7 +38,10 @@ $(document).ready(function () {
             Comments: comments,
             PersonalTracking: personalTracking,
             FinancialMonitoring: financialMonitoring
-        }).then(function () {
+        }).then(function (docRef) {
+            firestore.collection("Members").doc(docRef.id).set({
+                Key: docRef.id  // add the key of firebase to the data.
+            }, { merge: true });  //cancel the over-load it.
             console.log("Member added!");
         }).catch(function (error) {
             console.log("got error!!!", error)
@@ -64,22 +67,6 @@ function setGroups() {
         }
     });
 
-}
-
-function loading(id){
-    
-}
-
-
-function deleteMemeber(firstName, lastName) {
-    const Path = "Users/" + firstName + " " + lastName;
-    const docRef = firestore.doc(Path); // pointer to the place we add the data
-
-    docRef.delete().then(function () {
-        console.log("Document successfully deleted!");
-    }).catch(function (error) {
-        console.error("Error removing document: ", error);
-    });
 }
 
 
