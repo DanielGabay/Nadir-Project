@@ -1,4 +1,4 @@
- const electron = require('electron');
+const electron = require('electron');
 const {app, BrowserWindow} = electron;
 
 let win;
