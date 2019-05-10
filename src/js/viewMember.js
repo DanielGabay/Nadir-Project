@@ -1,13 +1,10 @@
 const firestore = firebase.firestore();
 
 $(document).ready(function () {
-  var selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
+  let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   console.log("we passed this data to the next screen:"+ selectedPersonKey);
   
   getName(selectedPersonKey); 
-
- 
-
 });
 
  $(function () {
