@@ -4,6 +4,8 @@
     <title>דף הבית</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="css/addMember.css" />
+    <link rel="stylesheet" type="text/css" href="css/homePage.css" />
+    <link rel="stylesheet" type="text/css" href="css/searchMemeber.css" />
     <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
     <link rel="stylesheet" href="css/ndr.css">
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -12,29 +14,201 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="js/config.js"></script>
     <script src="js/transition.js"></script>
-    
-    <script>
-        $(function () {
-            $('#navbar').load('topNavbar.html');
-        });
-        $(function () {
-            $("#members-btn").click(function () {
-                document.location.href = 'members.html';
-            })
-        });
-    </script>
-
+    <script src="js/addMember.js"></script>
+    <script src="js/searchMember.js"></script>
+    <script src="js/homePage.js"></script>
 </head>
 
-
 <body class="ndr" dir="rtl">
+    <nav class="ui menu">
+        <div class="item">
+            <img class="ui small image" src="images/logo.png">
+        </div>
 
-    <div id="navbar"></div>
+        <div class="ui secondary menu">
+            <a class="ui item" onclick="goBack()"><i class="arrow right icon"></i></a>
+            <a href="#" class="item" onclick="goForward()"><i class="arrow left icon"></i></a>
+            <a class="ui item" onclick="refresh()"><i class="undo icon"></i></a>
+        </div>
 
-    <h2>מסך הבית</h2><br>
-    <button id="members-btn" class="ui purple ui button">חניכים</button>
-    <button id="groups-btn" class="ui purple ui button">קבוצות</button>
-    <button id="financial-btn" class="ui purple ui button">כספים</button>
+        <a href="homePage.html" class="item meduim-text">מסך הבית</a>
+        <div class="ui dropdown item meduim-text">
+            חניכים
+            <br /><i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#addMember">הוספה</a>
+                <a class="item" href="#searchMember">חיפוש</a>
+                <a class="item" href="#">בוגרים</a>
+            </div>
+        </div>
+
+        <div class="ui dropdown item meduim-text">
+            קבוצות
+            <br /><i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#">קבוצה 1</a>
+                <a class="item" href="#">קבוצה 2</a>
+                <a class="item" href="#">קבוצה 3</a>
+            </div>
+        </div>
+
+        <div class="ui dropdown item meduim-text">
+            כספים
+            <br /><i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#">פירוט חובות</a>
+                <a class="item" href="#">הוספת תשלום לקבוצה</a>
+                <a class="item" href="#">הסטוריית תשלומים</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page current"></div>
+
+    <div class="page" id = "addMember">
+            <h2>הוספת חניך</h2><br>
+            <div class="ndr">
+                <div class="ndr-form">
+                    <form id="form-Add">
+                        <div class="ui form">
+    
+    
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>*שם פרטי:</label>
+                                    <input type="text" required id="first-name" placeholder="שם פרטי">
+                                </div>
+                                <div class="field">
+                                    <label>*שם משפחה:</label>
+                                    <input type="text" required id="last-name" placeholder="שם משפחה ">
+                                </div>
+                            </div>
+    
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>*טלפון:</label>
+                                    <input type="number" class="ndr-input" required id="phone-num" placeholder="טלפון">
+                                </div>
+                                <div class="field">
+                                    <label>קבוצה:</label>
+                                    <select class="ui fluid dropdown" id="group">
+    
+                                    </select>
+    
+                                </div>
+                            </div>
+    
+    
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>בית ספר:</label>
+                                    <input type="text" placeholder="בית ספר" id="school">
+                                </div>
+    
+                                <div class="field">
+                                    <label>כיתה:</label>
+                                    <select class="ui fluid dropdown" id="grade">
+                                        <option disabled selected value value="">בחר כיתה</option>
+                                        <option value="ז">ז'</option>
+                                        <option value="ח">ח'</option>
+                                        <option value="ט">ט'</option>
+                                        <option value="י">י'</option>
+                                        <option value="יא">י"א</option>
+                                        <option value="יב">י"ב</option>
+                                    </select>
+                                </div>
+                            </div>
+    
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>תאריך לידה:</label>
+                                    <input type="date" name="bday" id="date">
+                                </div>
+                                <div class="field">
+                                    <label>טלפון אבא/אמא:</label>
+                                    <input type="number" placeholder="טלפון אבא/אמא" maxlength="10" id="parent-phone-num">
+                                </div>
+                            </div>
+    
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>תנועת נוער:</label>
+                                    <input type="text" placeholder="תנועת נוער" id="youth-movement">
+                                </div>
+                                <div class="field">
+                                    <label>האם מדריך:</label>
+                                    <select class="ui fluid dropdown" id="is-instructor">
+                                        <option value="false">לא</option>
+                                        <option value="true">כן</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>מסגרת נוספת:</label>
+                                    <input type="text" placeholder="מסגרת נוספת" id="another-education">
+                                </div>
+                            </div>
+    
+                            <div class="field">
+                                <label>הערות:</label>
+                                <textarea id="comments" rows="4"></textarea>
+                            </div>
+                            <button id="add-btn" type="submit" class="left floated ui primary button">שמור</button>
+    
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+
+
+    <div class="page" id = "searchMember">
+        <h1 class="search-ndr">חיפוש חניך</h1>
+        <div class="ui fluid search search-ndr">
+            <div class="ui icon input">
+                <input id="search-input" class="prompt search-ndr" maxlength="20" type="text" placeholder="חפש חניך">
+                <i class="search icon "></i>
+            </div>
+            <div id="search" class="results search-ndr"></div>
+        </div>
+
+        <div class="wrapper">
+            <button class=" button ui primary button" id="show-all">
+                רשימת כל החניכים
+            </button>
+        </div>
+
+        <div class="table-wrapper" dir="rtl">
+            <table class="ui selectable celled table table-ndr" id="membersTable">
+            </table>
+        </div>
+
+        <!-- this is the loader template -->
+        <div id="loader" class="ui active inverted dimmer">
+            <div class="ui loader"></div>
+        </div>
+    </div>
 </body>
+
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    /*TODO:fix, not working*/
+    function goForward() {
+        window.history.forward();
+    }
+
+    function refresh() {
+        location.reload();
+    }
+
+
+    $('.ui.dropdown')
+        .dropdown({
+            on: 'hover'
+        });
+</script>
 
 </html>

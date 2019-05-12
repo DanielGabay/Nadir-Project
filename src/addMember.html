@@ -1,0 +1,90 @@
+<h2>הוספת חניך</h2><br>
+<div class="ndr">
+  <div class="ndr-form">
+    <form id="form-Add">
+      <div class="ui form">
+
+
+        <div class="two fields">
+          <div class="field">
+            <label>*שם פרטי:</label>
+            <input type="text" required id="first-name" placeholder="שם פרטי">
+          </div>
+          <div class="field">
+            <label>*שם משפחה:</label>
+            <input type="text" required id="last-name" placeholder="שם משפחה ">
+          </div>
+        </div>
+
+        <div class="two fields">
+          <div class="field">
+            <label>*טלפון:</label>
+            <input type="number" class="ndr-input" required id="phone-num" placeholder="טלפון">
+          </div>
+          <div class="field">
+            <label>קבוצה:</label>
+            <select class="ui fluid dropdown" id="group">
+
+            </select>
+
+          </div>
+        </div>
+
+
+        <div class="two fields">
+          <div class="field">
+            <label>בית ספר:</label>
+            <input type="text" placeholder="בית ספר" id="school">
+          </div>
+
+          <div class="field">
+            <label>כיתה:</label>
+            <select class="ui fluid dropdown" id="grade">
+              <option disabled selected value value="">בחר כיתה</option>
+              <option value="ז">ז'</option>
+              <option value="ח">ח'</option>
+              <option value="ט">ט'</option>
+              <option value="י">י'</option>
+              <option value="יא">י"א</option>
+              <option value="יב">י"ב</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two fields">
+          <div class="field">
+            <label>תאריך לידה:</label>
+            <input type="date" name="bday" id="date">
+          </div>
+          <div class="field">
+            <label>טלפון אבא/אמא:</label>
+            <input type="number" placeholder="טלפון אבא/אמא" maxlength="10" id="parent-phone-num">
+          </div>
+        </div>
+
+        <div class="three fields">
+          <div class="field">
+            <label>תנועת נוער:</label>
+            <input type="text" placeholder="תנועת נוער" id="youth-movement">
+          </div>
+          <div class="field">
+            <label>האם מדריך:</label>
+            <select class="ui fluid dropdown" id="is-instructor">
+              <option value="false">לא</option>
+              <option value="true">כן</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>מסגרת נוספת:</label>
+            <input type="text" placeholder="מסגרת נוספת" id="another-education">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>הערות:</label>
+          <textarea id="comments" rows="4"></textarea>
+        </div>
+        <button id="add-btn" type="submit" class="left floated ui primary button">שמור</button>
+
+      </div>
+    </form>

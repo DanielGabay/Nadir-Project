@@ -1,4 +1,4 @@
-const firestore = firebase.firestore(); // connect to our firebase storage.
+//const firestore = firebase.firestore(); // connect to our firebase storage.
 let memeberList = []; // array of object that will save all our memeber object
 
 /*when document is ready*/
