@@ -43,7 +43,7 @@ $(document).ready(function () {
                 Key: docRef.id  // add the key of firebase to the data.
             }, { merge: true });  //cancel the over-load it.
             $(function () {
-                $('.mini.modal').modal('show');
+                $('#successfully-add').modal('show');
                 $(".add-btn").modal({
                     closable: true
                 });
