@@ -1,0 +1,29 @@
+<div class="ui borderless main menu">
+	<div class="ui text container">
+		<div class="right floated header item">
+			<img class="ui small image" src="images/logo.png">
+		</div>
+
+
+		<a href="homePage.html" class="item">מסך הבית</a>
+		<a href="members.html" class="item">חניכים</a>
+		<a href="#" class="item">קבוצות</a>
+		<a href="#" class="item">כספים</a>
+		<a href="#" class="item" onclick="goBack()"><i class="arrow right icon"></i></a>
+		<!-- <a href="#" class="item" onclick="goForward()"><i class="arrow left icon"></i></a> -->
+		<a href="#" class="item" onclick="refresh()"><i class="undo icon"></i></a>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
+			/*TODO:fix, not working*/
+			/*function goForward() {
+				window.history.forward();
+			}*/
+
+			function refresh() {
+				location.reload();
+			}
+		</script>
+	</div>
+</div>
