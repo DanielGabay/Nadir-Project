@@ -9,4 +9,13 @@
     text-align: center;
   } 
 
+  .large-text{
+    font-size: 1.5rem!important;
+  }
+
+  .meduim-text{
+    font-size: 1.1rem!important;
+  }
+
+
   
