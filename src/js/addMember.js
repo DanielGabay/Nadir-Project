@@ -13,7 +13,7 @@ $(document).ready(function () {
         const comments = $("#comments").val();
         const school = $("#school").val();
         const phoneNum = $("#phone-num").val();
-        const grade = $("#grade").val(); 
+        const grade = $("#grade").val();
         const parentPhoneNum = $("#parent-phone-num").val();
         const youthMovement = $("#youth-movement").val();
         const anotherEducation = $("#another-education").val();
@@ -42,12 +42,20 @@ $(document).ready(function () {
             firestore.collection("Members").doc(docRef.id).set({
                 Key: docRef.id  // add the key of firebase to the data.
             }, { merge: true });  //cancel the over-load it.
-            console.log("Member added!");
+            $(function () {
+                $('.mini.modal').modal('show');
+                $(".add-btn").modal({
+                    closable: true
+                });
+            });
+            $('#form-Add')[0].reset();
+
         }).catch(function (error) {
             console.log("got error!!!", error)
         });
-     });
-    
+    });
+
+
 });
 
 
