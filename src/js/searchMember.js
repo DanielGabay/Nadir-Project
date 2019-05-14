@@ -1,8 +1,8 @@
 //const firestore = firebase.firestore(); // connect to our firebase storage.
-let memeberList = []; // array of object that will save all our memeber object
 
 /*when document is ready*/
 $(document).ready(function () {
+   
     getAllMemebers().then(memeberList => {  // only when getallmemebers return the memberlist continue:
         $('#loader').removeClass('active'); // remove the loader .
         const searchList = convertMemeberListToSearchList(memeberList);
@@ -22,15 +22,26 @@ $(document).ready(function () {
 /*return a promise - mean, that this function return something that we can do .then() after it*/
 function getAllMemebers() {
     return new Promise((resolve) => {   // resolve <--->is need with promise.
+        let memeberList = []; // save all the member data.
+     
+        if (sessionStorage.getItem("memberList") === null) {  // if its the first time 
+            console.log("memberlist is from FireBase")
         firestore.collection("Members").get()
-            .then(function (querySnapshot) {
-                const memeberList = []; // save all the member data.
+            .then(function (querySnapshot) {     
                 querySnapshot.forEach(function (doc) {
                     const person = doc.data(); // pointer for document
                     memeberList.push(person); // add for array of all names
                 });
+                sessionStorage.setItem('memberList',  JSON.stringify(memeberList)); // save it temporeriy
                 resolve(memeberList);
             });
+        }
+        else{
+            memeberList = JSON.parse( sessionStorage.getItem('memberList'));
+            console.log("memberlist is from session")
+            resolve(memeberList);
+        }
+      
     })
 
 }
