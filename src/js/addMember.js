@@ -22,26 +22,29 @@ $(document).ready(function () {
         let personalTracking = [];
         let financialMonitoring = [];
 
+        let TheNewMemeber = {
+            AnotherEducation: anotherEducation,
+            Comments: comments,
+            Date: date,
+            FinancialMonitoring: financialMonitoring,
+            First: firstName,
+            Grade: grade,
+            Group: group,
+            IsInstructor: isInstructor,
+            Last: lastName,
+            ParentPhoneNum: parentPhoneNum,
+            PersonalTracking: personalTracking,
+            PhoneNum: phoneNum,
+            School: school,
+            YouthMovement: youthMovement
+        }
+
         /* make the object to add ===> key : value */
         firestore.collection("Members").add({    // add the member with Auto id 
-            First: firstName,
-            Last: lastName,
-            Date: date,
-            Group: group,
-            School: school,
-            PhoneNum: phoneNum,
-            Grade: grade,
-            ParentPhoneNum: parentPhoneNum,
-            YouthMovement: youthMovement,
-            AnotherEducation: anotherEducation,
-            IsInstructor: isInstructor,
-            Comments: comments,
-            PersonalTracking: personalTracking,
-            FinancialMonitoring: financialMonitoring
+            TheNewMemeber
         }).then(function (docRef) {
-            firestore.collection("Members").doc(docRef.id).set({
-                Key: docRef.id  // add the key of firebase to the data.
-            }, { merge: true });  //cancel the over-load it.
+            addId(docRef,TheNewMemeber);   
+
             $(function () {
                 $('#successfully-add').modal('show');
                 $(".add-btn").modal({
@@ -54,7 +57,6 @@ $(document).ready(function () {
             console.log("got error!!!", error)
         });
     });
-
 
 });
 
@@ -77,4 +79,30 @@ function setGroups() {
 
 }
 
+/** update the memeberList that located in the sessionStorage - add the new memeber  */
+function updateSession(TheNewMemeber) {
 
+    console.log("we gonna add this 1 to the sesstion: " + TheNewMemeber); 
+    if (sessionStorage.getItem("memberList") === null)   // there is nothing in the session so no need to update
+        return;
+
+     let memeberList = JSON.parse( sessionStorage.getItem('memberList'));
+     memeberList.push(TheNewMemeber);
+     sessionStorage.setItem('memberList',  JSON.stringify(memeberList));
+     console.log("session updated with the new member!");  
+}
+/** add the Id to the member that we just added to firebase  */
+function addId(docRef,TheNewMemeber)
+{
+    firestore.collection("Members").doc(docRef.id).set({
+        Key: docRef.id  // add the key of firebase to the data.
+    }, { merge: true })
+    .then(function() {
+        TheNewMemeber.Key = docRef.id // update TheNewMemeber object
+        updateSession(TheNewMemeber);
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+}
