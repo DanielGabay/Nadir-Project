@@ -1,21 +1,19 @@
 const firestore = firebase.firestore();
 let theMemeber = [];
 $(document).ready(function () {
+  $("#payment-track-btn").click(function () {
+    document.location.href = "viewMemberFinancial.html";
+  });
+
+  $("#personal-track-btn").click(function () {
+    document.location.href = "homePage.html";
+  })
+
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   console.log("we passed this data to the next screen:" + selectedPersonKey);
   theMemeber = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
   console.log("this is who we need:" + theMemeber.Key);
   setFields();
-});
-
-$(function () {
-  $('#navbar').load('topNavbar.html');
-  $("#payment-track-btn").click(function () {
-    document.location.href = "homePage.html";
-  });
-  $("#personal-track-btn").click(function () {
-    document.location.href = "homePage.html";
-  })
 });
 
 function getName(selectedPersonKey) {

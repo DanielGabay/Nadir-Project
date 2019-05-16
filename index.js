@@ -4,6 +4,7 @@ const {app, BrowserWindow} = electron;
 let win;
 app.on('ready',function(){
     win = new BrowserWindow({width: 1200, height: 900});
+    // win.loadURL(`file://${__dirname}/src/viewMemberFinancial.html`);
     win.loadURL(`file://${__dirname}/src/homePage.html`);
     //win.loadURL(`file://${__dirname}/src/login-ndr.html`);
 });
