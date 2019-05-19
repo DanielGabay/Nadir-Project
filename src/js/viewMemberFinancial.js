@@ -1,9 +1,14 @@
 const firestore = firebase.firestore();
 const selectedMemberKey = sessionStorage.getItem('selectedPersonKey');
-const selectedMember = JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey);
+
+const selectedMember = JSON
+  .parse(sessionStorage.getItem('memberList'))
+  .find(member => member.Key === selectedMemberKey);
+
 
 $(document).ready(function () {
-  //   $('#datePicker').val(new Date().toDateInputValue());
+  //TODO : set date to current date
+  //$('#datePicker').val(new Date().toDateInputValue());
   $('.ui.accordion').accordion(); //activate acordion effect
 
   // place selectedMember name at the header
@@ -12,11 +17,11 @@ $(document).ready(function () {
 
   //setting functionality
   $("#addPaymentForm").submit(addPayment);
-  $("#charge").change(updatePaymentMethodDropDown); 
+  $("#charge").change(updatePaymentMethodDropDown);
 
 
   console.log(selectedMember);
-  //fill_table();
+  fill_table();
 
 });
 
@@ -25,8 +30,9 @@ $(document).ready(function () {
 function addPayment(e) {
   e.preventDefault();
   const $amount = $("#amount").val() * $("#charge").val(); //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
+  console.log("amount" + $amount + typeof ($amount));
   let $payMethod;
-  /*if charge value is "1" (חיוב) -> paymentMethod is not needed then set its value to empty string*/ 
+  /*if charge value is "1" (חיוב) -> paymentMethod is not needed then set its value to empty string*/
   if ($("#charge").val() == 1) {
     $payMethod = "";
   } else {
@@ -41,16 +47,38 @@ function addPayment(e) {
     PaymentMethod: $payMethod
   };
 
-
-  console.log(paymentObj);
-  insertToTable(paymentObj);
-  $("#details").val(""); 
-  $("#datePicker").val("");
-  $("#charge").val("");
-  $("#amount").val("");
-  $("#paymentMethod").val("");
+  isUpdated = updateDataBase(paymentObj);
+  if (isUpdated === true) {
+    updateSessionStorage(paymentObj);
+    insertToTable(paymentObj);
+    $("#details").val("");
+    $("#datePicker").val("");
+    $("#charge").val("");
+    $("#amount").val("");
+    $("#paymentMethod").val("");
+  }
 }
 
+function updateDataBase(paymentObj){
+  firestore.collection("Members").doc(selectedMemberKey).update({
+    FinancialMonitoring: firebase.firestore.FieldValue.arrayUnion(paymentObj)
+  });
+  return true;
+}
+
+function updateSessionStorage(paymentObj) {
+  list = getFinancialArrray();
+  list.push(paymentObj);
+  sessionStorage.setItem('memberList', JSON.stringify(list));
+}
+
+function getFinancialArrray(){
+  return JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey).FinancialMonitoring;
+}
+
+/*inserting new payment into table
+TODO: update financialTracing of selected member in data base & in session storage.
+*/
 function insertToTable(obj) {
   const $table = $("#financial_table");
   let html = '<tr>';
@@ -61,13 +89,14 @@ function insertToTable(obj) {
   if (obj.Amount > 0) {
     html += '<td class = "vmf-negative">' + obj.Amount + '</td><td></td>';
   } else {
-    html += '<td></td><td class = "vmf-positive">' + obj.Amount + '</td>';
+    html += '<td></td><td class = "vmf-positive" dir="ltr">' + obj.Amount + '</td>';
   }
   html += "</tr>"
   updateSum(obj.Amount);
   $table.append(html);
 }
 
+/*update overall sum when adding new payment*/
 function updateSum(amount) {
   let $sum = $("#summaryAmount")
   let newSum = parseInt($sum.text()) + amount;
@@ -79,15 +108,19 @@ function updateSum(amount) {
   $sum.text(newSum);
 }
 
-
+/*TODO: populate table with data from the selectedMember financialTracking array*/
 function fill_table() {
   financial_data = selectedMember.FinancialMonitoring;
   console.log(financial_data);
   $table = $("#financial_table");
+  financial_data.forEach(element => {
+    insertToTable(element);
+
+  });
 }
 
 /*When charge value is '-1' (זיכוי) then show paymentMenthod drop down, o.w hide it*/
-function updatePaymentMethodDropDown(){
+function updatePaymentMethodDropDown() {
   let elm = $("#charge");
   if (elm.val() === "-1") {
     $("#formSecondRow").removeClass().addClass("three fields");

@@ -28,8 +28,10 @@
 
     <h1>מעקב כספי</h1>
     <h1 id="namePlaceHoler"></h1>
-<!-- Add Payment Section -->
-<div class="ui styled accordion">
+
+
+    <!-- Add Payment Section -->
+    <div class="ui styled accordion">
         <div class="title">
             <i class="dropdown icon"></i>
             הוסף תשלום
@@ -47,17 +49,17 @@
                             <input type="date" required id="datePicker">
                         </div>
                     </div>
-                    <div class="three fields" id ="formSecondRow">
+                    <div class="three fields" id="formSecondRow">
                         <div class="field">
                             <label>סכום:</label>
-                            <input type="number" required id ="amount" placeholder="סכום">
+                            <input type="number" min="0" required id="amount" placeholder="סכום">
                         </div>
                         <div class="field">
                             <label>חיוב/זיכוי:</label>
                             <select required class="ui fluid dropdown" id="charge">
                                 <option disabled selected value value="">חיובי/זיכוי</option>
                                 <option value="1">חיוב</option>
-                                <option value="-1">זיכוי</option> 
+                                <option value="-1">זיכוי</option>
                             </select>
                         </div>
                         <div class="field" id="payMethodDiv">
@@ -80,9 +82,9 @@
             <div class="accordion transition hidden"></div>
         </div>
     </div>
-<!-- End of Add Payment Section -->
+    <!-- End of Add Payment Section -->
 
-<!-- Table Section -->
+    <!-- Table Section -->
     <div class="table-wrapper" dir="rtl">
         <table class="ui large striped table" id="financial_table">
             <thead>
@@ -102,15 +104,11 @@
                 <p>סך הכל:</p>
             </div>
             <div class="ui secondary segment">
-                <p id = "summaryAmount">0</p>
+                <p id="summaryAmount" dir ="ltr">0</p>
             </div>
         </div>
     </div>
-<!-- End Of Table -->
+    <!-- End Of Table -->
 </body>
-<script>
-    // $('.ui.accordion')
-    //     .accordion();
-</script>
 
 </html>
