@@ -20,17 +20,14 @@ $(document).ready(function () {
   $("#charge").change(updatePaymentMethodDropDown);
 
 
-  console.log(selectedMember);
   fill_table();
 
 });
 
 
-
 function addPayment(e) {
   e.preventDefault();
   const $amount = $("#amount").val() * $("#charge").val(); //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
-  console.log("amount" + $amount + typeof ($amount));
   let $payMethod;
   /*if charge value is "1" (חיוב) -> paymentMethod is not needed then set its value to empty string*/
   if ($("#charge").val() == 1) {
@@ -47,32 +44,30 @@ function addPayment(e) {
     PaymentMethod: $payMethod
   };
 
-  isUpdated = updateDataBase(paymentObj);
-  if (isUpdated === true) {
-    updateSessionStorage(paymentObj);
-    insertToTable(paymentObj);
-    $("#details").val("");
-    $("#datePicker").val("");
-    $("#charge").val("");
-    $("#amount").val("");
-    $("#paymentMethod").val("");
-  }
+  updateDataBase(paymentObj);
+  updateSessionStorage(paymentObj);
+  insertToTable(paymentObj);
+  $("#details").val("");
+  $("#datePicker").val("");
+  $("#charge").val("");
+  $("#amount").val("");
+  $("#paymentMethod").val("");
+
 }
 
-function updateDataBase(paymentObj){
+function updateDataBase(paymentObj) {
   firestore.collection("Members").doc(selectedMemberKey).update({
     FinancialMonitoring: firebase.firestore.FieldValue.arrayUnion(paymentObj)
   });
-  return true;
 }
 
 function updateSessionStorage(paymentObj) {
-  list = getFinancialArrray();
-  list.push(paymentObj);
+  list = JSON.parse(sessionStorage.getItem('memberList'))
+  list.find(member => member.Key === selectedMemberKey).FinancialMonitoring.push(paymentObj);
   sessionStorage.setItem('memberList', JSON.stringify(list));
 }
 
-function getFinancialArrray(){
+function getFinancialArrray() {
   return JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey).FinancialMonitoring;
 }
 
@@ -111,7 +106,6 @@ function updateSum(amount) {
 /*TODO: populate table with data from the selectedMember financialTracking array*/
 function fill_table() {
   financial_data = selectedMember.FinancialMonitoring;
-  console.log(financial_data);
   $table = $("#financial_table");
   financial_data.forEach(element => {
     insertToTable(element);
