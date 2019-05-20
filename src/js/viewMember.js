@@ -16,22 +16,6 @@ $(document).ready(function () {
   setFields();
 });
 
-function getName(selectedPersonKey) {
-
-setFields(theMemeber);
-  // firestore.collection("Members").doc(selectedPersonKey).get()
-  //   .then(function (doc) {
-  //     if (doc.exists) {
-  //       setFields(doc)
-  //       console.log("Document data:", doc.data());
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   }).catch(function (error) {
-  //     console.log("Error getting document:", error);
-  //   });
-}
 function setFields() {
  
     $("#nameTitle").append(theMemeber.First + " " + theMemeber.Last);
@@ -41,8 +25,8 @@ function setFields() {
     $("#group").val(theMemeber.Group);
     $("#comments").val(theMemeber.Comments);
     $("#school").val(theMemeber.School);
-    $("#phone-num").val([theMemeber.PhoneNum.slice(0, 3), "-", theMemeber.PhoneNum.slice(3)].join(''));
     $("#grade").val(theMemeber.Grade);
+    $("#phone-num").val([theMemeber.PhoneNum.slice(0, 3), "-", theMemeber.PhoneNum.slice(3)].join(''));
     $("#parent-phone-num").val([theMemeber.ParentPhoneNum.slice(0, 3), "-", theMemeber.ParentPhoneNum.slice(3)].join(''));
     $("#youth-movement").val(theMemeber.YouthMovement);
     $("#another-education").val(theMemeber.AnotherEducation)
@@ -55,39 +39,29 @@ function setFields() {
 function change() {
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   editToSave();
-  // firestore.collection("Members").doc(selectedPersonKey).get()
-  //   .then(function (doc) {
-  //     if (doc.exists) {
-  //       const member = doc.data();
-  //       console.log("Document data:", doc.data());
-  //       editToSave(doc);
-
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   }).catch(function (error) {
-  //     console.log("Error getting document:", error);
-  //   });
 }
 
 function editToSave() {
   if (theMemeber) {
-
     if ($("#edit-btn").text() == "עריכה") {
       $("#edit-btn").text("שמור").append("<i class='save icon'></i>");
       $("#first-name").removeAttr("readonly");
       $("#last-name").removeAttr("readonly");
       $("#date").removeAttr("readonly");
-      //$("#date").val(member.Date.split('/').reverse().join('-')); // to add the date
-      //$("#date").attr("type","date");
-      //$("#date").attr("value", $("#date").val);
+      $("#date").attr("type","date");
+      $("#date").val(theMemeber.Date);
       $("#group").removeAttr("readonly");
       $("#comments").removeAttr("readonly");
       $("#school").removeAttr("readonly");
       $("#phone-num").removeAttr("readonly");
+      $("#phone-num").attr("type","number");
+      $("#phone-num").val(theMemeber.PhoneNum); //remove '-' for edit
       $("#grade").removeAttr("readonly");
+      $("#grade").replaceWith("<select class='ui fluid dropdown' id='grade'><option disabled selected value value=''>בחר כיתה</option><option value='ז'>ז'</option><option value='ח'>ח'</option><option value='ט'>ט'</option><option value='י'>י'</option><option value='יא'>י''א</option><option value='יב'>י''ב</option></select>");
+      $("#grade").val(theMemeber.Grade);
       $("#parent-phone-num").removeAttr("readonly");
+      $("#parent-phone-num").attr("type","number");
+      $("#parent-phone-num").val(theMemeber.ParentPhoneNum); //remove '-' for edit
       $("#youth-movement").removeAttr("readonly");
       $("#another-education").removeAttr("readonly");
       $("#is-instructor").replaceWith("<select class='ui fluid dropdown' id='is-instructor' ><option value='false'>לא</option><option value='true'>כן</option></select>");
@@ -98,12 +72,15 @@ function editToSave() {
       $("#first-name").attr("readonly", "");
       $("#last-name").attr("readonly", "");
       $("#date").attr("readonly", "");
+      $("#date").attr("type","text");
       $("#group").attr("readonly", "");
       $("#comments").attr("readonly", "");
       $("#school").attr("readonly", "");
       $("#phone-num").attr("readonly", "");
+      $("#parent-phone-num").attr("type","text");
       $("#grade").attr("readonly", "");
       $("#parent-phone-num").attr("readonly", "");
+      $("#parent-phone-num").attr("type","text");
       $("#youth-movement").attr("readonly", "");
       $("#another-education").attr("readonly", "");
       $("#is-instructor").replaceWith("<input readonly='' id='is-instructor'>");
