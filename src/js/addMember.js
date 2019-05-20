@@ -84,6 +84,7 @@ function setGroups() {
     docRef.get().then(function (doc) { //  onsnapshot will do it faster
         if (doc && doc.exists) {
             const groups = doc.data().groupsData;
+            sessionStorage.setItem('groupsData',  JSON.stringify(groups)); // save the groups in our session storage
             for (let i = 0; i < groups.length; i++)
                 str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>'
             $("#group").append(str);
