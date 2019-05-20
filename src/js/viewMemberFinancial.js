@@ -10,7 +10,7 @@ $(document).ready(function () {
   //TODO : set date to current date
   //$('#datePicker').val(new Date().toDateInputValue());
   $('.ui.accordion').accordion(); //activate acordion effect
-
+  $("#datePicker").attr("value", todayDate());
   // place selectedMember name at the header
   let name = selectedMember.First + " " + selectedMember.Last;
   $("#namePlaceHoler").text(name);
@@ -48,7 +48,8 @@ function addPayment(e) {
   updateSessionStorage(paymentObj);
   insertToTable(paymentObj);
   $("#details").val("");
-  $("#datePicker").val("");
+ // $("#datePicker").val("");
+  $("#datePicker").attr("value", todayDate());
   $("#charge").val("");
   $("#amount").val("");
   $("#paymentMethod").val("");
@@ -125,4 +126,16 @@ function updatePaymentMethodDropDown() {
     $("#paymentMethod").prop('required', false)
     $("#payMethodDiv").hide();
   }
+}
+
+
+function todayDate()
+{
+  var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = yyyy + '-' + mm + '-' + dd;
+return today
 }
