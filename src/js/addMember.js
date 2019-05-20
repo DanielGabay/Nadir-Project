@@ -41,7 +41,21 @@ $(document).ready(function () {
 
         /* make the object to add ===> key : value */
         firestore.collection("Members").add({    // add the member with Auto id 
-            TheNewMemeber
+            AnotherEducation: anotherEducation,
+            Comments: comments,
+            Date: date,
+            FinancialMonitoring: financialMonitoring,
+            First: firstName,
+            Grade: grade,
+            Group: group,
+            IsInstructor: isInstructor,
+            Last: lastName,
+            ParentPhoneNum: parentPhoneNum,
+            PersonalTracking: personalTracking,
+            PhoneNum: phoneNum,
+            School: school,
+            YouthMovement: youthMovement
+            
         }).then(function (docRef) {
             addId(docRef,TheNewMemeber);   
 
@@ -87,7 +101,22 @@ function updateSession(TheNewMemeber) {
         return;
 
      let memeberList = JSON.parse( sessionStorage.getItem('memberList'));
-     memeberList.push(TheNewMemeber);
+     memeberList.push({
+        AnotherEducation: TheNewMemeber.AnotherEducation,
+        Comments: TheNewMemeber.Comments,
+        Date: TheNewMemeber.Date,
+        FinancialMonitoring: TheNewMemeber.FinancialMonitoring,
+        First: TheNewMemeber.First,
+        Grade: TheNewMemeber.Grade,
+        Group: TheNewMemeber.Group,
+        IsInstructor: TheNewMemeber.IsInstructor,
+        Last: TheNewMemeber.Last,
+        ParentPhoneNum: TheNewMemeber.ParentPhoneNum,
+        PersonalTracking: TheNewMemeber.PersonalTracking,
+        PhoneNum: TheNewMemeber.PhoneNum,
+        School: TheNewMemeber.School,
+        YouthMovement: TheNewMemeber.YouthMovement 
+     });
      sessionStorage.setItem('memberList',  JSON.stringify(memeberList));
      console.log("session updated with the new member!");  
 }
