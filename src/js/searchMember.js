@@ -5,7 +5,9 @@ $(document).ready(function () {
    
     getAllMemebers().then(memeberList => {  // only when getallmemebers return the memberlist continue:
         $('#loader').removeClass('active'); // remove the loader .
+        
         const searchList = convertMemeberListToSearchList(memeberList);
+       
         $('.ui.search').search({   // to show the search options
                 source: searchList,
                 onSelect: onSelect
@@ -48,7 +50,7 @@ function getAllMemebers() {
 
 /* return array of object for the search method of 'semntic'. we need 'title' for semntic and firebasekey will be send to 'viewMember' */
 function convertMemeberListToSearchList(memeberList) {
-    const searchList = memeberList.map(memeber => {   
+    const searchList = memeberList.map(memeber => {  
         const { First, Last, Key } = memeber;
         return { title: First + ' ' + Last, firebaseKey: Key };
     })
@@ -58,7 +60,6 @@ function convertMemeberListToSearchList(memeberList) {
 /* the 'click listener' of the search. works with 'click' and also with enter! */
 function onSelect(result, response) {
     const { title, id, firebaseKey } = result; // we could do also result.firebaseKey.
-    console.log(result);
     sessionStorage.setItem('selectedPersonKey', firebaseKey); // save it temporeriy
     document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
 }
