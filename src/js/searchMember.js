@@ -17,6 +17,14 @@ $(document).ready(function () {
             $("#show-all").click(function () {      // show-table. we can change animation.
                 $table.transition('slide down');  
             });
+
+            $('#membersTable tr').click(function(event) {
+                const id = ($(this).closest('tr').attr('id'));
+               console.log (id);   // add click even to every row!!!
+                sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+                document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
+
+             });  
     })
 
 });
@@ -66,9 +74,9 @@ function onSelect(result, response) {
 
 /*TODO- sort before show!    show the table of all the memberlists. */
 function showTable(memeberList) {
-    let str = '<thead> <tr> <th>שם </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
+    let str = '<thead> <tr> <th>שם </th><th>מספר טלפון </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
     memeberList.forEach(function (memeber) {
-            str += '<tr> <td>' + memeber.First + ' ' + memeber.Last + '</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
+            str += '<tr id = ' + memeber.Key +'> <td>' + memeber.First + ' ' + memeber.Last + '</td><td>' + memeber.PhoneNum +'</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
         })
         str += '</tbody>';
         $("#membersTable").html(str);

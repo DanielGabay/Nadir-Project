@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="js/config.js"></script>
     <script src="js/transition.js"></script>
-    <script src="js/viewMemberFinancial.js"></script>
+    <script src="js/viewSelectedGroup.js"></script>
     <script>
         $(function () {
             $('#navbar').load('topNavbar.html');
@@ -25,94 +25,31 @@
 
     <div id="navbar"></div>
 
-
-    <h1>מעקב כספי</h1>
     <h1 id="namePlaceHoler"></h1>
 
-    
-        <!-- Add Payment Section -->
+    <h3 id="instructorName">מדריך הקבוצה: </h3>
+    <h3 id="instructorPhone">טלפון המדריך: </h3>
 
-            <div class="ui styled accordion">
-                <div class="title">
-                    <i class="dropdown icon"></i>
-                    הוסף תשלום
-                </div>
-                <div class="content">
-                    <form id="addPaymentForm">
-                        <div class="ui form">
-                            <div class="two fields">
-                                <div class="field">
-                                    <label>פרטים</label>
-                                    <input type="text" required placeholder="פרטים" id="details">
-                                </div>
-                                <div class="field">
-                                    <label>תאריך:</label>
-                                    <input type="date" required id="datePicker">
-                                </div>
-                            </div>
-                            <div class="three fields" id="formSecondRow">
-                                <div class="field">
-                                    <label>סכום:</label>
-                                    <input type="number" min="0" required id="amount" placeholder="סכום">
-                                </div>
-                                <div class="field">
-                                    <label>חיוב/זיכוי:</label>
-                                    <select required class="ui fluid dropdown" id="charge">
-                                        <option disabled selected value value="">חיובי/זיכוי</option>
-                                        <option value="1">חיוב</option>
-                                        <option value="-1">זיכוי</option>
-                                    </select>
-                                </div>
-                                <div class="field" id="payMethodDiv">
-                                    <label>אופן תשלום:</label>
-                                    <select class="ui fluid dropdown" id="paymentMethod">
-                                        <option disabled selected value value="">אופן תשלום</option>
-                                        <option value="מזומן">מזומן</option>
-                                        <option value="אשראי">אשראי</option>
-                                        <option value="צ'ק">צ'ק</option>
-                                        <option value="העברה בנקאית">העברה בנקאית</option>
-                                        <option value="אחר">אחר</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <button id="addPaymentBtn" type="submit" class="ui primary button">הוסף</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="accordion transition hidden"></div>
-                </div>
-            </div>
-        
-        <!-- End of Add Payment Section -->
 
-        <!-- Table Section -->
-        
-            <div class="table-wrapper" dir="rtl">
-                <table class="ui large striped table" id="financial_table">
-                    <thead>
-                        <th>פרטים</th>
-                        <th>תאריך</th>
-                        <th>אופן תשלום</th>
-                        <th>חובה</th>
-                        <th>זכות</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+    <!-- Add Payment Section -->
 
-                <div class="ui segments">
-                    <div class="ui segment">
-                        <p>סך הכל:</p>
-                    </div>
-                    <div class="ui secondary segment">
-                        <p id="summaryAmount" dir="ltr">0</p>
-                    </div>
-                </div>
-            </div>
-        
-    
+    <div class="table-wrapper"  dir="rtl">
+        <table class="ui selectable celled table" id="groupMemberTable">
+        </table>
+    </div>
+
+        <!-- this is the loader template -->
+    <div id="loader" class="ui active inverted dimmer">
+        <div class="ui loader"></div>
+    </div>
+
+    <!-- End of Add Payment Section -->
+
+    <!-- Table Section -->
+
+
+
+
     <!-- End Of Table -->
 </body>
 
