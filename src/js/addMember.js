@@ -109,6 +109,7 @@ function updateSession(TheNewMemeber) {
         First: TheNewMemeber.First,
         Grade: TheNewMemeber.Grade,
         Group: TheNewMemeber.Group,
+        Key: TheNewMemeber.Key,
         IsInstructor: TheNewMemeber.IsInstructor,
         Last: TheNewMemeber.Last,
         ParentPhoneNum: TheNewMemeber.ParentPhoneNum,
