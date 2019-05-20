@@ -60,7 +60,6 @@ function convertMemeberListToSearchList(memeberList) {
 /* the 'click listener' of the search. works with 'click' and also with enter! */
 function onSelect(result, response) {
     const { title, id, firebaseKey } = result; // we could do also result.firebaseKey.
-    console.log(result);
     sessionStorage.setItem('selectedPersonKey', firebaseKey); // save it temporeriy
     document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
 }

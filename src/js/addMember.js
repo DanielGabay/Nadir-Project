@@ -77,16 +77,15 @@ $(document).ready(function () {
 
 /*dynamicly set groups name at the drop-down select tag of groups (fetch data from the data base)*/
 function setGroups() {
-    const Path = "groups/groups";
+    const Path = "Groups/groups";
     const docRef = firestore.doc(Path); // pointer to the place we add the data
     let str = '<option disabled value="" selected value>בחר קבוצה</option>';
 
     docRef.get().then(function (doc) { //  onsnapshot will do it faster
         if (doc && doc.exists) {
-            const groups = doc.data();
-            let groupsNames = groups.names;
-            for (let i = 0; i < groupsNames.length; i++)
-                str += '<option value="' + groupsNames[i] + '">' + groupsNames[i] + '</option>'
+            const groups = doc.data().groupsData;
+            for (let i = 0; i < groups.length; i++)
+                str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>'
             $("#group").append(str);
         }
     });
