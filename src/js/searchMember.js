@@ -5,7 +5,9 @@ $(document).ready(function () {
    
     getAllMemebers().then(memeberList => {  // only when getallmemebers return the memberlist continue:
         $('#loader').removeClass('active'); // remove the loader .
+        
         const searchList = convertMemeberListToSearchList(memeberList);
+       
         $('.ui.search').search({   // to show the search options
                 source: searchList,
                 onSelect: onSelect
@@ -15,6 +17,17 @@ $(document).ready(function () {
             $("#show-all").click(function () {      // show-table. we can change animation.
                 $table.transition('slide down');  
             });
+
+            $('#membersTable td').click(function() {
+                const id = ($(this).closest('tr').attr('id'));
+               console.log (id);   // add click even to every row!!!
+               if(id)
+               {
+                sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+                document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
+               }
+                
+             });  
     })
 
 });
@@ -48,7 +61,7 @@ function getAllMemebers() {
 
 /* return array of object for the search method of 'semntic'. we need 'title' for semntic and firebasekey will be send to 'viewMember' */
 function convertMemeberListToSearchList(memeberList) {
-    const searchList = memeberList.map(memeber => {   
+    const searchList = memeberList.map(memeber => {  
         const { First, Last, Key } = memeber;
         return { title: First + ' ' + Last, firebaseKey: Key };
     })
@@ -58,16 +71,15 @@ function convertMemeberListToSearchList(memeberList) {
 /* the 'click listener' of the search. works with 'click' and also with enter! */
 function onSelect(result, response) {
     const { title, id, firebaseKey } = result; // we could do also result.firebaseKey.
-    console.log(result);
     sessionStorage.setItem('selectedPersonKey', firebaseKey); // save it temporeriy
     document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
 }
 
 /*TODO- sort before show!    show the table of all the memberlists. */
 function showTable(memeberList) {
-    let str = '<thead> <tr> <th>שם </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
+    let str = '<thead> <tr> <th>שם </th><th>מספר טלפון </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
     memeberList.forEach(function (memeber) {
-            str += '<tr> <td>' + memeber.First + ' ' + memeber.Last + '</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
+            str += '<tr id = ' + memeber.Key +'> <td>' + memeber.First + ' ' + memeber.Last + '</td><td>' + memeber.PhoneNum +'</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
         })
         str += '</tbody>';
         $("#membersTable").html(str);

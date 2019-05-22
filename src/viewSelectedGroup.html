@@ -4,17 +4,15 @@
 <head>
     <meta charset="utf-8">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/searchMemeber.css" />
     <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-    <link rel="stylesheet" href="css/ndr.css">
     <script src="semantic/semantic.min.js"></script>
+    <link rel="stylesheet" href="css/ndr.css">
+    <link rel="stylesheet" href="css/viewMemberFinancial.css">
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="js/config.js"></script>
     <script src="js/transition.js"></script>
-    <script src="js/searchMember.js"></script>
-
-
+    <script src="js/viewSelectedGroup.js"></script>
     <script>
         $(function () {
             $('#navbar').load('topNavbar.html');
@@ -25,34 +23,34 @@
 
 <body class="ndr" dir="rtl">
 
-
     <div id="navbar"></div>
-    <h1 class="search-ndr">חיפוש חניך</h1>
-    <div class="ui fluid search search-ndr">
-        <div class="ui icon input" >
-            <input id="search-input" class="prompt search-ndr"  maxlength="20"  type="text" placeholder="חפש חניך">
-            <i class="search icon "></i>
-        </div>
-            <div id="search" class="results search-ndr"></div>
-    </div>
 
-    <div class="wrapper">
-        <button class=" button ui primary button" id="show-all">
-            רשימת כל החניכים
-        </button>
-    </div>
+    <h1 id="namePlaceHoler"></h1>
+
+    <h3 id="instructorName">מדריך הקבוצה: </h3>
+    <h3 id="instructorPhone">טלפון המדריך: </h3>
+
+
+    <!-- Add Payment Section -->
 
     <div class="table-wrapper"  dir="rtl">
-        <table class="ui selectable celled table table-ndr" id="membersTable">
+        <table class="ui selectable celled table" id="groupMemberTable">
         </table>
     </div>
 
-    <!-- this is the loader template -->
+        <!-- this is the loader template -->
     <div id="loader" class="ui active inverted dimmer">
         <div class="ui loader"></div>
     </div>
 
+    <!-- End of Add Payment Section -->
 
+    <!-- Table Section -->
+
+
+
+
+    <!-- End Of Table -->
 </body>
 
 </html>

@@ -19,6 +19,10 @@ h3{
     margin: 20px auto;
   }
 
+  td:hover{
+    cursor: pointer;
+  }
+
  #search-input{
     text-align: right !important;
     padding: 10px 15px 10px 30px !important;
