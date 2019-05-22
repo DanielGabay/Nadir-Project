@@ -1,53 +1,76 @@
 <style>
-.tab{
-	padding-left: 1.5em;
-}
+	.tab {
+		padding-left: 1.5em;
+	}
 
-.menu{
-	margin-top: 0 !important;
-}
+	.menu {
+		margin-top: 0 !important;
+	}
 
-.item{
-	text-align: right !important;
-}
+	.item {
+		text-align: right !important;
+	}
 
 
 
 </style>
-<div class="ui borderless menu">
-    <div class="ui container">
-      <div class="item">
-        <img class="ui small image" src="images/logo.png"> 
-		</div>	
-      <a href="homePage.html" class="item .large-text"><i class="tab home icon"></i>מסך הבית</a>
-	  <div class="ui simple dropdown item"><i class="tab user icon"></i>
-        חניכים <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="addMember.html">הוספת חניך</a>
-          <a class="item" href="searchMember.html">חיפוש</a>
-          <a class="item" href="#">בוגרים</a>
-        </div>
-	  </div>
-	  
-	  <a href="groups.html" class="item"><i class="tab users large icon"></i>קבוצות</a>
-	 
-	  
-	  <div class="ui simple dropdown item"><i class="tab shekel sign icon"></i>
-        כספים <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="#">Link Item</a>
-          <a class="item" href="#">Link Item</a>
-          <a class="item" href="#">Link Item</a>
-        </div>
-      </div>
-      
-      <div class="left menu">
-        <div class="item">
-          
-       <a class="ui basic red button" href="#">התנתק<i class="sign out alternate icon"></i></a>
-        </div>
-   
-        </div>
-    </div>
-  </div>
 
+
+
+<div class="ui borderless menu">
+	<div class="ui container">
+		<div class="item">
+			<img class="ui small image" src="images/logo.png">
+		</div>
+		<div class="item">
+			<a href="#" class="item" onclick="goBack()"><i class="arrow right icon"></i></a>
+			<a href="#" class="item" onclick="goForward()"><i class="arrow left icon"></i></a>
+			<a href="#" class="item" onclick="refresh()"><i class="undo icon"></i></a>
+		</div>
+
+
+		<a href="homePage.html" class="item .large-text"><i class="tab home icon"></i>מסך הבית</a>
+		<div class="ui simple dropdown item"><i class="tab user icon"></i>
+			חניכים <i class="dropdown icon"></i>
+			<div class="menu">
+				<a class="item" href="addMember.html">הוספת חניך</a>
+				<a class="item" href="searchMember.html">חיפוש</a>
+				<a class="item" href="#">בוגרים</a>
+			</div>
+		</div>
+
+		<a href="groups.html" class="item"><i class="tab users large icon"></i>קבוצות</a>
+
+
+		<div class="ui simple dropdown item"><i class="tab shekel sign icon"></i>
+			כספים <i class="dropdown icon"></i>
+			<div class="menu">
+				<a class="item" href="#">Link Item</a>
+				<a class="item" href="#">Link Item</a>
+				<a class="item" href="#">Link Item</a>
+			</div>
+		</div>
+
+		<div class="left menu">
+			<div class="item">
+
+				<a class="ui basic red button" href="#">התנתק<i class="sign out alternate icon"></i></a>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script>
+	function goBack() {
+		window.history.back();
+	}
+
+	function goForward() {
+		window.history.forward();
+	}
+
+	function refresh() {
+		location.reload();
+	}
+</script>
