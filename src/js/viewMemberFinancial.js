@@ -1,9 +1,9 @@
 const firestore = firebase.firestore();
 const selectedMemberKey = sessionStorage.getItem('selectedPersonKey');
-
 const selectedMember = JSON
   .parse(sessionStorage.getItem('memberList'))
   .find(member => member.Key === selectedMemberKey);
+  console.log(selectedMember);
 
 
 $(document).ready(function () {
@@ -18,12 +18,15 @@ $(document).ready(function () {
   //setting functionality
   $("#addPaymentForm").submit(addPayment);
   $("#charge").change(updatePaymentMethodDropDown);
-
-
   fill_table();
-
 });
 
+function setRemoveLisetener(){
+  $('.rmvBtn').click(function(e){
+    $(this).closest('tr').remove();
+    console.log(this.closest('tr'));
+ })
+}
 
 function addPayment(e) {
   e.preventDefault();
@@ -76,7 +79,7 @@ TODO: update financialTracing of selected member in data base & in session stora
 */
 function insertToTable(obj) {
   const $table = $("#financial_table");
-  let html = '<tr>';
+  let html = '<tr><td><button class ="rmvBtn"></td>';
   html += '<td>' + obj.Details + '</td>';
   html += '<td>' + obj.Date + '</td>';
 
@@ -89,6 +92,7 @@ function insertToTable(obj) {
   html += "</tr>"
   updateSum(obj.Amount);
   $table.append(html);
+  setRemoveLisetener();
 }
 
 /*update overall sum when adding new payment*/
@@ -125,4 +129,5 @@ function updatePaymentMethodDropDown() {
     $("#paymentMethod").prop('required', false)
     $("#payMethodDiv").hide();
   }
+
 }
