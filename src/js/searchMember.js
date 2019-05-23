@@ -13,6 +13,7 @@ $(document).ready(function () {
             onSelect: onSelect
         })
         showTable(memeberList); // load the table.first -> without display it.
+        
         const $table = $('#membersTable');
         $("#show-all").click(function () { // show-table. we can change animation.
             $table.transition('slide down');
@@ -89,7 +90,7 @@ function onSelect(result, response) {
 function showTable(memeberList) {
     let str = '<thead> <tr> <th>שם </th><th>מספר טלפון </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
     memeberList.forEach(function (memeber) {
-        str += '<tr id = ' + memeber.Key + '> <td>' + memeber.First + ' ' + memeber.Last + '</td><td>' + memeber.PhoneNum + '</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
+        str += '<tr class = "table-text" id = ' + memeber.Key + '> <td>' + memeber.First + ' ' + memeber.Last + '</td><td>' + memeber.PhoneNum + '</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
     })
     str += '</tbody>';
 
