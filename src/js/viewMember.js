@@ -6,7 +6,7 @@ $(document).ready(function () {
   });
 
   $("#personal-track-btn").click(function () {
-    document.location.href = "homePage.html";
+    document.location.href = "viewMemberComments.html";
   })
 
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');

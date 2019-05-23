@@ -1,59 +1,72 @@
-h3{
-    font-family: Calibri; 
-    font-size: 25pt;         
-    font-style: normal; 
-    font-weight: bold; 
-    color:SlateBlue;
-    text-align: center; 
-    text-decoration: underline
-  }
+h3 {
+  font-family: Calibri;
+  font-size: 25pt;
+  font-style: normal;
+  font-weight: bold;
+  color: SlateBlue;
+  text-align: center;
+  text-decoration: underline
+}
 
- th{
+th {
   text-align: center !important;
-  text-size-adjust:  100px !important;
+  text-size-adjust: 100px !important;
   font-size: 20px;
 }
-  .search-ndr{
-    text-align: center !important; 
-    max-width: 211px;
-    margin: 20px auto;
-  }
 
-  td:hover{
-    cursor: pointer;
-  }
-
- #search-input{
-    text-align: right !important;
-    padding: 10px 15px 10px 30px !important;
-  }
-  #membersTable {
-    display: none;
-  }
-
-  .table-ndr{
-    text-align: right !important; 
-    margin: 110px;
-  }
-
-  .table-wrapper {
-    margin-top: 20px;
-    padding: 0 210px;
-  }
-
-  .wrapper {
-    text-align: center;
+.search-ndr {
+  text-align: center !important;
+  max-width: 211px;
+  margin: 20px auto;
 }
-  .button{
-    margin: 0 auto;
-    /* background: #bebec4 !important; */
-  }
 
-  .search.icon {
-    left: 0 !important;
-    right: auto !important;
-  }
-  
-  .result{
-    text-align: center !important; 
-  }
+td:hover {
+  cursor: pointer;
+}
+
+#search-input {
+  text-align: right !important;
+  padding: 10px 15px 10px 30px !important;
+}
+
+#membersTable {
+  display: none;
+}
+
+th{
+  text-align: right !important;
+}
+.table-ndr {
+  text-align: right !important;
+}
+
+.table-wrapper {
+  margin: 20px 160px 0 160px;
+}
+
+.my-custom-scrollbar {
+  height: 400px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  margin: 0 auto;
+  /* background: #bebec4 !important; */
+}
+
+.search.icon {
+  left: 0 !important;
+  right: auto !important;
+}
+
+.result {
+  text-align: center !important;
+}
