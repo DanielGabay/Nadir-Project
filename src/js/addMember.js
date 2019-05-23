@@ -71,7 +71,6 @@ $(document).ready(function () {
             console.log("got error!!!", error)
         });
     });
-
 });
 
 
