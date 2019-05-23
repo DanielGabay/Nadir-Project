@@ -2,6 +2,9 @@ const firestore = firebase.firestore();
 
 /*when document is ready*/
 $(document).ready(function () {
+    updateProffesionDiv(); // Initialize the line of "is Adult"
+    $("#isAdult").change(updateProffesionDiv); // listener to changes at "is Adult"
+
     setGroups();
     $("#form-Add").submit(function (event) {
         event.preventDefault();
@@ -18,6 +21,9 @@ $(document).ready(function () {
         const youthMovement = $("#youth-movement").val();
         const anotherEducation = $("#another-education").val();
         const isInstructor = $("#is-instructor").val();
+        const isAdult = $("#isAdult").val();
+        const adultProffesion = $("#adultProffesion").val();
+
 
         let personalTracking = [];
         let financialMonitoring = [];
@@ -36,7 +42,9 @@ $(document).ready(function () {
             PersonalTracking: personalTracking,
             PhoneNum: phoneNum,
             School: school,
-            YouthMovement: youthMovement
+            YouthMovement: youthMovement,
+            IsAdult: isAdult,
+            AdultProffesion: adultProffesion
         }
 
         /* make the object to add ===> key : value */
@@ -54,10 +62,12 @@ $(document).ready(function () {
             PersonalTracking: personalTracking,
             PhoneNum: phoneNum,
             School: school,
-            YouthMovement: youthMovement
-            
+            YouthMovement: youthMovement,
+            IsAdult: isAdult,
+            AdultProffesion: adultProffesion
+
         }).then(function (docRef) {
-            addId(docRef,TheNewMemeber);   
+            addId(docRef, TheNewMemeber);
 
             $(function () {
                 $('#successfully-add').modal('show');
@@ -70,6 +80,7 @@ $(document).ready(function () {
         }).catch(function (error) {
             console.log("got error!!!", error)
         });
+
     });
 
 });
@@ -84,7 +95,7 @@ function setGroups() {
     docRef.get().then(function (doc) { //  onsnapshot will do it faster
         if (doc && doc.exists) {
             const groups = doc.data().groupsData;
-            sessionStorage.setItem('groupsData',  JSON.stringify(groups)); // save the groups in our session storage
+            sessionStorage.setItem('groupsData', JSON.stringify(groups)); // save the groups in our session storage
             for (let i = 0; i < groups.length; i++)
                 str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>'
             $("#group").append(str);
@@ -96,12 +107,12 @@ function setGroups() {
 /** update the memeberList that located in the sessionStorage - add the new memeber  */
 function updateSession(TheNewMemeber) {
 
-    console.log("we gonna add this 1 to the sesstion: " + TheNewMemeber); 
+    console.log("we gonna add this 1 to the sesstion: " + TheNewMemeber);
     if (sessionStorage.getItem("memberList") === null)   // there is nothing in the session so no need to update
         return;
 
-     let memeberList = JSON.parse( sessionStorage.getItem('memberList'));
-     memeberList.push({
+    let memeberList = JSON.parse(sessionStorage.getItem('memberList'));
+    memeberList.push({
         AnotherEducation: TheNewMemeber.AnotherEducation,
         Comments: TheNewMemeber.Comments,
         Date: TheNewMemeber.Date,
@@ -116,23 +127,37 @@ function updateSession(TheNewMemeber) {
         PersonalTracking: TheNewMemeber.PersonalTracking,
         PhoneNum: TheNewMemeber.PhoneNum,
         School: TheNewMemeber.School,
-        YouthMovement: TheNewMemeber.YouthMovement 
-     });
-     sessionStorage.setItem('memberList',  JSON.stringify(memeberList));
-     console.log("session updated with the new member!");  
+        YouthMovement: TheNewMemeber.YouthMovement,
+        IsAdult: TheNewMemeber.IsAdult,
+        AdultProffesion: TheNewMemeber.AdultProffesion
+    });
+    sessionStorage.setItem('memberList', JSON.stringify(memeberList));
+    console.log("session updated with the new member!");
 }
 /** add the Id to the member that we just added to firebase  */
-function addId(docRef,TheNewMemeber)
-{
+function addId(docRef, TheNewMemeber) {
     firestore.collection("Members").doc(docRef.id).set({
         Key: docRef.id  // add the key of firebase to the data.
     }, { merge: true })
-    .then(function() {
-        TheNewMemeber.Key = docRef.id // update TheNewMemeber object
-        updateSession(TheNewMemeber);
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+        .then(function () {
+            TheNewMemeber.Key = docRef.id // update TheNewMemeber object
+            updateSession(TheNewMemeber);
+        })
+        .catch(function (error) {
+            console.error("Error writing document: ", error);
+        });
 
+}
+/*when charge value of "isAdult" to "yes" proffesionDiv is hiden*/
+function updateProffesionDiv() {
+    let elm = $("#isAdult");
+    console.log(elm.val());
+    if (elm.val() !== "true") {
+        $("#proffesionDiv").hide();
+        $("#nullDiv").show();
+    } else {
+        $("#proffesionDiv").show();
+        $("#nullDiv").hide();
+
+    }
 }
