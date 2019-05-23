@@ -38,7 +38,7 @@ function getAllMemebers() {
 
         if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
             console.log("memberlist is from FireBase")
-            firestore.collection("Members").get()
+            firestore.collection("Members").where("IsAdult", "==", "false").get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         const person = doc.data(); // pointer for document
