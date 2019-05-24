@@ -19,3 +19,14 @@
 #editGroupBtn{
     display: none;
 }
+
+.my-custom-scrollbar {
+    height: 400px;
+    overflow: auto;
+  }
+  
+  .table-wrapper-scroll-y {
+    display: block;
+    margin: 20px 160px 0 160px;
+  }
+  
