@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
     <script src="semantic/semantic.min.js"></script>
     <link rel="stylesheet" href="css/ndr.css">
-    <link rel="stylesheet" href="css/viewMemberFinancial.css">
+    <link rel="stylesheet" href="css/groups.css">
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="js/config.js"></script>
@@ -23,22 +23,98 @@
 
 <body class="ndr" dir="rtl">
 
+
+    <div class="ui mini modal" id="successfully-add">
+        <div class="ta-ndr header">
+            הקבוצה הוספה בהצלחה !
+        </div>
+        <div class="actions ta-ndr">
+            <div class="ui positive right labeled icon button ">
+                אישור
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
     <div id="navbar"></div>
 
-    <h1 id="namePlaceHoler"></h1>
+    <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+            <div class="ui vertical divider">בחר קבוצה להצגה</div>
+            <div class="middle aligned row">
+                <div class="column">
 
-    <h3 id="instructorName">מדריך הקבוצה: </h3>
-    <h3 id="instructorPhone">טלפון המדריך: </h3>
+                    <div class="field">
+                        <div class="ui floating labeled icon dropdown button">
+                            <i class="group icon"></i>
+                            <span class="text">בחר קבוצה</span>
+                            <div id="groups-menu" class="menu">
+
+                                <div class="header">
+                                    <i class="tags icon"></i>
+                                    בחר
+                                </div>
+                                <div class="divider"></div>
+
+                                <div id="addGroupChoise" class="item">
+                                    <i class="plus icon"></i>
+                                    הוסף קבוצה
+                                </div>
+                                <div class="divider"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+
+                    <div id="group-details">
+
+                        <h1 id="showNamePlaceHoler"></h1>
+                        <h3 id="showInstructorName"></h3>
+                        <h3 id="showInstructorPhone"></h3>
+                    </div>
+
+                    <form id="addGroupForm">
+                        <h3 id="formHeader">הוסף קבוצה חדשה</h3>
+                        <div class="ui form">
+
+                            <div class="field">
+                                <label>שם הקבוצה</label>
+                                <input type="text" required placeholder="שם הקבוצה" id="newGroupName">
+                            </div>
+
+                            <div class="two fields" id="formSecondRow">
+                                <div class="field">
+                                    <label>שם המדריך</label>
+                                    <input type="text" required placeholder="שם המדריך" id="guideName">
+                                </div>
+                                <div class="field">
+                                    <label>טלפון המדריך </label>
+                                    <input type="text" required placeholder="טלפון" id="guidePhoneNum">
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <button id="addGroupBtn" type="submit" class="ui primary button"> הוסף קבוצה</button>
+                            </div>
+                        </div>
+                    </form>
+                    <button class=" button ui primary button" id="editGroupBtn">
+                            ערוך קבוצה
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <!-- Add Payment Section -->
-
-    <div class="table-wrapper"  dir="rtl">
+    <div class="table-wrapper" dir="rtl">
         <table class="ui selectable celled table" id="groupMemberTable">
         </table>
     </div>
 
-        <!-- this is the loader template -->
+    <!-- this is the loader template -->
     <div id="loader" class="ui active inverted dimmer">
         <div class="ui loader"></div>
     </div>
@@ -46,8 +122,6 @@
     <!-- End of Add Payment Section -->
 
     <!-- Table Section -->
-
-
 
 
     <!-- End Of Table -->

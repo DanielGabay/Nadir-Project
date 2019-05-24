@@ -2,104 +2,36 @@ const firestore = firebase.firestore();
 
 /*when document is ready*/
 $(document).ready(function () {
-    updateProffesionDiv(); // Initialize the line of "is Adult"
-    $("#isAdult").change(updateProffesionDiv); // listener to changes at "is Adult"
 
-    setGroups();
-    $("#form-Add").submit(function (event) {
-        event.preventDefault();
-        /* attach html elements*/
-        const firstName = $("#first-name").val();
-        const lastName = $("#last-name").val();
-        const date = $("#date").val();
-        const group = $("#group").val();
-        const comments = $("#comments").val();
-        const school = $("#school").val();
-        const phoneNum = $("#phone-num").val();
-        const grade = $("#grade").val();
-        const parentPhoneNum = $("#parent-phone-num").val();
-        const youthMovement = $("#youth-movement").val();
-        const anotherEducation = $("#another-education").val();
-        const isInstructor = $("#is-instructor").val();
-        const isAdult = $("#isAdult").val();
-        const adultProffesion = $("#adultProffesion").val();
+    getGroupsData().then(groupsData => {
+        $('#loader').removeClass('active'); // remove the loader .
+        updateProffesionDiv(); // Initialize the line of "is Adult"
 
-
-        let personalTracking = [];
-        let financialMonitoring = [];
-
-        let TheNewMemeber = {
-            AnotherEducation: anotherEducation,
-            Comments: comments,
-            Date: date,
-            FinancialMonitoring: financialMonitoring,
-            First: firstName,
-            Grade: grade,
-            Group: group,
-            IsInstructor: isInstructor,
-            Last: lastName,
-            ParentPhoneNum: parentPhoneNum,
-            PersonalTracking: personalTracking,
-            PhoneNum: phoneNum,
-            School: school,
-            YouthMovement: youthMovement,
-            IsAdult: isAdult,
-            AdultProffesion: adultProffesion
-        }
-
-        /* make the object to add ===> key : value */
-        firestore.collection("Members").add({ // add the member with Auto id 
-            AnotherEducation: anotherEducation,
-            Comments: comments,
-            Date: date,
-            FinancialMonitoring: financialMonitoring,
-            First: firstName,
-            Grade: grade,
-            Group: group,
-            IsInstructor: isInstructor,
-            Last: lastName,
-            ParentPhoneNum: parentPhoneNum,
-            PersonalTracking: personalTracking,
-            PhoneNum: phoneNum,
-            School: school,
-            YouthMovement: youthMovement,
-            IsAdult: isAdult,
-            AdultProffesion: adultProffesion
-
-        }).then(function (docRef) {
-            addId(docRef, TheNewMemeber);
-
-
-            $('#successfully-add').modal('show');
-            $(".add-btn").modal({
-                closable: true
-            });
-
-            $('#form-Add')[0].reset();
-
-        }).catch(function (error) {
-            console.log("got error!!!", error)
+        $("#isAdult").change(updateProffesionDiv); // listener to changes at "is Adult"
+        setGroups(groupsData);
+        $("#form-Add").submit(function (event) {
+            event.preventDefault();
+            /* attach html elements*/
+            addNewMemeber()
         });
-
-    });
+    })
 });
 
 
 /*dynamicly set groups name at the drop-down select tag of groups (fetch data from the data base)*/
-function setGroups() {
-    const Path = "Groups/groups";
-    const docRef = firestore.doc(Path); // pointer to the place we add the data
+function setGroups(groupsData) {
+   
     let str = '<option disabled value="" selected value>בחר קבוצה</option>';
 
-    docRef.get().then(function (doc) { //  onsnapshot will do it faster
-        if (doc && doc.exists) {
-            const groups = doc.data().groupsData;
-            sessionStorage.setItem('groupsData', JSON.stringify(groups)); // save the groups in our session storage
-            for (let i = 0; i < groups.length; i++)
-                str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>'
+        if (groupsData) {
+            for (let i = 0; i < groupsData.length; i++)
+                str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'
             $("#group").append(str);
         }
-    });
+        else{
+            console.log("there is no groups yet. so appent nothing")
+            $("#group").append(str);
+        }
 
 }
 
@@ -152,7 +84,6 @@ function addId(docRef, TheNewMemeber) {
 /*when charge value of "isAdult" to "yes" proffesionDiv is hiden*/
 function updateProffesionDiv() {
     let elm = $("#isAdult");
-    console.log(elm.val());
     if (elm.val() !== "true") {
         $("#proffesionDiv").hide();
         $("#nullDiv").show();
@@ -161,4 +92,105 @@ function updateProffesionDiv() {
         $("#nullDiv").hide();
 
     }
+}
+
+function getGroupsData() {
+    return new Promise((resolve) => { // resolve <--->is need with promise.
+        let groupsData = []; // save all the member data.
+
+        if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
+            console.log("groupsData is from FireBase")
+            firestore.collection("Groups").get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        const group = doc.data(); // pointer for document
+                        groupsData.push(group); // add for array of all names
+                    })
+
+                    sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); // save it temporeriy
+                    resolve(groupsData);
+                })
+                
+        } else {
+            groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
+            console.log("groupsData is from session")
+            resolve(groupsData);
+        }
+
+    })
+
+}
+
+function addNewMemeber()
+{
+    const firstName = $("#first-name").val();
+    const lastName = $("#last-name").val();
+    const date = $("#date").val();
+    const group = $("#group").val();
+    const comments = $("#comments").val();
+    const school = $("#school").val();
+    const phoneNum = $("#phone-num").val();
+    const grade = $("#grade").val();
+    const parentPhoneNum = $("#parent-phone-num").val();
+    const youthMovement = $("#youth-movement").val();
+    const anotherEducation = $("#another-education").val();
+    const isInstructor = $("#is-instructor").val();
+    const isAdult = $("#isAdult").val();
+    const adultProffesion = $("#adultProffesion").val();
+    let personalTracking = [];
+    let financialMonitoring = [];
+
+    let TheNewMemeber = {
+        AnotherEducation: anotherEducation,
+        Comments: comments,
+        Date: date,
+        FinancialMonitoring: financialMonitoring,
+        First: firstName,
+        Grade: grade,
+        Group: group,
+        IsInstructor: isInstructor,
+        Last: lastName,
+        ParentPhoneNum: parentPhoneNum,
+        PersonalTracking: personalTracking,
+        PhoneNum: phoneNum,
+        School: school,
+        YouthMovement: youthMovement,
+        IsAdult: isAdult,
+        AdultProffesion: adultProffesion
+    }
+
+    /* make the object to add ===> key : value */
+    firestore.collection("Members").add({ // add the member with Auto id 
+        AnotherEducation: anotherEducation,
+        Comments: comments,
+        Date: date,
+        FinancialMonitoring: financialMonitoring,
+        First: firstName,
+        Grade: grade,
+        Group: group,
+        IsInstructor: isInstructor,
+        Last: lastName,
+        ParentPhoneNum: parentPhoneNum,
+        PersonalTracking: personalTracking,
+        PhoneNum: phoneNum,
+        School: school,
+        YouthMovement: youthMovement,
+        IsAdult: isAdult,
+        AdultProffesion: adultProffesion
+
+    }).then(function (docRef) {
+        addId(docRef, TheNewMemeber);
+
+        $('#successfully-add').modal('show');
+        $(".add-btn").modal({
+            closable: true
+        });
+
+        $('#form-Add')[0].reset();
+
+    }).catch(function (error) {
+        console.log("got error!!!", error)
+    });
+
+
 }

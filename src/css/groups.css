@@ -1,0 +1,21 @@
+#addGroupForm{
+    display: none;
+}
+
+#groupMemberTable{
+
+    text-align: right;
+}
+
+#groups-menu{
+    text-align: right !important;
+}
+
+.button{
+    text-align: right !important;
+}
+
+
+#editGroupBtn{
+    display: none;
+}
