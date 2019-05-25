@@ -103,7 +103,7 @@ function onChange(value, text, $choise) {
     groupDetails();
 
     getGorupMemebers(selectedgroupName).then(memeberGroup => {  // only when getallmemebers return the memberlist continue:
-        $('#howMany').text(memeberGroup.length + " חניכים בקבוצה");
+        $('#howMany b').text(memeberGroup.length+ " חניכים בקבוצה");
         if(memeberGroup.length > 0) // there is members in this group
         {
             showTable(memeberGroup); // load the table.first -> without display it.
@@ -126,16 +126,16 @@ function onChange(value, text, $choise) {
 }
 
 
-
 /** show the group details in the left side of the screen */
 function groupDetails() {
 
     const $form = $('#addGroupForm'); // no need from
     $form.hide();
     $("#group-details").show();
+    $("#groupIcons").show();
     $("#showNamePlaceHoler").text(selectedGroup.groupName);
-    $("#showInstructorName").text("שם המדריך: " + selectedGroup.groupInstructor);
-    $("#showInstructorPhone").text("מספר הטלפון: " + selectedGroup.groupPhoneNum);
+    $("#showInstructorName b").text("שם המדריך: " + selectedGroup.groupInstructor);
+    $("#showInstructorPhone b").text(selectedGroup.groupPhoneNum);
     $('#editGroupBtn').show();  // now can press the edit button.
     $('#trackingGroupBtn').show();
 }
@@ -152,9 +152,10 @@ function ScreenToaddGroup() {
     $("#guideName").val("");
     $("#guidePhoneNum").val("");
     $('#addGroupBtn').text("הוסף קבוצה");
-    $("#showNamePlaceHoler").text("");    // dont show the group details
-    $("#showInstructorName").text("");
-    $("#showInstructorPhone").text("");
+    $("#showNamePlaceHoler ").text("");    // dont show the group details
+    $("#showInstructorName b").text("");
+    $("#showInstructorPhone b").text("");
+    $("#groupIcons").hide();
     $('#editGroupBtn').hide();
     $('#trackingGroupBtn').hide();
 
@@ -245,9 +246,11 @@ function formEditToAdd() {
 
 
 function formAddToEdit() {
+    $("#group-details").hide();
+    $("#groupIcons").hide();
     $("#showNamePlaceHoler").text("");
-    $("#showInstructorName").text("");
-    $("#showInstructorPhone").text("");
+    $("#showInstructorName b").text("");
+    $("#showInstructorPhone b").text("");
     $('#addGroupForm').show();
     $('#editGroupBtn').hide();
     $('#trackingGroupBtn').hide();
@@ -306,8 +309,8 @@ function updateDatabase() {
 function updateSession() {
     let foundIndex = groupsData.findIndex(x => x.Key == selectedGroup.Key);
     groupsData[foundIndex].groupName = selectedGroup.groupName;
-    groupsData[foundIndex].groupPhoneNum = selectedGroup.groupInstructor;
-    groupsData[foundIndex].groupInstructor = selectedGroup.groupPhoneNum;
+    groupsData[foundIndex].groupPhoneNum =selectedGroup.groupPhoneNum ;
+    groupsData[foundIndex].groupInstructor =  selectedGroup.groupInstructor;
     sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); // save it temporeriy
     console.log("session updated successfully")
     formEditToAdd();
