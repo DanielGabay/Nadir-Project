@@ -12,13 +12,30 @@
 }
 
 .button{
+    
     text-align: right !important;
 }
 
-
-#editGroupBtn{
+#trackingGroupBtn{
     display: none;
 }
+
+#editGroupBtn{
+    margin-top: 20px !important;
+    margin-left: 10px !important;
+    display: none;
+}
+
+#group-details{
+    display: none;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+#groupMemberTable{
+    display: none;
+  }
 
 .my-custom-scrollbar {
     height: 400px;
