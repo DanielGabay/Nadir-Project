@@ -20,9 +20,7 @@ $(document).ready(function () {
 
 /*dynamicly set groups name at the drop-down select tag of groups (fetch data from the data base)*/
 function setGroups(groupsData) {
-   
     let str = '<option disabled value="" selected value>בחר קבוצה</option>';
-
         if (groupsData) {
             for (let i = 0; i < groupsData.length; i++)
                 str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'

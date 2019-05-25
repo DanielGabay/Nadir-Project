@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+    <script src="semantic/semantic.min.js"></script>
+    <link rel="stylesheet" href="css/ndr.css">
+    <link rel="stylesheet" href="css/financial.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/transition.js"></script>
+    <script src="js/financial.js"></script>
+    <script>
+        $(function () {
+            $('#navbar').load('topNavbar.html');
+        });
+    </script>
+</head>
+
+
+<body class="ndr" dir="rtl">
+
+    <div id="navbar"></div>
+
+    <div class="ui modal" id="successfully-add">
+        <div>
+            <div class="modalContent">
+                <h4 class="ui horizontal divider header">
+                        הוסף תשלום לקבוצה
+                      </h4>
+                <form id="addPaymentForm">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>פרטים</label>
+                                <input type="text" required placeholder="פרטים" id="details">
+                            </div>
+                            <div class="field">
+                                <label>תאריך:</label>
+                                <input type="date" required id="datePicker">
+                            </div>
+                        </div>
+
+
+                        <div class="two fields">
+                            <div class="field">
+                                <label>קבוצה:</label>
+                                <select class="ui fluid dropdown" id="group" required>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>סכום:</label>
+                                <input type="number" min="0" required id="amount" placeholder="סכום">
+                            </div>
+                        </div>
+
+                        <div class="two fields" id="formThirdRow">
+                            <div class="field">
+                                <label>חיוב/זיכוי:</label>
+                                <select required class="ui fluid dropdown" id="charge">
+                                    <option disabled selected value value="">חיובי/זיכוי</option>
+                                    <option value="1">חיוב</option>
+                                    <option value="-1">זיכוי</option>
+                                </select>
+                            </div>
+
+                            <div class="field" id="payMethodDiv">
+                                <label>אופן תשלום:</label>
+                                <select class="ui fluid dropdown" id="paymentMethod">
+                                    <option disabled selected value value="">אופן תשלום</option>
+                                    <option value="מזומן">מזומן</option>
+                                    <option value="אשראי">אשראי</option>
+                                    <option value="צ'ק">צ'ק</option>
+                                    <option value="העברה בנקאית">העברה בנקאית</option>
+                                    <option value="אחר">אחר</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <button id="addPaymentBtn" type="submit" class="ui primary button">הוסף</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="actions ta-ndr">
+            <div class="ui positive right labeled icon button ">
+                אישור
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ui segment">
+        <h2 class="ui center aligned header">
+            סך הכל:
+            <p id="summaryAmount" dir="ltr">0</p>
+
+        </h2>
+    </div>
+
+    <div class="buttonsDiv">
+        <button id="openModalBtn">הוסף תשלום</button>
+        <button id="openPaymentTable">הצגת פירוט חובות</button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-wrapper" dir="rtl">
+        <table class="ui compact striped selectable table" id="financial_table">
+            <thead>
+                <tr>
+                    <th>שם</th>
+                    <th>קבוצה</th>
+                    <th>סה"כ חובות</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    <!-- End Of Table -->
+</body>
+
+</html>

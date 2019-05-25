@@ -40,9 +40,6 @@ th{
   text-align: right !important;
 }
 
-.table-wrapper {
-  margin: 20px 160px 0 160px;
-}
 
 .my-custom-scrollbar {
   height: 400px;
@@ -51,6 +48,7 @@ th{
 
 .table-wrapper-scroll-y {
   display: block;
+  margin: 20px 160px 0 160px;
 }
 
 .wrapper {

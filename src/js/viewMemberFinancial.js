@@ -111,7 +111,6 @@ function updateSum(amount) {
 /*TODO: populate table with data from the selectedMember financialTracking array*/
 function fill_table() {
   financial_data = selectedMember.FinancialMonitoring;
-  $table = $("#financial_table");
   financial_data.forEach(element => {
     insertToTable(element);
 
