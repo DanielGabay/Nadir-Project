@@ -105,10 +105,21 @@
             <textarea id="comments" readonly="" rows="4"></textarea>
           </div>
 
+          <div class="two fields" id="adltSection">
+            <div class="field">
+              <label>האם בוגר:</label>
+              <input readonly="" id="isAdult">
+            </div>
+            <div class="field" id="proffesionDiv">
+              <label>עיסוק:</label>
+              <input type="text" readonly="" id="adultProffesion">
+            </div>
+          </div>
         </div>
+       
       </form>
       <br>
-      <button id="edit-btn" onclick="change()" class="ui purple button">עריכה<i class="edit icon"></i></button>
+      <button id="edit-btn" onclick="updateMemDetails()" class="ui purple button">עריכה<i class="edit icon"></i></button>
       <button id="print-btn" onclick="window.print()" class="ui purple button">הדפסה<i class="print icon"></i></button>
       <br><br>
     </div>

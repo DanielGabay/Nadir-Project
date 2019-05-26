@@ -40,8 +40,8 @@ function updateSession(TheNewMemeber) {
     if (sessionStorage.getItem("memberList") === null) // there is nothing in the session so no need to update
         return;
 
-    let memeberList = JSON.parse(sessionStorage.getItem('memberList'));
-    memeberList.push({
+    let memberList = JSON.parse(sessionStorage.getItem('memberList'));
+    memberList.push({
         AnotherEducation: TheNewMemeber.AnotherEducation,
         Comments: TheNewMemeber.Comments,
         Date: TheNewMemeber.Date,
@@ -60,7 +60,7 @@ function updateSession(TheNewMemeber) {
         IsAdult: TheNewMemeber.IsAdult,
         AdultProffesion: TheNewMemeber.AdultProffesion
     });
-    sessionStorage.setItem('memberList', JSON.stringify(memeberList));
+    sessionStorage.setItem('memberList', JSON.stringify(memberList));
     console.log("session updated with the new member!");
 }
 /** add the Id to the member that we just added to firebase  */
