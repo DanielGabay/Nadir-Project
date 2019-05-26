@@ -24,6 +24,10 @@ td {
   font-size: 16px;
 }
 
+td:hover {
+  cursor: pointer;
+}
+
 .modalContent{
   padding: 50px;
   text-align: right !important;
