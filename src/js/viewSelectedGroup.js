@@ -134,7 +134,7 @@ function groupDetails() {
     $("#group-details").show();
     $("#groupIcons").show();
     $("#showNamePlaceHoler").text(selectedGroup.groupName);
-    $("#showInstructorName b").text("שם המדריך: " + selectedGroup.groupInstructor);
+    $("#showInstructorName b").text(selectedGroup.groupInstructor);
     $("#showInstructorPhone b").text(selectedGroup.groupPhoneNum);
     $('#editGroupBtn').show();  // now can press the edit button.
     $('#trackingGroupBtn').show();
@@ -369,7 +369,7 @@ function getGorupMemebers(selectedgroup) {
 }
 
 function showTable(GroupMemebers) {
-    let str = '<thead> <tr> <th>שם </th> <th>טלפון</th> </tr> </thead>  <tbody> ';
+    let str = '<thead> <tr><th>hhhhh</tr></th> <tr> <th>שם </th> <th>טלפון</th> </tr> </thead>  <tbody> ';
     GroupMemebers.forEach(function (memeber) {
         str += '<tr id = ' + memeber.Key + ' > <td>' + memeber.First + ' ' + memeber.Last + '</td> <td>' + (memeber.PhoneNum) + '</td> </tr>';
     })
