@@ -40,12 +40,14 @@
 
     <div class="ui placeholder segment tab">
         <div class="ui two column stackable center aligned grid">
-            <div class="ui vertical divider">בחר קבוצה להצגה</div>
+            <div class="ui vertical divider">
+                <i class="group icon"></i>
+            </div>
             <div class="middle aligned row">
                 <div class="column">
 
                     <div class="field">
-                        <div class="ui floating labeled icon dropdown button">
+                        <div class="ui floating labeled icon dropdown scrolling button">
                             <i class="group icon"></i>
                             <span class="text">בחר קבוצה</span>
                             <div id="groups-menu" class="menu">
@@ -68,11 +70,30 @@
                 </div>
                 <div class="column">
 
-                    <div id="group-details">
 
-                        <h1 id="showNamePlaceHoler"></h1>
-                        <h3 id="showInstructorName"></h3>
-                        <h3 id="showInstructorPhone"></h3>
+                    <div id="group-details" class="ui cards">
+                        <div class="card">
+                            <div class="content">
+                                <div id="showNamePlaceHoler" class="header"></div>
+                                <div id="showInstructorName" class="description">
+                                        <i id="groupIcons" class="smile icon"></i>
+                                        <b></b>
+                                </div>
+                                <div id="showInstructorPhone" class="meta">
+                                        <i id="groupIcons" class="phone icon"></i>
+                                        <b></b>
+                                </div>
+                            </div>
+
+                            <div id="howMany" class="extra content">
+                                    <i class="child icon"></i>
+                                    <b></b>
+                                   
+                                  </div>
+                        </div>
+
+
+
                     </div>
 
                     <form id="addGroupForm">
@@ -96,13 +117,16 @@
 
                             </div>
                             <div class="field">
-                                <button id="addGroupBtn" type="submit" class="ui primary button"> הוסף קבוצה</button>
+                                <button id="addGroupBtn" type="submit" class="ui primary button">הוסף קבוצה</button>
                             </div>
                         </div>
                     </form>
-                    <button class=" button ui primary button" id="editGroupBtn">
-                            ערוך קבוצה
-                        </button>
+                    <button class=" ui button  primary button" id="editGroupBtn">
+                        ערוך קבוצה
+                    </button>
+                    <button class="ui button  primary button" id="trackingGroupBtn">
+                        מעקב קבוצתי
+                    </button>
                 </div>
             </div>
         </div>

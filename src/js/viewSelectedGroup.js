@@ -1,65 +1,80 @@
 const firestore = firebase.firestore();
 
+let selectedGroup = {}  //  save the group we just selected + if add pressed-> be the group we want to add .
+let groupsData =[]; // // save groups data from firebase/ session
+
 $(document).ready(function () {
 
+
+
     getGroupsData().then(groupsData => {
+
         groupsDropDown(groupsData);
         $('#loader').removeClass('active'); // remove the loader .
 
-        $('.ui.dropdown')
+        $('.ui.dropdown')   // drop down settings
             .dropdown({
                 on: 'hover',
                 onChange: onChange
             });
     })
-});
 
-function onChange(value, text, $choise) {
-    let groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
+    $('#editGroupBtn').unbind().click(function () {     // edit button press
+        console.log("edit clicked")
+        formAddToEdit();
+    });
+
+    $('#addGroupForm').unbind().submit(function (e) {   // add button press
+        console.log(" clicked on sumbit - in the add submit");
+        e.preventDefault();
+
+       let addOrSaveBtn = $('#addGroupBtn').text();
+
+        if (addOrSaveBtn == "הוסף קבוצה")
+        {
+            selectedGroup.groupName = $("#newGroupName").val();
+            selectedGroup.groupInstructor = $("#guideName").val();
+            selectedGroup.groupPhoneNum = $("#guidePhoneNum").val();
+
+            console.log("selectedgroup updated in הוסף קבוצה")
+            console.log(selectedGroup);
     
-    if ($choise.attr('id') && $choise.attr('id') == "addGroupChoice") // add new group option
-    {
-        addNewGroup(groupsData);
-        return;
-    }
-    const selectedgroup = $choise.text();
-    const selectedgroupsData = groupsData.find(group => group.groupName === selectedgroup);
+            if (groupsData.find(group => group.groupName == selectedGroup.groupName)) // if there is already group with this name
+            {
+                alert("שם הקבוצה תפוס , בחר שם אחר");
+                return;
+            }
+            addToDataBase();
+        }
+        
+        else if( addOrSaveBtn == "שמור שינויים")
+        {
+            console.log("press saved!");
+            updateDatabase()
+        }
+       
+    });
 
-    groupDetails(selectedgroupsData);
-
-    getGorupMemebers(selectedgroup).then(memeberGroup => {  // only when getallmemebers return the memberlist continue:
-
-        showTable(memeberGroup); // load the table.first -> without display it.
-
-        // const $table = $('#groupMemberTable');
-        // // show-table. we can change animation.
-        // $table.transition('shake');
-
-        $('#groupMemberTable tr').click(function (event) {
-            console.log($(this).closest('tr').attr('id'));   // add click even to every row!!!           
-        });
-    })
-}
+});
 
 function groupsDropDown(groupsData) {
     let colors = ["red", "blue", "yellow", "violet", "green", "olive", "purple", "teal"]
 
     let str = "";
-    str += "<div class='header'>";
+    str += "<div class='header'>";             // tag in the beginning
     str += "<i class='tags icon'></i>";
     str += "בחר</div>";
     str += "<div class='divider'></div>";
 
-    str += "<div id='addGroupChoice' class='item'>";
+    str += "<div id='addGroupChoice' class='item'>";       // the add option to the drop down
     str += "<i class='plus icon'></i>";
-    str += "הוסף קבוצה </div>";
+    str += "הוסף קבוצה</div>";
     str += "<div class='divider'></div>";
 
     if (groupsData) {
         for (let i = 0; i < groupsData.length; i++) {
             const color = colors[i % colors.length];
             str += "<div class='item'>";
-
             str += "<div class='ui " + color + " empty circular label'></div>";
             str += groupsData[i].groupName;
             str += "</div>";
@@ -74,72 +89,97 @@ function groupsDropDown(groupsData) {
 
 }
 
-function groupDetails(selectedgroupsData) {
-
-    const $form = $('#addGroupForm');
-
-    $form.hide();
-
-    $("#showNamePlaceHoler").text(selectedgroupsData.groupName);
-    $("#showInstructorName").text("שם המדריך: " + selectedgroupsData.groupInstructor);
-    $("#showInstructorPhone").text("מספר הטלפון: " + selectedgroupsData.groupPhoneNum);
-
-    $('#editGroupBtn').show();
+function onChange(value, text, $choise) {
     
-    $('#editGroupBtn').unbind().click(function () {                    // edit button press
-        console.log("edit clicked")
-        editGroup(selectedgroupsData)
-    });
+    if ($choise.attr('id') && $choise.attr('id') == "addGroupChoice") // add new group option
+    {
+        ScreenToaddGroup();
+        return;
+    }
 
+    const selectedgroupName = $choise.text();
+    selectedGroup = groupsData.find(group => group.groupName === selectedgroupName);  // update the global selectedGroup
+
+    groupDetails();
+
+    getGorupMemebers(selectedgroupName).then(memeberGroup => {  // only when getallmemebers return the memberlist continue:
+        $('#howMany b').text(memeberGroup.length+ " חניכים בקבוצה");
+        if(memeberGroup.length > 0) // there is members in this group
+        {
+            showTable(memeberGroup); // load the table.first -> without display it.
+      
+            const $table = $('#groupMemberTable');
+           // // show-table. we can change animation.
+            $table.transition('pulse');
+   
+           $('#groupMemberTable td').click(function (event) {
+               console.log($(this).closest('tr').attr('id'));   // add click even to every row!!!           
+           });
+        }
+        else{
+            $("#groupMemberTable").html("");
+            $('#groupMemberTable').hide();
+            
+        }
+       
+    })
+}
+
+
+/** show the group details in the left side of the screen */
+function groupDetails() {
+
+    const $form = $('#addGroupForm'); // no need from
+    $form.hide();
+    $("#group-details").show();
+    $("#groupIcons").show();
+    $("#showNamePlaceHoler").text(selectedGroup.groupName);
+    $("#showInstructorName b").text("שם המדריך: " + selectedGroup.groupInstructor);
+    $("#showInstructorPhone b").text(selectedGroup.groupPhoneNum);
+    $('#editGroupBtn').show();  // now can press the edit button.
+    $('#trackingGroupBtn').show();
 }
 
 /**  section ADD NEW GROUP */
 
-function addNewGroup(groupsData) {
-
-    console.log("addNewGroup function")
-    $("#showNamePlaceHoler").text("");    // dont show the group details
-    $("#showInstructorName").text("");
-    $("#showInstructorPhone").text("");
+function ScreenToaddGroup() {
+    $("#group-details").hide();
+    $('#groupMemberTable').hide();
+    selectedGroup = {};  //  reset the selected group;
+    console.log("ScreenToaddGroup function")
+    $('#formHeader').text("הוסף קבוצה חדשה");
+    $("#newGroupName").val("");
+    $("#guideName").val("");
+    $("#guidePhoneNum").val("");
+    $('#addGroupBtn').text("הוסף קבוצה");
+    $("#showNamePlaceHoler ").text("");    // dont show the group details
+    $("#showInstructorName b").text("");
+    $("#showInstructorPhone b").text("");
+    $("#groupIcons").hide();
     $('#editGroupBtn').hide();
+    $('#trackingGroupBtn').hide();
 
     const $form = $('#addGroupForm');
     $form.show();
-
-    $form.unbind().submit(function (e) {
-        console.log(" clicked on sumbit - in the add submit");
-        e.preventDefault();
-        let groupName = $("#newGroupName").val();
-        let guideName = $("#guideName").val();
-        let guidePhoneNum = $("#guidePhoneNum").val();
-
-        if (groupsData.find(group => group.groupName == groupName)) // if there is already group with this name
-        {
-            alert("שם הקבוצה תפוס , בחר שם אחר");
-            return;
-        }
-        addToDataBase(groupName, guideName, guidePhoneNum, groupsData);
-    });
 }
 
 
 // will save the new GROUP in firestore and in the session +Key
-function addToDataBase(groupName, guideName, guidePhoneNum, groupsData) {
+function addToDataBase() {
 
-    let groupTracking = [];
-
+    selectedGroup.groupTracking =[],
+    
     console.log("is adding new group now");
-    return;
-
-    firestore.collection("Groups").add({ // add the member with Auto id 
-        groupInstructor: guideName,
-        groupPhoneNum: guidePhoneNum,
-        groupName: groupName,
-        groupTracking: groupTracking
+    
+    firestore.collection("Groups").add({ // add the member with Auto id
+        groupName: selectedGroup.groupName, 
+        groupInstructor: selectedGroup.groupInstructor,
+        groupPhoneNum: selectedGroup.groupPhoneNum,
+        groupTracking: selectedGroup.groupTracking
 
     }).then(function (docRef) {
 
-        addKeyToGroup(docRef, groupName, guideName, guidePhoneNum, groupsData);
+        addKeyToGroup(docRef);
         $('#successfully-add').modal('show');
         $(".add-btn").modal({
             closable: true
@@ -153,15 +193,17 @@ function addToDataBase(groupName, guideName, guidePhoneNum, groupsData) {
 
 }
 
+/** add the key to the atributes of the group + call update session */
+function addKeyToGroup(docRef) {
 
-function addKeyToGroup(docRef, groupName, guideName, guidePhoneNum, groupsData) {
+    selectedGroup.Key = docRef.id
     firestore.collection("Groups").doc(docRef.id).set({
         Key: docRef.id // add the key of firebase to the data.
     }, {
             merge: true
         })
         .then(function () {
-            addToSession(groupName, guideName, guidePhoneNum, groupsData, docRef.id);
+            addToSession();
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
@@ -169,99 +211,92 @@ function addKeyToGroup(docRef, groupName, guideName, guidePhoneNum, groupsData) 
 
 }
 
-function addToSession(groupName, guideName, guidePhoneNum, groupsData, key) {
-    let groupTracking = [];
+function addToSession() {
+    
     groupsData.push({
-
-        groupInstructor: guideName,
-        groupPhoneNum: guidePhoneNum,
-        groupName: groupName,
-        groupTracking: groupTracking,
-        Key: key
-
+        groupName: selectedGroup.groupName,
+        groupInstructor: selectedGroup.groupInstructor,
+        groupPhoneNum: selectedGroup.groupPhoneNum,
+        groupTracking:selectedGroup.groupTracking,
+        Key: selectedGroup.Key
     });
     sessionStorage.setItem('groupsData', JSON.stringify(groupsData));
     console.log("session updated with the new group!");
-    groupsDropDown(groupsData)
+    selectedGroup = {}; // reset after adding
+    groupsDropDown(groupsData);
+    
 }
 
 
 /**  section EDIT GROUP */
 
-
-function editGroup(selectedgroupsData) {
-
-    formAddToEdit(selectedgroupsData);
-    const $form = $('#addGroupForm');
-
-    $form.unbind().submit(function (e) {
-        e.preventDefault();
-        console.log("in the save the Edits submit");
-        updateDatabase(selectedgroupsData)
-
-    });
-}
+// edit group --->formAddToEdit
 
 
-function formEditToAdd(selectedgroupsData) {
+function formEditToAdd() {
     $('#formHeader').text("הוסף קבוצה חדשה");
     $("#newGroupName").val("");
     $("#guideName").val("");
     $('#editGroupBtn').hide();
+    $('#trackingGroupBtn').hide();
     $("#guidePhoneNum").val("");
     $('#addGroupBtn').text("הוסף קבוצה");
-    groupDetails(selectedgroupsData);
+    groupDetails();
 }
 
 
-function formAddToEdit(selectedgroupsData) {
+function formAddToEdit() {
+    $("#group-details").hide();
+    $("#groupIcons").hide();
     $("#showNamePlaceHoler").text("");
-    $("#showInstructorName").text("");
-    $("#showInstructorPhone").text("");
+    $("#showInstructorName b").text("");
+    $("#showInstructorPhone b").text("");
     $('#addGroupForm').show();
     $('#editGroupBtn').hide();
-    $('#formHeader').text(selectedgroupsData.groupName)
-    $("#newGroupName").val(selectedgroupsData.groupName);
-    $("#guideName").val(selectedgroupsData.groupInstructor);
-    $("#guidePhoneNum").val(selectedgroupsData.groupPhoneNum);
+    $('#trackingGroupBtn').hide();
+    $('#formHeader').text(selectedGroup.groupName)
+    $("#newGroupName").val(selectedGroup.groupName);
+    $("#guideName").val(selectedGroup.groupInstructor);
+    $("#guidePhoneNum").val(selectedGroup.groupPhoneNum);
     $('#addGroupBtn').text("שמור שינויים");
 }
 
+function updateDatabase() {
+    let groupNameUpdated = $("#newGroupName").val();
+    let guideNameUpdated = $("#guideName").val();
+    let guidePhoneNumUpdated = $("#guidePhoneNum").val();
 
-
-function updateDatabase(selectedgroupsData) {
-    let groupName = $("#newGroupName").val();
-    let guideName = $("#guideName").val();
-    let guidePhoneNum = $("#guidePhoneNum").val();
-
-    let isGroupNameChanged = selectedgroupsData.groupName != groupName;
+    let isGroupNameChanged = selectedGroup.groupName != groupNameUpdated;
     console.log("name changed? " + isGroupNameChanged);
 
-    if (isGroupNameChanged && (JSON.parse(sessionStorage.getItem('groupsData'))).find(group => group.groupName == groupName)) // if there is already group with the new name
+    if (isGroupNameChanged && groupsData.find(group => group.groupName == groupNameUpdated)) // if there is already group with the new name
     {
         alert("שם הקבוצה תפוס , בחר שם אחר");
         return;
     }
 
-    if (groupName == selectedgroupsData.groupName && guideName == selectedgroupsData.groupInstructor && guidePhoneNum == selectedgroupsData.groupPhoneNum) // no change
+    if (groupNameUpdated == selectedGroup.groupName && guideNameUpdated == selectedGroup.groupInstructor && guidePhoneNumUpdated == selectedGroup.groupPhoneNum) // no change
     {
         console.log("no change so do nothing")
-        formEditToAdd(selectedgroupsData);
+        formEditToAdd();
         return;
     }
-
-    console.log("gonna updata now:"+ groupName,guideName,guidePhoneNum);
-    return;
-    var updateRef = firestore.collection("Groups").doc(selectedgroupsData.Key);
+    
+    console.log("gonna updata now:"+ groupNameUpdated,guideNameUpdated,guidePhoneNumUpdated);
+    
+    var updateRef = firestore.collection("Groups").doc(selectedGroup.Key);
 
     return updateRef.update({
-        groupInstructor: guideName,
-        groupPhoneNum: guidePhoneNum,
-        groupName: groupName
+        groupInstructor: guideNameUpdated,
+        groupPhoneNum: guidePhoneNumUpdated,
+        groupName: groupNameUpdated
     })
         .then(function () {
             console.log("Document successfully updated!");
-            updateSession(selectedgroupsData, groupName, guideName, guidePhoneNum);
+            selectedGroup.groupName = groupNameUpdated
+            selectedGroup.groupInstructor = guideNameUpdated
+            selectedGroup.groupPhoneNum = guidePhoneNumUpdated
+            updateSession();
 
 
         })
@@ -271,24 +306,22 @@ function updateDatabase(selectedgroupsData) {
         });
 }
 
-
-function updateSession(selectedgroupsData, groupName, guideName, guidePhoneNum) {
-    let groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
-    let foundIndex = groupsData.findIndex(x => x.Key == selectedgroupsData.Key);
-    groupsData[foundIndex].groupName = groupName;
-    groupsData[foundIndex].groupPhoneNum = guidePhoneNum;
-    groupsData[foundIndex].groupInstructor = guideName;
+function updateSession() {
+    let foundIndex = groupsData.findIndex(x => x.Key == selectedGroup.Key);
+    groupsData[foundIndex].groupName = selectedGroup.groupName;
+    groupsData[foundIndex].groupPhoneNum =selectedGroup.groupPhoneNum ;
+    groupsData[foundIndex].groupInstructor =  selectedGroup.groupInstructor;
     sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); // save it temporeriy
     console.log("session updated successfully")
-    selectedgroupsData = groupsData[foundIndex]  // update the selectedgroupsData
-    formEditToAdd(selectedgroupsData);
-
+    formEditToAdd();
+    groupsDropDown(groupsData);
 }
 
 function getGroupsData() {
     return new Promise((resolve) => { // resolve <--->is need with promise.
-        let groupsData = []; // save all the member data.
+      //  let groupsData = []; // save all the member data.
 
+      
         if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
             console.log("groupsData is from FireBase")
             firestore.collection("Groups").get()
@@ -309,7 +342,6 @@ function getGroupsData() {
         }
     })
 }
-
 
 //   - this part is for the group MEMBERS!
 
@@ -335,7 +367,6 @@ function getGorupMemebers(selectedgroup) {
     })
 
 }
-
 
 function showTable(GroupMemebers) {
     let str = '<thead> <tr> <th>שם </th> <th>טלפון</th> </tr> </thead>  <tbody> ';
