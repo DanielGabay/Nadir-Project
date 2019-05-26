@@ -2,7 +2,6 @@ const firestore = firebase.firestore(); // connect to our firebase storage.
 
 /*when document is ready*/
 $(document).ready(function () {
-
     getAllMemebers().then(memeberList => { // only when getallmemebers return the memberlist continue:
         $('#loader').removeClass('active'); // remove the loader .
 

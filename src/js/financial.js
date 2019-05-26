@@ -16,15 +16,7 @@ $(document).ready(function () {
   $("#addPaymentForm").submit(addPayment);
   $("#charge").change(updatePaymentMethodDropDown);
   fill_table();
-  $('#financial_table td').click(function () {
-    const id = ($(this).closest('tr').attr('id'));
-    console.log(id); // add click even to every row!!!
-    if (id) {
-      sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
-      document.location.href = 'viewMemberFinancial.html'; //TODO   show the view member. we need to change this command to new window
-    }
-
-  });
+  
 });
 
 
@@ -78,11 +70,12 @@ function getFinancialArrray() {
 }
 
 
-function insertToTable(name, sum, key, group) {
+function insertToTable(member, sum) {
   const $table = $("#financial_table");
-  let html = '<tr class = "table-text" id = ' + key + '>';
-  html += '<td>' + name + '</td>';
-  html += '<td>' + group + '</td>';
+  let html = '<tr class = "table-text" id = ' + member.Key + '>';
+  html += '<td>' + member.First + " " + member.Last + '</td>';
+  html += '<td>' + member.PhoneNum + '</td>';
+  html += '<td>' + member.Group + '</td>';
   if (sum > 0)
     html += '<td class ="vmf-negative">' + sum + '</td>';
   else
@@ -116,14 +109,21 @@ function clearTableRows() {
 /*TODO: populate table with data from the selectedMember financialTracking array*/
 function fill_table() {
   clearTableRows();
-  for (let i = 0; i < 9999999; i++);
   setSum(0);
   memberList.forEach(member => {
-    let name = member.First + " " + member.Last;
     let sum = sumAllPayments(member.FinancialMonitoring);
     if (sum > 0)
-      insertToTable(name, sum, member.Key, member.Group);
+      insertToTable(member,sum);
   })
+  $('#financial_table td').click(function () {
+    const id = ($(this).closest('tr').attr('id'));
+    console.log(id); // add click even to every row!!!
+    if (id) {
+      sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+      document.location.href = 'viewMemberFinancial.html'; //TODO   show the view member. we need to change this command to new window
+    }
+
+  });
 }
 
 function sumAllPayments(financialArray) {
