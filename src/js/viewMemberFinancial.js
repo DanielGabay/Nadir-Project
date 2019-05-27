@@ -129,11 +129,10 @@ function deletePayment() {
   updateSum(selectedPaymentToRemove.removeFromSum);
   selectedPaymentToRemove.tr.remove();
   let len = getFinancialArrray().length;
-  if (len == 0){
-    //if the FinancialTracking array is empty
+  if (len == 0) {
+    //if the FinancialTracking array is empty remove table
     $("#financial_table").remove();
   }
-
   $('.mini.modal').modal('hide')
 }
 
