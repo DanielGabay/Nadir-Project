@@ -21,22 +21,23 @@ $(document).ready(function () {
 /*dynamicly set groups name at the drop-down select tag of groups (fetch data from the data base)*/
 function setGroups(groupsData) {
     let str = '<option disabled value="" selected value>בחר קבוצה</option>';
-        if (groupsData) {
-            for (let i = 0; i < groupsData.length; i++)
-                str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'
-            $("#group").append(str);
-        }
-        else{
-            console.log("there is no groups yet. so appent nothing")
-            $("#group").append(str);
-        }
+    if (groupsData) {
+        for (let i = 0; i < groupsData.length; i++)
+            str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'
+        $("#group").append(str);
+    }
+    else {
+        console.log("there is no groups yet. so appent nothing")
+        $("#group").append(str);
+    }
 
 }
 
 /** update the memeberList that located in the sessionStorage - add the new memeber  */
 function updateSession(TheNewMemeber) {
 
-    console.log("we gonna add this 1 to the sesstion: " + TheNewMemeber);
+    console.log("we gonna add this 1 to the sesstion: ")
+    console.log(TheNewMemeber);
     if (sessionStorage.getItem("memberList") === null) // there is nothing in the session so no need to update
         return;
 
@@ -66,8 +67,8 @@ function updateSession(TheNewMemeber) {
 /** add the Id to the member that we just added to firebase  */
 function addId(docRef, TheNewMemeber) {
     firestore.collection("Members").doc(docRef.id).set({
-            Key: docRef.id // add the key of firebase to the data.
-        }, {
+        Key: docRef.id // add the key of firebase to the data.
+    }, {
             merge: true
         })
         .then(function () {
@@ -108,7 +109,7 @@ function getGroupsData() {
                     sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); // save it temporeriy
                     resolve(groupsData);
                 })
-                
+
         } else {
             groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
             console.log("groupsData is from session")
@@ -119,16 +120,19 @@ function getGroupsData() {
 
 }
 
-function addNewMemeber()
-{
+function addNewMemeber() {
     const firstName = $("#first-name").val();
     const lastName = $("#last-name").val();
     const date = $("#date").val();
-    const group = $("#group").val();
+    let group = $("#group").val();
+    if (group == null)
+        group = "לא משויך לקבוצה";
     const comments = $("#comments").val();
     const school = $("#school").val();
     const phoneNum = $("#phone-num").val();
-    const grade = $("#grade").val();
+    let grade = $("#grade").val();
+    if (grade == null)
+        grade = "";
     const parentPhoneNum = $("#parent-phone-num").val();
     const youthMovement = $("#youth-movement").val();
     const anotherEducation = $("#another-education").val();
@@ -156,7 +160,7 @@ function addNewMemeber()
         IsAdult: isAdult,
         AdultProffesion: adultProffesion
     }
-
+   
     /* make the object to add ===> key : value */
     firestore.collection("Members").add({ // add the member with Auto id 
         AnotherEducation: anotherEducation,

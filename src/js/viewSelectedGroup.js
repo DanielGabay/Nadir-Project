@@ -111,7 +111,12 @@ function onChange(value, text, $choise) {
             $table.transition('pulse');
 
             $('#groupMemberTable td').click(function (event) {
-                console.log($(this).closest('tr').attr('id'));   // add click even to every row!!!           
+                const id = ($(this).closest('tr').attr('id'));
+                console.log(id);   // add click even to every row!!!    
+                if (id) {
+                    sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+                    document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
+                }     
             });
         }
         else {

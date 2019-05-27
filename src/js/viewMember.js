@@ -1,5 +1,5 @@
 const firestore = firebase.firestore();
-let theMemeber = [];
+let theMember = [];
 let updateMember = {};
 $(document).ready(function () {
   $("#payment-track-btn").click(function () {
@@ -12,69 +12,69 @@ $(document).ready(function () {
 
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   console.log("we passed this data to the next screen:" + selectedPersonKey);
-  theMemeber = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
+  theMember = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
   updateMember = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
-  console.log("this is who we need:" + theMemeber.Key);
+  console.log("this is who we need:" + theMember.Key);
   setFields();
 });
 
 function setFields() {//set the fields with info of wanted member
  
-    $("#nameTitle").append(theMemeber.First + " " + theMemeber.Last);
-    $("#first-name").val(theMemeber.First);
-    $("#last-name").val(theMemeber.Last);
-    $("#date").val(theMemeber.Date.split('-').reverse().join('/'));  // will show in the right way dd/mm/yyyy
-    $("#group").val(theMemeber.Group);
-    $("#comments").val(theMemeber.Comments);
-    $("#school").val(theMemeber.School);
-    if(theMemeber.Grade != null)
-      $("#grade").val(theMemeber.Grade +"'");
-    $("#phone-num").val([theMemeber.PhoneNum.slice(0, 3), "-", theMemeber.PhoneNum.slice(3)].join(''));//add '-' after 3 digit
-    if(theMemeber.ParentPhoneNum != "")
-      $("#parent-phone-num").val([theMemeber.ParentPhoneNum.slice(0, 3), "-", theMemeber.ParentPhoneNum.slice(3)].join(''));//add '-' after 3 digit
-    $("#youth-movement").val(theMemeber.YouthMovement);
-    $("#another-education").val(theMemeber.AnotherEducation);
-    if (theMemeber.IsInstructor == "false")
+    $("#nameTitle").append(theMember.First + " " + theMember.Last);
+    $("#first-name").val(theMember.First);
+    $("#last-name").val(theMember.Last);
+    $("#date").val(theMember.Date.split('-').reverse().join('/'));  // will show in the right way dd/mm/yyyy
+    $("#group").val(theMember.Group);
+    $("#comments").val(theMember.Comments);
+    $("#school").val(theMember.School);
+    if(theMember.Grade != null && theMember.Grade != "" )
+      $("#grade").val(theMember.Grade +"'");
+    $("#phone-num").val([theMember.PhoneNum.slice(0, 3), "-", theMember.PhoneNum.slice(3)].join(''));//add '-' after 3 digit
+    if(theMember.ParentPhoneNum != "")
+      $("#parent-phone-num").val([theMember.ParentPhoneNum.slice(0, 3), "-", theMember.ParentPhoneNum.slice(3)].join(''));//add '-' after 3 digit
+    $("#youth-movement").val(theMember.YouthMovement);
+    $("#another-education").val(theMember.AnotherEducation);
+    if (theMember.IsInstructor == "false")
       $("#is-instructor").val("לא");
     else
       $("#is-instructor").val("כן");
-    if(theMemeber.IsAdult == "false")
+    if(theMember.IsAdult == "false")
       $("#isAdult").val("לא");
     else
       $("#isAdult").val("כן");
-    $("#adultProffesion").val(theMemeber.AdultProffesion);
+    $("#adultProffesion").val(theMember.AdultProffesion);
   }
 
 function updateMemDetails() { 
-  if (theMemeber) {
+  if (theMember) {
     if ($("#edit-btn").text() == "עריכה") { // edit btn was clicked, remove read only for all input
       $("#edit-btn").text("שמור").append("<i class='save icon'></i>");
       $("#first-name").removeAttr("readonly");
       $("#last-name").removeAttr("readonly");
       $("#date").removeAttr("readonly");
       $("#date").attr("type","date");
-      $("#date").val(theMemeber.Date);
+      $("#date").val(theMember.Date);
       $("#group").removeAttr("readonly");
       $("#group").replaceWith("<select class='ui fluid dropdown' id='group'></select>");
       $("#group").append(displayGroups());
-      $("#group").val(theMemeber.Group);
+      $("#group").val(theMember.Group);
       $("#comments").removeAttr("readonly");
       $("#school").removeAttr("readonly");
       $("#phone-num").removeAttr("readonly");
       $("#phone-num").attr("type","number");
-      $("#phone-num").val(theMemeber.PhoneNum); 
+      $("#phone-num").val(theMember.PhoneNum); 
       $("#grade").removeAttr("readonly");
       $("#grade").replaceWith("<select class='ui fluid dropdown' id='grade'><option value='ז'>ז'</option><option value='ח'>ח'</option><option value='ט'>ט'</option><option value='י'>י'</option><option value='יא'>י''א</option><option value='יב'>י''ב</option></select>");
-      $("#grade").val(theMemeber.Grade);
+      $("#grade").val(theMember.Grade);
       $("#parent-phone-num").removeAttr("readonly");
       $("#parent-phone-num").attr("type","number");
-      $("#parent-phone-num").val(theMemeber.ParentPhoneNum); 
+      $("#parent-phone-num").val(theMember.ParentPhoneNum); 
       $("#youth-movement").removeAttr("readonly");
       $("#another-education").removeAttr("readonly");
       $("#is-instructor").replaceWith("<select class='ui fluid dropdown' id='is-instructor' ><option value='false'>לא</option><option value='true'>כן</option></select>");
-      $("#is-instructor").val(theMemeber.IsInstructor);
+      $("#is-instructor").val(theMember.IsInstructor);
       $("#isAdult").replaceWith("<select required class='ui fluid dropdown' id='isAdult'><option  value='false' selected value>לא</option><option value='true'>כן</option></select>");
-      $("#isAdult").val(theMemeber.IsAdult);
+      $("#isAdult").val(theMember.IsAdult);
       $("#adultProffesion").removeAttr("readonly");
     }
     else if ($("#edit-btn").text() == "שמור") { //save btn was clicked 
@@ -98,7 +98,7 @@ function updateMemDetails() {
         else
           updateMember.AdultProffesion = "";
         
-        if(JSON.stringify(updateMember) !== JSON.stringify(theMemeber))// if change where make save data in database and session
+        if(JSON.stringify(updateMember) !== JSON.stringify(theMember))// if change where make save data in database and session
         updateFunc();
 
       //return to edit - display
@@ -111,14 +111,14 @@ function updateMemDetails() {
       $("#school").attr("readonly", "");
       $("#phone-num").attr("readonly", "");
       $("#phone-num").attr("type","text");
-      $("#phone-num").val([theMemeber.PhoneNum.slice(0, 3), "-", theMemeber.PhoneNum.slice(3)].join(''));//add '-' after 3 digit
+      $("#phone-num").val([theMember.PhoneNum.slice(0, 3), "-", theMember.PhoneNum.slice(3)].join(''));//add '-' after 3 digit
       $("#grade").replaceWith("<input readonly='' id='grade'>");//disable select
       if(updateMember.Grade != null)
         $("#grade").val(updateMember.Grade + "'");
       $("#parent-phone-num").attr("readonly", "");
       $("#parent-phone-num").attr("type","text");
-      if(theMemeber.ParentPhoneNum != "")
-        $("#parent-phone-num").val([theMemeber.ParentPhoneNum.slice(0, 3), "-", theMemeber.ParentPhoneNum.slice(3)].join(''));//add '-' after 3 digit
+      if(theMember.ParentPhoneNum != "")
+        $("#parent-phone-num").val([theMember.ParentPhoneNum.slice(0, 3), "-", theMember.ParentPhoneNum.slice(3)].join(''));//add '-' after 3 digit
       $("#youth-movement").attr("readonly", "");
       $("#another-education").attr("readonly", "");
       $("#is-instructor").replaceWith("<input readonly='' id='is-instructor'>");//disable select
@@ -162,7 +162,7 @@ function updateFunc(){//update in session and database
         $("#nameTitle").replaceWith("<h1 id='nameTitle'>" + memberList[foundIndex].First + " " + memberList[foundIndex].Last + "</h1>");
 
         //after edit 'theMember' = updateMember : help us to check if other edit was made
-        theMemeber = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
+        theMember = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
         updateMember = JSON.parse( sessionStorage.getItem('memberList')).find(x => x.Key ===selectedPersonKey );
 
 
