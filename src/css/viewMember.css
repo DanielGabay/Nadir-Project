@@ -8,7 +8,10 @@ h3{
     text-decoration: underline
   }
 
- 
+  .tabRight{
+		padding-right: 1em !important;
+  }
+  
   table{
     font-family: Calibri; 
      direction: rtl; /* table from right to left */

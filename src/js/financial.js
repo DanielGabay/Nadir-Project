@@ -36,13 +36,14 @@ function addPayment(e) {
   } else {
     $payMethod = $("#paymentMethod").val();
   }
-
+  let id = uuidv4();
   const paymentObj = {
     Details: $("#details").val(),
     Date: $("#datePicker").val(),
     Amount: $amount,
     Charge: $("#charge").val(),
-    PaymentMethod: $payMethod
+    PaymentMethod: $payMethod,
+    Id: id,
   };
 
   updateDbAndSession(paymentObj, $group);
@@ -208,7 +209,6 @@ function setGroups(groupsData) {
 /*return a promise - mean, that this function return something that we can do .then() after it*/
 function getAllMembers() {
   return new Promise((resolve) => { // resolve <--->is need with promise.
-    
       if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
           console.log("memberList is from FireBase")
           firestore.collection("Members").where("IsAdult", "==", "false").get()
@@ -230,3 +230,13 @@ function getAllMembers() {
   })
 
 }
+
+/**Generating id for each payment */
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
