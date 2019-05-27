@@ -48,9 +48,9 @@ function addPayment(e) {
 
   updateDataBase(paymentObj);
   updateSessionStorage(paymentObj);
-
-
   insertToTable(paymentObj);
+  sortTable();
+
   /**clear fields */
   $("#details").val("");
   $("#datePicker").attr("value", todayDate());
@@ -76,8 +76,10 @@ function fill_table() {
     createTable();
   financial_data.forEach(element => {
     insertToTable(element);
+    
   });
-
+  if(financial_data.length != 0)
+    sortTable();
 }
 
 function createTable() {
@@ -223,3 +225,42 @@ function todayDate() {
   today = yyyy + '-' + mm + '-' + dd;
   return today
 }
+
+
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("financial_table");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("td")[2];
+      
+      y = rows[i + 1].getElementsByTagName("td")[2];
+      //check if the two rows should switch place:
+      
+      if ((x.innerHTML).split("").reverse().join("") > y.innerHTML.split("").reverse().join("")) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+

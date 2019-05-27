@@ -32,8 +32,11 @@
     margin: auto;
    width: 50%;
     padding: 10px;
-
 }
+
+td:hover {
+    cursor: pointer;
+  }
 
 #groupMemberTable{
     display: none;
