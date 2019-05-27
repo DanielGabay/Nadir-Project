@@ -2,16 +2,16 @@ const firestore = firebase.firestore(); // connect to our firebase storage.
 
 /*when document is ready*/
 $(document).ready(function () {
-    getAllMemebers().then(memeberList => { // only when getallmemebers return the memberlist continue:
+    getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
         $('#loader').removeClass('active'); // remove the loader .
 
-        const searchList = convertMemeberListToSearchList(memeberList);
+        const searchList = convertMemberListToSearchList(memberList);
 
         $('.ui.search').search({ // to show the search options
             source: searchList,
             onSelect: onSelect
         })
-        showTable(memeberList); // load the table.first -> without display it.
+        showTable(memberList); // load the table.first -> without display it.
         
         const $table = $('#membersTable');
         $("#show-all").click(function () { // show-table. we can change animation.
@@ -32,26 +32,26 @@ $(document).ready(function () {
 });
 
 /*return a promise - mean, that this function return something that we can do .then() after it*/
-function getAllMemebers() {
+function getAllMembers() {
     return new Promise((resolve) => { // resolve <--->is need with promise.
-        let memeberList = []; // save all the member data.
+        let memberList = []; // save all the member data.
 
         if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
-            console.log("memberlist is from FireBase")
+            console.log("memberList is from FireBase")
             firestore.collection("Members").where("IsAdult", "==", "false").get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         const person = doc.data(); // pointer for document
-                        memeberList.push(person); // add for array of all names
+                        memberList.push(person); // add for array of all names
                     })
-                    sessionStorage.setItem('memberList', JSON.stringify(memeberList)); // save it temporeriy
-                    resolve(memeberList);
+                    sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
+                    resolve(memberList);
                 })
                 
         } else {
-            memeberList = JSON.parse(sessionStorage.getItem('memberList'));
+            memberList = JSON.parse(sessionStorage.getItem('memberList'));
             console.log("memberlist is from session")
-            resolve(memeberList);
+            resolve(memberList);
         }
 
     })
@@ -59,13 +59,13 @@ function getAllMemebers() {
 }
 
 /* return array of object for the search method of 'semntic'. we need 'title' for semntic and firebasekey will be send to 'viewMember' */
-function convertMemeberListToSearchList(memeberList) {
-    const searchList = memeberList.map(memeber => {
+function convertMemberListToSearchList(memberList) {
+    const searchList = memberList.map(member => {
         const {
             First,
             Last,
             Key
-        } = memeber;
+        } = member;
         return {
             title: First + ' ' + Last,
             firebaseKey: Key
@@ -86,15 +86,27 @@ function onSelect(result, response) {
 }
 
 /*TODO- sort before show!    show the table of all the memberlists. */
-function showTable(memeberList) {
+function showTable(memberList) {
+    
+    memberList.sort(function (a, b) {
+
+        let nameA = a.First + " " + a.Last;
+        let nameB = b.First + " " + b.Last;  
+        if (nameA < nameB) 
+          return -1;
+        if (nameA > nameB)
+          return 1;
+        return 0; 
+      });
+    console.log(memberList);
     let str = '<thead> <tr> <th>שם </th><th>מספר טלפון </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
-    memeberList.forEach(function (memeber) {
-        str += '<tr class = "table-text" id = ' + memeber.Key + '> <td>' + memeber.First + ' ' + memeber.Last + '</td><td>' + memeber.PhoneNum + '</td> <td>' + (memeber.Group || "לא משויך לקבוצה") + '</td> </tr>';
+    memberList.forEach(function (member) {
+        str += '<tr class = "table-text" id = ' + member.Key + '> <td>' + member.First + ' ' + member.Last + '</td><td>' + member.PhoneNum + '</td> <td>' + (member.Group || "לא משויך לקבוצה") + '</td> </tr>';
     })
     str += '</tbody>';
 
     $("#membersTable").html(str);
-    (sortTable());
+   //(sortTable());
 }
 
 
@@ -132,3 +144,7 @@ function sortTable() {
       }
     }
   }
+
+
+
+  
