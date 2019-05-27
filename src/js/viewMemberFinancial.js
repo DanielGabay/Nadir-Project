@@ -1,14 +1,19 @@
 const firestore = firebase.firestore();
 const selectedMemberKey = sessionStorage.getItem('selectedPersonKey');
 const selectedMember = JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey);
+let selectedPaymentToRemove = null;
 
 /**When document is ready */
 $(document).ready(function () {
   $('.ui.accordion').accordion(); //activate acordion effect
   $("#datePicker").attr("value", todayDate()); //set datePicker to current date automaticly
-  let name = selectedMember.First + " " + selectedMember.Last;
+  let name = "מעקב כספי: " + selectedMember.First + " " + selectedMember.Last;
   $("#namePlaceHoler").text(name); //place selectedMember name at the header
 
+  $("#modalYes").click(deletePayment);
+  $("#modalNo").click(function () {
+    $('.mini.modal').modal('hide');
+  });
   //setting functionality
   $("#addPaymentForm").submit(addPayment);
   $("#charge").change(updatePaymentMethodDropDown);
@@ -37,8 +42,14 @@ function addPayment(e) {
     Id: id,
   };
 
+
+  if (getFinancialArrray().length == 0)
+    createTable();
+
   updateDataBase(paymentObj);
   updateSessionStorage(paymentObj);
+
+
   insertToTable(paymentObj);
   /**clear fields */
   $("#details").val("");
@@ -60,16 +71,26 @@ function uuidv4() {
 
 /*filling table of payments*/
 function fill_table() {
-  financial_data = selectedMember.FinancialMonitoring;
+  financial_data = getFinancialArrray();
+  if (financial_data.length != 0)
+    createTable();
   financial_data.forEach(element => {
     insertToTable(element);
   });
+
+}
+
+function createTable() {
+  let tableStr = '<table class="ui compact striped table" id="financial_table">'
+  tableStr += '<thead><tr><th></th><th>פרטים</th><th>תאריך</th><th>אופן תשלום</th><th>חובה</th><th>זכות</th></tr>'
+  tableStr += '</thead><tbody></tbody></table>';
+  $("#tablePlaceHolder").append(tableStr);
 }
 
 /*inserting new payment into table */
 function insertToTable(obj) {
   const $table = $("#financial_table");
-  let html = '<tr><td><button id ="' + obj.Id + '"></td>';
+  let html = '<tr><td><i class = "trash red icon" id ="' + obj.Id + '"></td>';
   html += '<td>' + obj.Details + '</td>';
   html += '<td>' + obj.Date.split('-').reverse().join('/') + '</td>';
   html += '<td>' + obj.PaymentMethod + '</td>';
@@ -87,23 +108,41 @@ function insertToTable(obj) {
 /*for each button next to payment row, set remove listener*/
 function setRemoveLisetener(id) {
   $("#" + id).click(function (e) {
+    $('.mini.modal').modal('show');
     let paymentToRemove = getPayment(id);
-    let amount = getAmount(id);
-    let decreaseAmount = parseInt(amount) * -1; // in order to updateSum (decrease the amount)
+    let removeFromSum = parseInt(getAmount(id)) * -1;
+    selectedPaymentToRemove = {
+      tr: $(this).closest('tr'),
+      paymentToRemove: paymentToRemove,
+      removeFromSum: removeFromSum,
+      id: id
+    }
 
-    removeFromDataBase(paymentToRemove);
-    removeFromSession(id);
-    updateSum(decreaseAmount);
-    $(this).closest('tr').remove();
   })
+
+}
+
+function deletePayment() {
+  console.log(selectedPaymentToRemove);
+  removeFromDataBase(selectedPaymentToRemove.paymentToRemove);
+  removeFromSession(selectedPaymentToRemove.id);
+  updateSum(selectedPaymentToRemove.removeFromSum);
+  selectedPaymentToRemove.tr.remove();
+  let len = getFinancialArrray().length;
+  if (len == 0){
+    //if the FinancialTracking array is empty
+    $("#financial_table").remove();
+  }
+
+  $('.mini.modal').modal('hide')
 }
 
 
 /**return amount of payment by id */
 function getAmount(id) {
   return getFinancialArrray().find(obj => {
-      return obj.Id === id;
-    }).Amount;
+    return obj.Id === id;
+  }).Amount;
 }
 
 /**Updateing DataBase And Session Functions */
@@ -131,8 +170,8 @@ function updateDataBase(paymentObj) {
 /**return payment obj to remove in database */
 function getPayment(id) {
   return getFinancialArrray().find(obj => {
-      return obj.Id === id;
-    })
+    return obj.Id === id;
+  })
 }
 
 function removeFromDataBase(paymentObj) {

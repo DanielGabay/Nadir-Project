@@ -1,39 +1,54 @@
-.table-wrapper {
-    margin-top: 20px;
-    padding: 0 210px;
-  }
+.modalText{
+  text-align: right !important;
+}
 
 
+.sumAll{
+  margin: auto !important;
+  width: 30% !important;
+}
 
-  .table{
-    text-align: right !important; 
-    margin: 110px;
-  }
+.table {
+  text-align: right !important;
+}
 
-  th{
-    text-size-adjust:  100px !important;
-    font-size: 20px;
-  }
+.trash:hover{
+  cursor: pointer;
+}
 
-  td{
-    text-size-adjust:  100px !important;
-    font-size: 16px;
-  }
+.my-custom-scrollbar {
+  height: 300px;
+  overflow: auto;
+}
 
-  .vmf-positive{
-      color: green;
-      font-weight: bold;
-      
-  }
+.table-wrapper-scroll-y {
+  display: block;
+  margin: 20px 300px 20px 300px;
+}
 
-  .vmf-negative{
-      color: red;
-      font-weight: bold;
-  }
 
-  .accordion{
-    margin: auto !important;
-    width: 50% !important;
-  }
+th {
+  text-size-adjust: 100px !important;
+  font-size: 20px;
+}
 
- 
+td {
+  text-size-adjust: 100px !important;
+  font-size: 16px;
+}
+
+.vmf-positive {
+  color: green;
+  font-weight: bold;
+
+}
+
+.vmf-negative {
+  color: red;
+  font-weight: bold;
+}
+
+.accordion {
+  margin: 20px auto !important;
+  width: 30% !important;
+}

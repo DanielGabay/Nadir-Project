@@ -2,11 +2,7 @@ const firestore = firebase.firestore();
 const memberList = JSON.parse(sessionStorage.getItem('memberList'));
 
 $(document).ready(function () {
-  $('#successfully-add').modal('attach events', '#openModalBtn', 'show')
-  $(".add-btn").modal({
-    closable: true
-  });
-
+  $('.ui.accordion').accordion(); //activate acordion effect
   $("#datePicker").attr("value", todayDate());
   getGroupsData().then(groupsData => {
     setGroups(groupsData);
@@ -15,8 +11,7 @@ $(document).ready(function () {
   //setting functionality
   $("#addPaymentForm").submit(addPayment);
   $("#charge").change(updatePaymentMethodDropDown);
-  fill_table();
-  
+  fill_table();  
 });
 
 

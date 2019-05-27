@@ -1,11 +1,15 @@
-.table-wrapper {
-  margin-top: 20px;
-  padding: 0 210px;
-}
-
 .table {
   text-align: right !important;
-  margin: 110px;
+}
+
+.my-custom-scrollbar {
+  height: 300px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+  margin: 20px 160px 20px 160px;
 }
 
 .wrapper{
