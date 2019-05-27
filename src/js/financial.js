@@ -1,17 +1,25 @@
 const firestore = firebase.firestore();
-const memberList = JSON.parse(sessionStorage.getItem('memberList'));
+let memberList =[];
 
 $(document).ready(function () {
-  $('.ui.accordion').accordion(); //activate acordion effect
-  $("#datePicker").attr("value", todayDate());
-  getGroupsData().then(groupsData => {
-    setGroups(groupsData);
-  })
 
-  //setting functionality
-  $("#addPaymentForm").submit(addPayment);
-  $("#charge").change(updatePaymentMethodDropDown);
-  fill_table();  
+
+  getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
+    $('#loader').removeClass('active'); // remove the loader .
+
+    $('.ui.accordion').accordion(); //activate acordion effect
+    $("#datePicker").attr("value", todayDate());
+    getGroupsData().then(groupsData => {
+      setGroups(groupsData);
+    })
+  
+    //setting functionality
+    $("#addPaymentForm").submit(addPayment);
+    $("#charge").change(updatePaymentMethodDropDown);
+    fill_table(); 
+
+})
+
 });
 
 
@@ -193,5 +201,32 @@ function setGroups(groupsData) {
     console.log("there is no groups yet. so appent nothing")
     $("#group").append(str);
   }
+
+}
+
+
+/*return a promise - mean, that this function return something that we can do .then() after it*/
+function getAllMembers() {
+  return new Promise((resolve) => { // resolve <--->is need with promise.
+    
+      if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
+          console.log("memberList is from FireBase")
+          firestore.collection("Members").where("IsAdult", "==", "false").get()
+              .then(function (querySnapshot) {
+                  querySnapshot.forEach(function (doc) {
+                      const person = doc.data(); // pointer for document
+                      memberList.push(person); // add for array of all names
+                  })
+                  sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
+                  resolve(memberList);
+              })
+              
+      } else {
+          memberList = JSON.parse(sessionStorage.getItem('memberList'));
+          console.log("memberlist is from session")
+          resolve(memberList);
+      }
+
+  })
 
 }
