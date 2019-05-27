@@ -202,3 +202,59 @@ function displayGroups() {
     str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>';
   return str;
 }
+
+function deleteFunc(){
+  let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
+  let memberList = JSON.parse( sessionStorage.getItem('memberList'));
+  let foundIndex = memberList.findIndex(x => x.Key == selectedPersonKey);//inddex of wanted member
+  let sumPayment = sumAllPayments(memberList[foundIndex].FinancialMonitoring);
+
+  if(sumPayment != 0){
+    $('#dlt-section-fin').modal('show');
+    $(".dlt-btn").modal({
+      closable: true
+    });
+    
+    $("#payment-btn").click(function () {
+      document.location.href = "viewMemberFinancial.html";
+    });
+
+    $("#dlt-anyway").click(function () {
+       if (foundIndex > -1) {
+          memberList.splice(foundIndex, 1);
+          sessionStorage.setItem('memberList', JSON.stringify(memberList));//save to session after delete
+          firestore.collection("Members").doc(selectedPersonKey).delete().
+          then(function(){
+            document.location.href = "homePage.html";
+          });
+        }
+        
+    });
+  }
+  else{
+    $('#dlt-section').modal('show');
+    $(".dlt-btn").modal({
+      closable: true
+    });
+
+    $("#dlt").click(function () {
+       if (foundIndex > -1) {
+          memberList.splice(foundIndex, 1);
+          sessionStorage.setItem('memberList', JSON.stringify(memberList));//save to session after delete 
+          firestore.collection("Members").doc(selectedPersonKey).delete().
+          then(function(){
+            document.location.href = "homePage.html";
+          });
+        }
+        
+    });
+  }
+}
+
+function sumAllPayments(financialArray) {
+  let sum = 0;
+  financialArray.forEach(obj => {
+    sum += obj.Amount;
+  })
+  return sum;
+}
