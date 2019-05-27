@@ -26,6 +26,44 @@
 
   <div id="navbar"></div>
 
+  <div class="ui tiny modal" id="dlt-section-fin">
+    <div class="ta-ndr header" id="ask-dlt">
+      קיימים חובות/זיכויים
+    </div>
+    <form class="ui form">
+    <div class="actions ta-ndr three fields">
+      <div class="ui negative left labeled icon button" id="dlt-anyway">
+        מחק בכל זאת
+        <i class="trash icon"></i>
+      </div>
+      <div class="ui positive left labeled icon button">
+        אל תמחק
+        <i class="delete icon"></i>
+      </div>
+      <div class="ui yellow left labeled icon button" id="payment-btn">
+        מעבר למעקב כספי
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </form>
+  </div>
+
+  <div class="ui mini modal" id="dlt-section">
+      <div class="ta-ndr header" id="ask-dlt">
+        האם ברצונך למחוק?
+      </div>
+      <div class="actions ta-ndr two fields">
+        <div class="ui negative left labeled icon button" id="dlt">
+          כן
+          <i class="delete icon"></i>
+        </div>
+        <div class="ui positive left labeled icon button">
+          לא
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
   <div class="title">
     <h1 id="nameTitle">
     </h1>
@@ -37,8 +75,6 @@
     <div class="ndr-form">
       <form id="form-Add">
         <div class="ui form">
-
-
           <div class="two fields">
             <div class="field">
               <label>שם פרטי:</label>
@@ -121,6 +157,7 @@
       <br>
       <button id="edit-btn" onclick="updateMemDetails()" class="ui purple button">עריכה<i class="edit icon"></i></button>
       <button id="print-btn" onclick="window.print()" class="ui purple button">הדפסה<i class="print icon"></i></button>
+      <button id="dlt-btn" onclick="deleteFunc()" class="ui purple button">מחיקה<i class="trash icon"></i></button>
       <br><br>
     </div>
   </div>
