@@ -18,14 +18,32 @@ $(document).ready(function () {
     displayAll();
   })
 
+  $('#addGroupPayment')
+  .popup({
+    inline: true
+  })
+;
+
   $("#displayAllBtn").click(displayAll);
   $("#displayOnlyRedBtn").click(displayOnlyRed);
   $("#displayOnlyGreenBtn").click(displayOnlyGreen);
+  $("#addGroupPayment").click(addGroupPayment);
 
 
 });
 
+function addGroupPayment() {
+  $('.ui.modal')
+    .modal({
+      inverted: true
+    })
+    .modal('show');
+}
+
 function displayOnlyGreen() {
+  $("#displayAllBtn").removeClass("twitter");
+  $("#displayOnlyRedBtn").removeClass("twitter");
+  $("#displayOnlyGreenBtn").addClass("twitter");
   displayInTable = [];
   memberList.forEach(member => {
     let sum = sumAllPayments(member.FinancialMonitoring);
@@ -39,6 +57,9 @@ function displayOnlyGreen() {
 }
 
 function displayOnlyRed() {
+  $("#displayAllBtn").removeClass("twitter");
+  $("#displayOnlyRedBtn").addClass("twitter");
+  $("#displayOnlyGreenBtn").removeClass("twitter");
   displayInTable = [];
   memberList.forEach(member => {
     let sum = sumAllPayments(member.FinancialMonitoring);
@@ -52,6 +73,9 @@ function displayOnlyRed() {
 }
 
 function displayAll() {
+  $("#displayAllBtn").addClass("twitter");
+  $("#displayOnlyRedBtn").removeClass("twitter");
+  $("#displayOnlyGreenBtn").removeClass("twitter");
   displayInTable = [];
   memberList.forEach(member => {
     let sum = sumAllPayments(member.FinancialMonitoring);
@@ -95,6 +119,8 @@ function addPayment(e) {
   $("#amount").val("");
   $("#paymentMethod").val("");
   $("#group").val("");
+
+  $('.ui.modal').modal('hide');
 }
 
 function updateDbAndSession(paymentObj, group) {

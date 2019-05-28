@@ -1,22 +1,20 @@
-
 .table {
   text-align: right !important;
 }
 
-.table td{
+.table td {
   cursor: pointer;
 }
 
 .my-custom-scrollbar {
-  height: 300px;
+  height: 250px;
   overflow: auto;
 }
 
 .table-wrapper-scroll-y {
   display: block;
-  margin: 20px 300px 20px 300px;
+  margin: 20px 200px 20px 200px;
 }
-
 
 th {
   text-size-adjust: 100px !important;
@@ -39,7 +37,11 @@ td {
   font-weight: bold;
 }
 
-.accordion {
-  margin: 20px auto !important;
-  width: 30% !important;
+#addGroupPayment {
+  background-color:#7fa99b;
+  color: white;
+}
+
+.ui.modal {
+  text-align: center !important;
 }

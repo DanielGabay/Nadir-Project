@@ -27,50 +27,70 @@
 
     <h2 class="ui horizontal divider header">
 
-            סך הכל:
-            <p id="summaryAmount" dir="ltr">0</p>
+        סך הכל:
+        <p id="summaryAmount" dir="ltr">0</p>
     </h2>
 
+   
+
+    <div class="ui  buttons" id="buttonsDiv">
+        <button class="ui button" id="displayAllBtn">הצג הכל</button>
+        <button class="ui button" id="displayOnlyRedBtn">הצג חובות בלבד</button>
+        <button class="ui button" id="displayOnlyGreenBtn">הצג זיכויים בלבד</button>
+    </div>
+
+   
 
 
-    <!-- <div class="ui segment">
-        <h2 class="ui center aligned header">
-            סך הכל:
-            <p id="summaryAmount" dir="ltr">0</p>
+    <!-- Table Section -->
+    <div class="table-wrapper-scroll-y my-custom-scrollbar" dir="rtl">
+        <table class="ui compact striped selectable table" id="financial_table">
+            <thead>
+                <tr>
+                    <th>שם</th>
+                    <th>מספר טלפון</th>
+                    <th>קבוצה</th>
+                    <th>סה"כ חובות</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
-        </h2>
-    </div> -->
+    <!-- End Of Table -->
 
 
+    <div class="ui huge circular icon button" data-content="הוסף תשלום קבוצתי" data-position="right center" id="addGroupPayment">
+            <i class="add icon"></i>
+    </div>
 
-    <div class="ui styled fluid accordion">
-        <div class="title">
-            <i class="dropdown icon"></i>
+
+    <div class="ui modal" dir="rtl">
+        <i class="close icon"></i>
+        <div class="header">
             הוסף תשלום קבוצתי
         </div>
         <div class="content">
-            <form id="addPaymentForm">
+            <form id="addPaymentForm" dir="rtl">
                 <div class="ui form">
+
                     <div class="two fields">
                         <div class="field">
                             <label>פרטים</label>
                             <input type="text" required placeholder="פרטים" id="details">
                         </div>
                         <div class="field">
-                            <label>תאריך:</label>
-                            <input type="date" required id="datePicker">
-                        </div>
-                    </div>
-                    <div class="three fields">
-
-                        <div class="field">
                             <label>קבוצה:</label>
                             <select class="ui fluid dropdown" id="group" required>
                             </select>
                         </div>
+
+                    </div>
+                    <div class="two fields">
                         <div class="field">
-                            <label>סכום:</label>
-                            <input type="number" min="0" required id="amount" placeholder="סכום">
+                            <label>תאריך:</label>
+                            <input type="date" required id="datePicker">
                         </div>
                         <div class="field">
                             <label>חיוב/זיכוי:</label>
@@ -82,42 +102,25 @@
                         </div>
 
                     </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>סכום:</label>
+                            <input type="number" min="0" required id="amount" placeholder="סכום">
+                        </div>
 
-                    <div class="field">
-                        <button id="addPaymentBtn" type="submit" class="ui primary button">הוסף</button>
                     </div>
 
+
+                </div>
+                <div class="actions left floated">
+                    <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
+                            class="checkmark icon"></i></button>
+                    <div class="ui negative left labeled icon button">ביטול<i class="close icon"></i></div>
                 </div>
             </form>
-            <div class="accordion transition hidden"></div>
-        </div>
-    </div>
-
-    <div class="ui buttons">
-        <button class="ui button" id="displayAllBtn">הצג את כולם</button>
-        <button class="ui button" id="displayOnlyRedBtn">הצג חובות בלבד</button>
-        <button class="ui button" id="displayOnlyGreenBtn">הצג זיכויים בלבד</button>
-    </div>
-
-
-    <!-- Table Section -->
-    <div>
-        <div class="table-wrapper-scroll-y my-custom-scrollbar" dir="rtl">
-            <table class="ui compact striped selectable table" id="financial_table">
-                <thead>
-                    <tr>
-                        <th>שם</th>
-                        <th>מספר טלפון</th>
-                        <th>קבוצה</th>
-                        <th>סה"כ חובות</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
         </div>
 
-        <!-- End Of Table -->
+
     </div>
 
 
