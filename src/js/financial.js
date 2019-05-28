@@ -1,9 +1,8 @@
 const firestore = firebase.firestore();
-let memberList =[];
+let memberList = [];
+let displayInTable = [];
 
 $(document).ready(function () {
-
-
   getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
     $('#loader').removeClass('active'); // remove the loader .
 
@@ -12,16 +11,57 @@ $(document).ready(function () {
     getGroupsData().then(groupsData => {
       setGroups(groupsData);
     })
-  
+
     //setting functionality
     $("#addPaymentForm").submit(addPayment);
     $("#charge").change(updatePaymentMethodDropDown);
-    fill_table(); 
+    displayAll();
+  })
 
-})
+  $("#displayAllBtn").click(displayAll);
+  $("#displayOnlyRedBtn").click(displayOnlyRed);
+  $("#displayOnlyGreenBtn").click(displayOnlyGreen);
+
 
 });
 
+function displayOnlyGreen() {
+  displayInTable = [];
+  memberList.forEach(member => {
+    let sum = sumAllPayments(member.FinancialMonitoring);
+    if (sum < 0)
+      displayInTable.push({
+        member,
+        sum
+      });
+  })
+  fill_table(displayInTable);
+}
+
+function displayOnlyRed() {
+  displayInTable = [];
+  memberList.forEach(member => {
+    let sum = sumAllPayments(member.FinancialMonitoring);
+    if (sum > 0)
+      displayInTable.push({
+        member,
+        sum
+      });
+  })
+  fill_table(displayInTable);
+}
+
+function displayAll() {
+  displayInTable = [];
+  memberList.forEach(member => {
+    let sum = sumAllPayments(member.FinancialMonitoring);
+    displayInTable.push({
+      member,
+      sum
+    });
+  })
+  fill_table(displayInTable);
+}
 
 
 function addPayment(e) {
@@ -29,32 +69,32 @@ function addPayment(e) {
   const $group = $("#group").val();
   console.log($group);
   const $amount = $("#amount").val() * $("#charge").val(); //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
-  let $payMethod;
-  /*if charge value is "1" (חיוב) -> paymentMethod is not needed then set its value to empty string*/
-  if ($("#charge").val() == 1) {
-    $payMethod = "";
-  } else {
-    $payMethod = $("#paymentMethod").val();
-  }
+
   let id = uuidv4();
   const paymentObj = {
     Details: $("#details").val(),
     Date: $("#datePicker").val(),
     Amount: $amount,
     Charge: $("#charge").val(),
-    PaymentMethod: $payMethod,
+    PaymentMethod: "", //DONT NEED THIS FOR GROUP PAYMENT!
     Id: id,
   };
 
   updateDbAndSession(paymentObj, $group);
-  fill_table();
+
+  displayInTable.forEach(elem => {
+    if (elem.member.Group === $group)
+      elem.sum += $amount;
+  })
+
+  fill_table(displayInTable);
+
   $("#details").val("");
   $("#datePicker").attr("value", todayDate());
   $("#charge").val("");
   $("#amount").val("");
   $("#paymentMethod").val("");
   $("#group").val("");
-
 }
 
 function updateDbAndSession(paymentObj, group) {
@@ -62,7 +102,7 @@ function updateDbAndSession(paymentObj, group) {
     if (member.Group === group) {
       firestore.collection("Members").doc(member.Key).update({
         FinancialMonitoring: firebase.firestore.FieldValue.arrayUnion(paymentObj)
-      });
+      })
       member.FinancialMonitoring.push(paymentObj);
     }
   })
@@ -111,20 +151,24 @@ function clearTableRows() {
 }
 
 /*TODO: populate table with data from the selectedMember financialTracking array*/
-function fill_table() {
+function fill_table(displayArray) {
   clearTableRows();
   setSum(0);
-  memberList.forEach(member => {
-    let sum = sumAllPayments(member.FinancialMonitoring);
-    if (sum > 0)
-      insertToTable(member,sum);
+  displayArray.sort(function (a, b) {
+    if (a.sum < b.sum)
+      return 1;
+    if (a.sum > b.sum)
+      return -1;
+    return 0;
+  });
+  displayArray.forEach(elem => {
+    insertToTable(elem.member, elem.sum);
   })
   $('#financial_table td').click(function () {
     const id = ($(this).closest('tr').attr('id'));
-    console.log(id); // add click even to every row!!!
     if (id) {
       sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
-      document.location.href = 'viewMemberFinancial.html'; //TODO   show the view member. we need to change this command to new window
+      document.location.href = 'viewMemberFinancial.html';
     }
 
   });
@@ -209,23 +253,23 @@ function setGroups(groupsData) {
 /*return a promise - mean, that this function return something that we can do .then() after it*/
 function getAllMembers() {
   return new Promise((resolve) => { // resolve <--->is need with promise.
-      if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
-          console.log("memberList is from FireBase")
-          firestore.collection("Members").where("IsAdult", "==", "false").get()
-              .then(function (querySnapshot) {
-                  querySnapshot.forEach(function (doc) {
-                      const person = doc.data(); // pointer for document
-                      memberList.push(person); // add for array of all names
-                  })
-                  sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
-                  resolve(memberList);
-              })
-              
-      } else {
-          memberList = JSON.parse(sessionStorage.getItem('memberList'));
-          console.log("memberlist is from session")
+    if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
+      console.log("memberList is from FireBase")
+      firestore.collection("Members").where("IsAdult", "==", "false").get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            const person = doc.data(); // pointer for document
+            memberList.push(person); // add for array of all names
+          })
+          sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
           resolve(memberList);
-      }
+        })
+
+    } else {
+      memberList = JSON.parse(sessionStorage.getItem('memberList'));
+      console.log("memberlist is from session")
+      resolve(memberList);
+    }
 
   })
 
@@ -239,4 +283,3 @@ function uuidv4() {
     return v.toString(16);
   });
 }
-

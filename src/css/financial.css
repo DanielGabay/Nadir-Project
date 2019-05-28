@@ -1,5 +1,10 @@
+
 .table {
   text-align: right !important;
+}
+
+.table td{
+  cursor: pointer;
 }
 
 .my-custom-scrollbar {
@@ -9,14 +14,9 @@
 
 .table-wrapper-scroll-y {
   display: block;
-  margin: 20px 160px 20px 160px;
+  margin: 20px 300px 20px 300px;
 }
 
-.wrapper{
-  padding: 0 210px;
-  text-align: right !important;
-  margin: 20px 100px 110px 110px;
-}
 
 th {
   text-size-adjust: 100px !important;
@@ -26,15 +26,6 @@ th {
 td {
   text-size-adjust: 100px !important;
   font-size: 16px;
-}
-
-td:hover {
-  cursor: pointer;
-}
-
-.modalContent{
-  padding: 50px;
-  text-align: right !important;
 }
 
 .vmf-positive {
@@ -49,6 +40,6 @@ td:hover {
 }
 
 .accordion {
-  margin: auto !important;
-  width: 50% !important;
+  margin: 20px auto !important;
+  width: 30% !important;
 }
