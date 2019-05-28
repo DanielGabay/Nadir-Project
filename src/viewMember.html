@@ -68,6 +68,24 @@
       </div>
     </div>
 
+    <div class="ui mini modal" id="adlt-section">
+      <div class="ta-ndr header" id="ask-move-adlt">
+       <p>הוסף עיסוק</p>
+        <input type="text" id="adlt-proffesion" placeholder="">
+      </div>
+
+      <div class="actions ta-ndr two fields">
+        <div class="ui positive left labeled icon button" id="move-adlt">
+         אישור
+          <i class="checkmark icon"></i>
+        </div>
+        <div class="ui negative left labeled icon button">
+          ביטול
+          <i class="delete icon"></i>
+        </div>
+      </div>
+    </div>
+
   <div class="title">
     <h1 id="nameTitle">
     </h1>
@@ -144,17 +162,6 @@
             <label>הערות:</label>
             <textarea id="comments" readonly="" rows="4"></textarea>
           </div>
-
-          <div class="two fields" id="adltSection">
-            <div class="field">
-              <label>האם בוגר:</label>
-              <input readonly="" id="isAdult">
-            </div>
-            <div class="field" id="proffesionDiv">
-              <label>עיסוק:</label>
-              <input type="text" readonly="" id="adultProffesion">
-            </div>
-          </div>
         </div>
        
       </form>
@@ -162,6 +169,7 @@
       <button id="edit-btn" onclick="updateMemDetails()" class="ui purple button">עריכה<i class="edit icon"></i></button>
       <button id="print-btn" onclick="window.print()" class="ui purple button">הדפסה<i class="print icon"></i></button>
       <button id="dlt-btn" onclick="deleteFunc()" class="ui purple button">מחיקה<i class="trash icon"></i></button>
+      <button id="adlt-btn" onclick="moveToAdlt()" class="ui purple button">העבר לבוגרים<i class="paper plane icon"></i></button>
       <br><br>
     </div>
   </div>
