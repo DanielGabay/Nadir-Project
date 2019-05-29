@@ -12,8 +12,8 @@ $(document).ready(function () {
 
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   console.log("we passed this data to the next screen:" + selectedPersonKey);
-  theMember = JSON.parse(sessionStorage.getItem('memberList')).find(x => x.Key === selectedPersonKey);
-  updateMember = JSON.parse(sessionStorage.getItem('memberList')).find(x => x.Key === selectedPersonKey);
+  theMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
+  updateMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
   console.log("this is who we need:" + theMember.Key);
   setFields(); //set the page of the member
 });
@@ -120,30 +120,29 @@ function updateMemDetails() {
   }
 }
 
-function moveToAdlt() {
+function moveToMember() {
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   let memberList = JSON.parse(sessionStorage.getItem('memberList'));
-  let foundIndex = memberList.findIndex(x => x.Key == selectedPersonKey); //index of wanted member
   let adltList = JSON.parse(sessionStorage.getItem('adltList'));
+  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //index of wanted member
 
-
-  $('.adlt-btn')
+  $('.mmbr-btn')
     .modal({
       allowMultiple: false
     });
   // attach events to buttons
-  $('#acpt-adlt-section')
-    .modal('attach events', '#adlt-section #move-adlt')
+  $('#acpt-mmbr-section')
+    .modal('attach events', '#mmbr-section #move-mmbr')
     .click(function () { //move from session memberList to adultList and update the databse
       if (foundIndex > -1) {
-        updateMember.IsAdult = "true";
-        updateMember.AdultProffesion = $("#adlt-proffesion").val();
-        if (adltList != null) { //check if the adult list is improved
-          adltList.push(updateMember);
-          sessionStorage.setItem('adltList', JSON.stringify(adltList)); // save it in session
+        updateMember.IsAdult = "false";
+        updateMember.AdultProffesion = "";
+        if (memberList != null) { //check if the adult list is improved
+            memberList.push(updateMember);
+          sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it in session
         }
-        memberList.splice(foundIndex, 1);
-        sessionStorage.setItem('memberList', JSON.stringify(memberList)); //save to session after delete
+        adltList.splice(foundIndex, 1);
+        sessionStorage.setItem('adltList', JSON.stringify(adltList)); //save to session after delete
   
         ///update database
         let updateRef = firestore.collection("Members").doc(selectedPersonKey);
@@ -174,11 +173,11 @@ function moveToAdlt() {
       }
     });
   // show first now
-  $('#adlt-section')
+  $('#mmbr-section')
     .modal('show');
 
-  $('#adlt-section').modal('show');
-  $(".adlt-btn").modal({
+  $('#mmbr-section').modal('show');
+  $(".mmbr-btn").modal({
     closable: true
   });
 
@@ -186,30 +185,30 @@ function moveToAdlt() {
 
 function updateFunc() { //update in session and database
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
-  let memberList = JSON.parse(sessionStorage.getItem('memberList'));
-  let foundIndex = memberList.findIndex(x => x.Key == selectedPersonKey); //index of wanted member
+  let adltList = JSON.parse(sessionStorage.getItem('adltList'));
+  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //index of wanted member
 
   //update the member in the list
-  memberList[foundIndex].First = updateMember.First;
-  memberList[foundIndex].Last = updateMember.Last;
-  memberList[foundIndex].Date = updateMember.Date;
-  memberList[foundIndex].Group = updateMember.Group;
-  memberList[foundIndex].Comments = updateMember.Comments;
-  memberList[foundIndex].School = updateMember.School;
-  memberList[foundIndex].PhoneNum = updateMember.PhoneNum;
-  memberList[foundIndex].Grade = updateMember.Grade;
-  memberList[foundIndex].ParentPhoneNum = updateMember.ParentPhoneNum;
-  memberList[foundIndex].YouthMovement = updateMember.YouthMovement;
-  memberList[foundIndex].AnotherEducation = updateMember.AnotherEducation;
-  memberList[foundIndex].IsInstructor = updateMember.IsInstructor;
+  adltList[foundIndex].First = updateMember.First;
+  adltList[foundIndex].Last = updateMember.Last;
+  adltList[foundIndex].Date = updateMember.Date;
+  adltList[foundIndex].Group = updateMember.Group;
+  adltList[foundIndex].Comments = updateMember.Comments;
+  adltList[foundIndex].School = updateMember.School;
+  adltList[foundIndex].PhoneNum = updateMember.PhoneNum;
+  adltList[foundIndex].Grade = updateMember.Grade;
+  adltList[foundIndex].ParentPhoneNum = updateMember.ParentPhoneNum;
+  adltList[foundIndex].YouthMovement = updateMember.YouthMovement;
+  adltList[foundIndex].AnotherEducation = updateMember.AnotherEducation;
+  adltList[foundIndex].IsInstructor = updateMember.IsInstructor;
 
-  sessionStorage.setItem('memberList', JSON.stringify(memberList)); //push to session 
+  sessionStorage.setItem('adltList', JSON.stringify(adltList)); //push to session 
   //if name was change need to update title
-  $("#nameTitle").replaceWith("<h1 id='nameTitle'>" + memberList[foundIndex].First + " " + memberList[foundIndex].Last + "</h1>");
+  $("#nameTitle").replaceWith("<h1 id='nameTitle'>" + adltList[foundIndex].First + " " + adltList[foundIndex].Last + "</h1>");
 
   //after edit 'theMember' = updateMember : help us to check if other edit was made
-  theMember = JSON.parse(sessionStorage.getItem('memberList')).find(x => x.Key === selectedPersonKey);
-  updateMember = JSON.parse(sessionStorage.getItem('memberList')).find(x => x.Key === selectedPersonKey);
+  theMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
+  updateMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
 
   ///update database
   let updateRef = firestore.collection("Members").doc(selectedPersonKey);
@@ -239,31 +238,9 @@ function updateFunc() { //update in session and database
 
 function deleteFunc() {
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
-  let memberList = JSON.parse(sessionStorage.getItem('memberList'));
-  let foundIndex = memberList.findIndex(x => x.Key == selectedPersonKey); //inddex of wanted member
-  let sumPayment = sumAllPayments(memberList[foundIndex].FinancialMonitoring);
+  let adltList = JSON.parse(sessionStorage.getItem('adltList'));
+  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //inddex of wanted member
 
-  if (sumPayment != 0) { //if the memeber have charges
-    $('#dlt-section-fin').modal('show');
-    $(".dlt-btn").modal({
-      closable: true
-    });
-
-    $("#payment-btn").click(function () {
-      document.location.href = "viewMemberFinancial.html";
-    });
-
-    $("#dlt-anyway").click(function () {
-      if (foundIndex > -1) {
-        memberList.splice(foundIndex, 1);
-        sessionStorage.setItem('memberList', JSON.stringify(memberList)); //save to session after delete
-        firestore.collection("Members").doc(selectedPersonKey).delete().
-        then(function () {
-          document.location.href = "homePage.html";
-        });
-      }
-    });
-  } else { //just delete
     $('#dlt-section').modal('show');
     $(".dlt-btn").modal({
       closable: true
@@ -271,8 +248,8 @@ function deleteFunc() {
 
     $("#dlt").click(function () {
       if (foundIndex > -1) {
-        memberList.splice(foundIndex, 1);
-        sessionStorage.setItem('memberList', JSON.stringify(memberList)); //save to session after delete 
+        adltList.splice(foundIndex, 1);
+        sessionStorage.setItem('adltList', JSON.stringify(adltList)); //save to session after delete 
         firestore.collection("Members").doc(selectedPersonKey).delete().
         then(function () {
           document.location.href = "homePage.html";
@@ -280,7 +257,7 @@ function deleteFunc() {
       }
     });
   }
-}
+
 
 function displayGroups() {
   let str = "";

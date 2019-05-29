@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/viewAdult.css" />
+  <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+  <link rel="stylesheet" href="css/ndr.css">
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="semantic/semantic.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/viewAdult.js"></script>
+  <script src="js/transition.js"></script>
+  <script>
+    $(function () {
+      $('#navbar').load('topNavbar.html');
+    });
+  </script>
+
+</head>
+
+<body class="ndr" dir="rtl">
+
+  <div id="navbar"></div>
+
+  <div class="ui mini modal" id="dlt-section">
+      <div class="ta-ndr header" id="ask-dlt">
+        האם ברצונך למחוק?
+      </div>
+      <div class="actions ta-ndr two fields">
+        <div class="ui positive left labeled icon button" id="dlt">
+          כן
+          <i class="checkmark icon"></i>
+        </div>
+        <div class="ui negative left labeled icon button">
+          לא
+          <i class="delete icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui mini modal" id="mmbr-section">
+      <div class="ta-ndr header" id="ask-move-mmbr">
+        <p>לחץ אישור להעברת הבוגר לרשימת החניכים</p>
+    </div>
+
+      <div class="actions ta-ndr two fields">
+        <div class="ui positive left labeled icon button" id="move-mmbr">
+         אישור
+          <i class="checkmark icon"></i>
+        </div>
+        <div class="ui negative left labeled icon button">
+          ביטול
+          <i class="delete icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui mini modal" id="acpt-mmbr-section">
+      <div class="ta-ndr header" id="acpt-move-mmbr">
+       <p>הבוגר הועבר לחניכים בהצלחה</p>
+      </div>
+
+      <div class="actions ta-ndr">
+        <div class="ui positive left labeled icon button" id="acpt-mmbr">
+         אישור
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
+  <div class="title">
+    <h1 id="nameTitle">
+    </h1>
+    <button id="payment-track-btn" class="ui purple button ml-3">מעקב כספי</button>
+    <button id="personal-track-btn" class="ui purple button">מעקב אישי</button>
+  </div><br>
+
+  <div class="ndr">
+    <div class="ndr-form">
+      <form id="form-Add">
+        <div class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label>שם פרטי:</label>
+              <input type="text" readonly="" id="first-name">
+            </div>
+            <div class="field">
+              <label>שם משפחה:</label>
+              <input type="text" readonly="" id="last-name">
+            </div>
+          </div>
+
+          <div class="two fields">
+            <div class="field">
+              <label>טלפון:</label>
+              <input type="text" readonly="" id="phone-num" maxlength="10">
+            </div>
+            <div class="field">
+              <label>קבוצה:</label>
+              <input type="text" readonly="" id="group">
+            </div>
+          </div>
+
+
+          <div class="two fields">
+            <div class="field">
+              <label>בית ספר:</label>
+              <input type="text" readonly="" id="school">
+            </div>
+
+            <div class="field">
+              <label>כיתה:</label>
+              <input readonly="" id="grade">
+            </div>
+          </div>
+
+          <div class="two fields">
+            <div class="field">
+              <label>תאריך לידה:</label>
+              <input type="text" id="date" readonly="">
+            </div>
+            <div class="field">
+              <label>טלפון אבא/אמא:</label>
+              <input type="text" readonly="" maxlength="10" id="parent-phone-num">
+            </div>
+          </div>
+
+          <div class="three fields">
+            <div class="field">
+              <label>תנועת נוער:</label>
+              <input type="text" readonly="" id="youth-movement">
+            </div>
+            <div class="field">
+              <label>האם מדריך:</label>
+              <input readonly="" id="is-instructor">
+            </div>
+            <div class="field">
+              <label>מסגרת נוספת:</label>
+              <input type="text" readonly="" id="another-education">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>הערות:</label>
+            <textarea id="comments" readonly="" rows="4"></textarea>
+          </div>
+        </div>
+       
+      </form>
+      <br>
+      <button id="edit-btn" onclick="updateMemDetails()" class="ui purple button">עריכה<i class="edit icon"></i></button>
+      <button id="print-btn" onclick="window.print()" class="ui purple button">הדפסה<i class="print icon"></i></button>
+      <button id="dlt-btn" onclick="deleteFunc()" class="ui purple button">מחיקה<i class="trash icon"></i></button>
+      <button id="mmbr-btn" onclick="moveToMember()" class="ui purple button">העבר לחניכים<i class="paper plane icon"></i></button>
+      <br><br>
+    </div>
+  </div>
+</body>
+
+
+</html>
