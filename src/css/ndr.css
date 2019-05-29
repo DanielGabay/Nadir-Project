@@ -5,7 +5,7 @@
 
   
   body{
-    background-image: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%);
+    background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
     text-align: center;
   } 
 

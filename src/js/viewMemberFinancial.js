@@ -5,9 +5,16 @@ let selectedPaymentToRemove = null;
 
 /**When document is ready */
 $(document).ready(function () {
-  $('.ui.accordion').accordion(); //activate acordion effect
+  
+  $('#addPayModalBtn').popup({
+    inline: true
+  })
+
+  $('#addPayModalBtn').click(function(){
+    $('#addPaymentModal').modal('show');
+  })
   $("#datePicker").attr("value", todayDate()); //set datePicker to current date automaticly
-  let name = "מעקב כספי: " + selectedMember.First + " " + selectedMember.Last;
+  let name = "מעקב כספי- " + selectedMember.First + " " + selectedMember.Last;
   $("#namePlaceHoler").text(name); //place selectedMember name at the header
 
   $("#modalYes").click(deletePayment);

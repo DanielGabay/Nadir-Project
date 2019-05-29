@@ -19,6 +19,8 @@
 th {
   text-size-adjust: 100px !important;
   font-size: 20px;
+  position:sticky !important;
+  top: 0px;
 }
 
 td {
@@ -44,4 +46,7 @@ td {
 
 .ui.modal {
   text-align: center !important;
+}
+.modalContent{
+  background-color: #f1f1f1 !important;
 }

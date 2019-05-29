@@ -1,5 +1,14 @@
-.modalText{
-  text-align: right !important;
+.ui.modal {
+  text-align: center !important;
+}
+
+.modalHeader{
+  /* background-color: #cccccc !important; */
+  
+}
+
+.modalContent{
+  background-color: #f1f1f1 !important;
 }
 
 
@@ -12,25 +21,28 @@
   text-align: right !important;
 }
 
-.trash:hover{
+.table td {
   cursor: pointer;
 }
 
 .my-custom-scrollbar {
-  height: 300px;
+  height: 250px;
   overflow: auto;
 }
 
 .table-wrapper-scroll-y {
   display: block;
-  margin: 20px 300px 20px 300px;
+  margin: 20px 200px 20px 200px;
 }
-
 
 th {
   text-size-adjust: 100px !important;
   font-size: 20px;
+  position:sticky !important;
+  top: 0px;
 }
+
+
 
 td {
   text-size-adjust: 100px !important;
@@ -48,7 +60,7 @@ td {
   font-weight: bold;
 }
 
-.accordion {
-  margin: 20px auto !important;
-  width: 30% !important;
+#addPayModalBtn {
+  background-color:#7fa99b;
+  color: white;
 }

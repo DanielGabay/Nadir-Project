@@ -8,9 +8,11 @@
     margin: 110px;
   }
 
-  th{
-    text-size-adjust:  100px !important;
+  th {
+    text-size-adjust: 100px !important;
     font-size: 20px;
+    position:sticky !important;
+    top: 0px;
   }
 
   td{

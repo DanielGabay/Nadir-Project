@@ -37,31 +37,17 @@
     <div id="navbar"></div>
     <h1 id="namePlaceHoler"></h1>
 
+    <h2 class="ui horizontal divider header">
+        סך הכל:
+        <span id="summaryAmount" dir="ltr">0</span>
+    </h2>
 
-
-    
-    <div class = "pageWrapper">
-    <div class="sumAll">
-            <div class="ui segments">
-                <div class="ui segment">
-                    <p>סך הכל:</p>
-                </div>
-                <div class="ui secondary segment">
-                    <p id="summaryAmount" dir="ltr">0</p>
-                </div>
-            </div>
+    <div class="ui small modal" dir="rtl" id ="addPaymentModal">
+        <i class="close icon"></i>
+        <div class="header modalHeader">
+            הוסף תשלום קבוצתי
         </div>
-
-    <!-- Add Payment Section -->
-
-    <div class="ui styled accordion">
-        <div class="title">
-            <i class="dropdown icon"></i>
-            הוסף תשלום
-        </div>
-        <div class="content">
-
-
+        <div class="content modalContent">
             <form id="addPaymentForm">
                 <div class="ui form">
                     <div class="two fields">
@@ -99,26 +85,29 @@
                             </select>
                         </div>
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <button id="addPaymentBtn" type="submit" class="ui primary button">הוסף</button>
+                    </div> -->
+                    <div class="actions left floated">
+                        <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
+                                class="checkmark icon"></i></button>
+                        <div class="ui negative left labeled icon button">ביטול<i class="close icon"></i></div>
                     </div>
-                </div>
             </form>
-            <div class="accordion transition hidden"></div>
         </div>
     </div>
+    </div>
 
-    <!-- End of Add Payment Section -->
 
-    
-
-    <!-- Table Section -->
-
-    <div class="my-custom-scrollbar table-wrapper-scroll-y" id ="tablePlaceHolder" dir="rtl">
-       
+    <div class="my-custom-scrollbar table-wrapper-scroll-y" id="tablePlaceHolder" dir="rtl">
     </div>
     <!-- End Of Table -->
-</div>
+
+
+    <div class="ui huge circular icon button" data-content="הוסף תשלום/זיכוי" data-position="right center" id="addPayModalBtn">
+            <i class="add icon"></i>
+    </div>
+
 </body>
 
 </html>

@@ -5,8 +5,6 @@ let displayInTable = [];
 $(document).ready(function () {
   getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
     $('#loader').removeClass('active'); // remove the loader .
-
-    $('.ui.accordion').accordion(); //activate acordion effect
     $("#datePicker").attr("value", todayDate());
     getGroupsData().then(groupsData => {
       setGroups(groupsData);
