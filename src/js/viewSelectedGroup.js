@@ -1,5 +1,5 @@
 const firestore = firebase.firestore();
-
+const noGroupName = "לא משויך לקבוצה";
 let selectedGroup = {}  //  save the group we just selected + if add pressed-> be the group we want to add .
 let groupsData = []; // // save groups data from firebase/ session
 let groupMembers = []; // save the groupMembers of the selected group
@@ -9,7 +9,7 @@ $(document).ready(function () {
     getGroupsData().then(groupsData => {
 
         groupsDropDown(groupsData);
-       // $(.text).val("hhhh");
+        // $(.text).val("hhhh");
         $('#loader').removeClass('active'); // remove the loader .
 
         $('.ui.dropdown')   // drop down settings
@@ -22,6 +22,16 @@ $(document).ready(function () {
     $('#editGroupBtn').unbind().click(function () {     // edit button press
         console.log("edit clicked")
         formAddToEdit();
+    });
+
+    $('#delGroupBtn').unbind().click(function () {     // del button press
+        console.log("del clicked")
+        $('#del-popUp').modal('show');
+    });
+
+    $("#modalYes").click(deleteGroup);
+    $("#modalNo").click(function () {
+        $('.mini.modal').modal('hide');
     });
 
     $('#addGroupForm').unbind().submit(function (e) {   // add button press
@@ -40,7 +50,11 @@ $(document).ready(function () {
 
             if (groupsData.find(group => group.groupName == selectedGroup.groupName)) // if there is already group with this name
             {
-                alert("שם הקבוצה תפוס , בחר שם אחר");
+                $('#successfully-add').modal('show');
+                $("#popUpText").text("שם הקבוצה תפוס , בחר שם אחר");
+                $(".add-btn").modal({
+                    closable: true
+                });
                 return;
             }
             addToDataBase();
@@ -116,7 +130,7 @@ function onChange(value, text, $choise) {
                 if (id) {
                     sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
                     document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
-                }     
+                }
             });
         }
         else {
@@ -141,6 +155,7 @@ function groupDetails() {
     $("#showInstructorPhone b").text(selectedGroup.groupPhoneNum);
     $('#editGroupBtn').show();  // now can press the edit button.
     $('#trackingGroupBtn').show();
+    $('#delGroupBtn').show();
 }
 
 /**  section ADD NEW GROUP */
@@ -161,6 +176,7 @@ function ScreenToaddGroup() {
     $("#groupIcons").hide();
     $('#editGroupBtn').hide();
     $('#trackingGroupBtn').hide();
+    $('#delGroupBtn').hide();
 
     const $form = $('#addGroupForm');
     $form.show();
@@ -184,6 +200,7 @@ function addToDataBase() {
 
         addKeyToGroup(docRef);
         $('#successfully-add').modal('show');
+        $("#popUpText").text("הקבוצה הוספה בהצלחה!");
         $(".add-btn").modal({
             closable: true
         });
@@ -241,6 +258,7 @@ function formEditToAdd() {
     $("#guideName").val("");
     $('#editGroupBtn').hide();
     $('#trackingGroupBtn').hide();
+    $('#delGroupBtn').hide();
     $("#guidePhoneNum").val("");
     $('#addGroupBtn').text("הוסף קבוצה");
     groupDetails();
@@ -255,6 +273,7 @@ function formAddToEdit() {
     $("#showInstructorPhone b").text("");
     $('#addGroupForm').show();
     $('#editGroupBtn').hide();
+    $('#delGroupBtn').hide();
     $('#trackingGroupBtn').hide();
     $('#formHeader').text(selectedGroup.groupName)
     $("#newGroupName").val(selectedGroup.groupName);
@@ -270,11 +289,15 @@ function updateDatabase() {
 
 
     let isGroupNameChanged = selectedGroup.groupName != groupNameUpdated;
-  //  console.log("name changed? " + isGroupNameChanged);
+    //  console.log("name changed? " + isGroupNameChanged);
 
     if (isGroupNameChanged && groupsData.find(group => group.groupName == groupNameUpdated)) // if there is already group with the new name
     {
-        alert("שם הקבוצה תפוס , בחר שם אחר");
+        $('#successfully-add').modal('show');
+        $("#popUpText").text("שם הקבוצה תפוס , בחר שם אחר");
+        $(".add-btn").modal({
+            closable: true
+        });
         return;
     }
 
@@ -300,7 +323,7 @@ function updateDatabase() {
 
             if (isGroupNameChanged) {
                 changeGroupName(selectedGroup.groupName, groupNameUpdated);
-             
+
             }
             selectedGroup.groupName = groupNameUpdated
             selectedGroup.groupInstructor = guideNameUpdated
@@ -383,13 +406,13 @@ function showTable(GroupMembers) {
     GroupMembers.sort(function (a, b) {
 
         let nameA = a.First + " " + a.Last;
-        let nameB = b.First + " " + b.Last;  
-        if (nameA < nameB) 
-          return -1;
+        let nameB = b.First + " " + b.Last;
+        if (nameA < nameB)
+            return -1;
         if (nameA > nameB)
-          return 1;
-        return 0; 
-      });
+            return 1;
+        return 0;
+    });
 
     let str = '<thead>  <tr> <th>שם </th> <th>טלפון</th> </tr> </thead>  <tbody> ';
     GroupMembers.forEach(function (member) {
@@ -402,14 +425,13 @@ function showTable(GroupMembers) {
 
 function changeGroupName(oldGroupName, newGroupName) {
 
-    if(groupMembers)
-    {
-    updateGroupNameSession(oldGroupName, newGroupName);
+    if (groupMembers) {
+        updateGroupNameSession(oldGroupName, newGroupName);
 
-    groupMembers.map(member => {
-        updateGroupNameFB(member.Key, newGroupName)
-    })
-}
+        groupMembers.map(member => {
+            updateGroupNameFB(member.Key, newGroupName)
+        })
+    }
 }
 
 function updateGroupNameFB(Key, newGroupName) {
@@ -433,16 +455,45 @@ function updateGroupNameSession(oldGroupName, newGroupName) {
     if (sessionStorage.getItem("memberList") != null && JSON.parse(sessionStorage.getItem('memberList')).length > 0)  // if i got the session
     {
         console.log("before");
-        
+
         memberList = JSON.parse(sessionStorage.getItem('memberList'));
         memberList.forEach(member => {
 
-            if (member.Group == oldGroupName)
-            {
+            if (member.Group == oldGroupName) {
                 member.Group = newGroupName;
             }
         })
         sessionStorage.setItem('memberList', JSON.stringify(memberList));
         $(".text").text(newGroupName); // change the text of the drop down
     }
+}
+
+
+function deleteGroup() {
+    if (selectedGroup) {
+        let groupName = selectedGroup.groupName;
+
+        if (groupName == noGroupName) // dont let any 1 to delete the noGroupName 'Group'
+        {
+            $('#successfully-add').modal('show');
+            $("#popUpText").text("לא ניתן למחוק קבוצה זאת!");
+            $(".add-btn").modal({
+                closable: true
+            });
+            return;
+        }
+
+
+        console.log("delete group now!")
+        let foundIndex = groupsData.findIndex(x => x.Key == selectedGroup.Key);
+        groupsData.splice(foundIndex, 1);
+        sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); //save to session after delete
+        firestore.collection("Groups").doc(selectedGroup.Key).delete().
+            then(function () {
+                changeGroupName(groupName, noGroupName);
+                document.location.href = "homePage.html";
+            });
+
+    }
+
 }

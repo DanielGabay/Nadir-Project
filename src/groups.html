@@ -25,9 +25,20 @@
 <body class="ndr" dir="rtl">
 
 
+    <div id="del-popUp" class="ui mini modal">
+        <i class="window close icon"></i>
+        <div class="header modalText">
+             האם בטוח שברצונך למחוק את הקבוצה?
+        </div>
+        <div class="actions">
+            <div class="ui positive left labeled icon button" id="modalYes">כן<i class="checkmark icon"></i></div>
+            <div class="ui negative left labeled icon button" id="modalNo">לא<i class="close icon"></i></div>
+        </div>
+    </div>
+
+
     <div class="ui mini modal" id="successfully-add">
-        <div class="ta-ndr header">
-            הקבוצה הוספה בהצלחה !
+        <div id="popUpText" class="ta-ndr header">
         </div>
         <div class="actions ta-ndr">
             <div class="ui positive left labeled icon button ">
@@ -49,7 +60,7 @@
                 <div class="column">
 
                     <div class="field">
-                        <div class="ui floating labeled icon dropdown scrolling button">
+                        <div  class="textLeft ui floating labeled icon dropdown scrolling button">
                             <i class="group icon"></i>
                             <span class="text">בחר קבוצה</span>
                             <div id="groups-menu" class="menu">
@@ -123,12 +134,17 @@
                             </div>
                         </div>
                     </form>
+                    
                     <button class=" ui button  primary button" id="editGroupBtn">
                         ערוך קבוצה
                     </button>
                     <button class="ui button  primary button" id="trackingGroupBtn">
                         מעקב קבוצתי
                     </button>
+                    <button class="ui button  primary button" id="delGroupBtn">
+                        מחק קבוצה
+                    </button>
+                    
                 </div>
             </div>
         </div>

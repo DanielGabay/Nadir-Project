@@ -11,6 +11,16 @@
     text-align: right !important;
 }
 
+.actions{
+  text-align: center !important;
+}
+
+.textLeft{
+  
+    text-align: right !important;
+
+}
+
 .ta-ndr{
     text-align: center !important; 
   }
@@ -26,9 +36,15 @@
 }
 
 
+#delGroupBtn{
+  margin-top: 20px !important;
+  /* margin-left: 10px !important; */
+  display: none;
+}
+
 #editGroupBtn{
     margin-top: 20px !important;
-    margin-left: 10px !important;
+    /* margin: 10px !important; */
     display: none;
 }
 

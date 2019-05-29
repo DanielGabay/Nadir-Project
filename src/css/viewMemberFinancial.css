@@ -55,6 +55,10 @@ td {
 
 }
 
+.actions{
+  text-align: center !important;
+}
+
 .vmf-negative {
   color: red;
   font-weight: bold;
