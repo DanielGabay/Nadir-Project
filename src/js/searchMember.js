@@ -109,7 +109,7 @@ function showTable(memberList) {
             return 1;
         return 0;
     });
-    console.log(memberList);
+    //console.log(memberList);
     let str = '<thead> <tr> <th>שם </th><th>מספר טלפון </th> <th>קבוצה</th> </tr> </thead>  <tbody> ';
     memberList.forEach(function (member) {
         str += '<tr class = "table-text" id = ' + member.Key + '> <td>' + member.First + ' ' + member.Last + '</td><td>' + member.PhoneNum + '</td> <td>' + (member.Group || "לא משויך לקבוצה") + '</td> </tr>';
