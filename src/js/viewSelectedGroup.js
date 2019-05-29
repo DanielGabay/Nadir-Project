@@ -359,7 +359,7 @@ function getGorupMembers(selectedgroup) {
         //    let Groupmembers = []; // save all the member data.
 
         if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time   // if its the first time 
-            firestore.collection("Members").where("Group", "==", selectedgroup).get()
+            firestore.collection("Members").where("Group", "==", selectedgroup).where("IsAdult", "==", "false").get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         const person = doc.data(); // pointer for document
