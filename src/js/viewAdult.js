@@ -23,6 +23,7 @@ function setFields() { //set the fields with info of wanted member
   $("#first-name").val(theMember.First);
   $("#last-name").val(theMember.Last);
   $("#date").val(theMember.Date.split('-').reverse().join('/')); // will show in the right way dd/mm/yyyy
+  $("#adlt-proffesion").val(theMember.AdultProffesion);
   $("#group").val(theMember.Group);
   $("#comments").val(theMember.Comments);
   $("#school").val(theMember.School);
@@ -42,7 +43,7 @@ function setFields() { //set the fields with info of wanted member
 function updateMemDetails() {
   if (theMember) {
     if ($("#edit-btn").text() == "עריכה") { // edit btn was clicked, remove read only for all input
-      $("#adlt-btn").hide(); //hide the move to adult button after edit
+      $("#mmbr-btn").hide(); //hide the move to adult button after edit
       $("#edit-btn").text("שמור").append("<i class='save icon'></i>");
       $("#first-name").removeAttr("readonly");
       $("#last-name").removeAttr("readonly");
@@ -50,6 +51,8 @@ function updateMemDetails() {
       $("#date").attr("type", "date");
       $("#date").val(updateMember.Date);
       $("#group").removeAttr("readonly");
+      $("#adlt-proffesion").removeAttr("readonly");
+      $("#adlt-proffesion").val(theMember.AdultProffesion);
       $("#group").replaceWith("<select class='ui fluid dropdown' id='group'></select>");
       $("#group").append(displayGroups());
       $("#group").val(theMember.Group);
@@ -70,11 +73,12 @@ function updateMemDetails() {
       $("#is-instructor").val(theMember.IsInstructor);
     } else if ($("#edit-btn").text() == "שמור") { //save btn was clicked 
       $("#edit-btn").text("עריכה").append("<i class='edit icon'></i>");
-      $("#adlt-btn").show(); //show the move to adult button after save
+      $("#mmbr-btn").show(); //show the move to adult button after save
       //create new obj for update member
       updateMember.First = $("#first-name").val();
       updateMember.Last = $("#last-name").val();
       updateMember.Date = $("#date").val();
+      updateMember.AdultProffesion = $("#adlt-proffesion").val();
       updateMember.Group = $("#group").val();
       updateMember.Comments = $("#comments").val();
       updateMember.School = $("#school").val();
@@ -95,6 +99,8 @@ function updateMemDetails() {
       $("#date").attr("readonly", "");
       $("#date").attr("type", "text");
       $("#date").val(updateMember.Date);
+      $("#adlt-proffesion").attr("readonly", "");
+      $("#adlt-proffesion").val(updateMember.AdultProffesion);
       $("#group").replaceWith("<input type='text' readonly='' id='group'>"); //disable select 
       $("#group").val(updateMember.Group);
       $("#comments").attr("readonly", "");
@@ -201,6 +207,7 @@ function updateFunc() { //update in session and database
   adltList[foundIndex].YouthMovement = updateMember.YouthMovement;
   adltList[foundIndex].AnotherEducation = updateMember.AnotherEducation;
   adltList[foundIndex].IsInstructor = updateMember.IsInstructor;
+  adltList[foundIndex].AdultProffesion = updateMember.AdultProffesion;
 
   sessionStorage.setItem('adltList', JSON.stringify(adltList)); //push to session 
   //if name was change need to update title
@@ -225,7 +232,8 @@ function updateFunc() { //update in session and database
       ParentPhoneNum: updateMember.ParentPhoneNum,
       YouthMovement: updateMember.YouthMovement,
       AnotherEducation: updateMember.AnotherEducation,
-      IsInstructor: updateMember.IsInstructor
+      IsInstructor: updateMember.IsInstructor,
+      AdultProffesion: updateMember.AdultProffesion
     })
     .then(function () {
       console.log("Document successfully updated!BB!");
