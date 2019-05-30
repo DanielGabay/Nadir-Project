@@ -5,12 +5,12 @@ let selectedPaymentToRemove = null;
 
 /**When document is ready */
 $(document).ready(function () {
-  
+
   $('#addPayModalBtn').popup({
     inline: true
   })
 
-  $('#addPayModalBtn').click(function(){
+  $('#addPayModalBtn').click(function () {
     $('#addPaymentModal').modal('show');
   })
   $("#datePicker").attr("value", todayDate()); //set datePicker to current date automaticly
@@ -47,9 +47,10 @@ function addPayment(e) {
     Charge: $("#charge").val(),
     PaymentMethod: $payMethod,
     Id: id,
+    Receipt: $("#receipt").val(),
   };
 
-
+  console.log(paymentObj);
   if (getFinancialArrray().length == 0)
     createTable();
 
@@ -83,15 +84,15 @@ function fill_table() {
     createTable();
   financial_data.forEach(element => {
     insertToTable(element);
-    
+
   });
-  if(financial_data.length != 0)
+  if (financial_data.length != 0)
     sortTable();
 }
 
 function createTable() {
   let tableStr = '<table class="ui compact striped table" id="financial_table">'
-  tableStr += '<thead><tr><th></th><th>פרטים</th><th>תאריך</th><th>אופן תשלום</th><th>חובה</th><th>זכות</th></tr>'
+  tableStr += '<thead><tr><th></th><th>פרטים</th><th>תאריך</th><th>אופן תשלום</th><th>חובה</th><th>זכות</th><th>הונפקה קבלה?</th></tr>'
   tableStr += '</thead><tbody></tbody></table>';
   $("#tablePlaceHolder").append(tableStr);
 }
@@ -108,10 +109,60 @@ function insertToTable(obj) {
   } else {
     html += '<td></td><td class = "vmf-positive" dir="ltr">' + obj.Amount + '</td>';
   }
+  let receiptId = "btn" + obj.Id;
+  if (obj.Receipt && obj.Receipt === "false") {
+    html += '<td><div class = "ui circular yellow button" id = "' + receiptId + '" >לא</div></td>';
+  } else if (obj.Receipt && obj.Receipt === "true") {
+    html += '<td><div class = "ui circular primary button" id = "' + receiptId + '" >כן</div></td>';
+  } else {
+    html += '<td></td>';
+
+  }
+
+
   html += "</tr>"
   updateSum(obj.Amount);
   $table.append(html);
   setRemoveLisetener(obj.Id);
+  setReceiptLisetener(receiptId);
+}
+
+function setReceiptLisetener(btnId) {
+  $('#' + btnId).click(function (e) {
+    $btn = $('#' + btnId);
+    e.preventDefault();
+    let receiptVal;
+    if ($btn.text() === "כן"){
+      $btn.removeClass("primary").addClass("yellow");
+      $btn.text("לא");
+      receiptVal = "false";
+    }
+    else if($btn.text() === "לא"){
+      $btn.removeClass("yellow").addClass("primary");
+      $btn.text("כן");
+      receiptVal = "true";
+    }
+    let payObjId = btnId.substr(3);
+    console.log(payObjId + " ==== " + receiptVal);
+    updateReceiptDbAndSession(payObjId,receiptVal);
+  });
+  
+}
+
+function updateReceiptDbAndSession(payObjId,receiptVal){
+  /*Remove from firebase the selected payobj*/
+  payObj = getPayment(payObjId);
+  removeFromDataBase(payObj);
+
+  /*Change the Receipt value and update firebase*/
+  payObj.Receipt = receiptVal;
+  updateDataBase(payObj);
+
+  /*update session*/
+  list = JSON.parse(sessionStorage.getItem('memberList'))
+  financial_monitoring = list.find(member => member.Key === selectedMemberKey).FinancialMonitoring;
+  financial_monitoring.find(pay => pay.Id === payObjId).Receipt = receiptVal;
+  sessionStorage.setItem('memberList', JSON.stringify(list));
 }
 
 /*for each button next to payment row, set remove listener*/
@@ -212,13 +263,11 @@ function getFinancialArrray() {
 function updatePaymentMethodDropDown() {
   let elm = $("#charge");
   if (elm.val() === "-1") {
-    $("#formSecondRow").removeClass().addClass("three fields");
+    $("#paymentMethod").attr("disabled", false);
     $("#paymentMethod").prop('required', true)
-    $("#payMethodDiv").show();
   } else {
-    $("#formSecondRow").removeClass().addClass("two fields");
+    $("#paymentMethod").attr('disabled', true);
     $("#paymentMethod").prop('required', false)
-    $("#payMethodDiv").hide();
   }
 }
 
@@ -252,10 +301,10 @@ function sortTable() {
       /*Get the two elements you want to compare,
       one from current row and one from the next:*/
       x = rows[i].getElementsByTagName("td")[2];
-      
+
       y = rows[i + 1].getElementsByTagName("td")[2];
       //check if the two rows should switch place:
-      
+
       if ((x.innerHTML).split("").reverse().join("") > y.innerHTML.split("").reverse().join("")) {
         //if so, mark as a switch and break the loop:
         shouldSwitch = true;
@@ -270,4 +319,3 @@ function sortTable() {
     }
   }
 }
-

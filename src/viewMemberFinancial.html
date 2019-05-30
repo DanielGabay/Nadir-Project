@@ -42,11 +42,9 @@
         <span id="summaryAmount" dir="ltr">0</span>
     </h2>
 
-    <div class="ui small modal" dir="rtl" id ="addPaymentModal">
+    <div class="ui small modal" dir="rtl" id="addPaymentModal">
         <i class="close icon"></i>
-        <div class="header modalHeader">
-            הוסף תשלום קבוצתי
-        </div>
+        <div class="header modalHeader">הוסף תשלום/זיכוי</div>
         <div class="content modalContent">
             <form id="addPaymentForm">
                 <div class="ui form">
@@ -60,11 +58,7 @@
                             <input type="date" required id="datePicker">
                         </div>
                     </div>
-                    <div class="three fields" id="formSecondRow">
-                        <div class="field">
-                            <label>סכום:</label>
-                            <input type="number" min="0" required id="amount" placeholder="סכום">
-                        </div>
+                    <div class="two fields" id="formSecondRow">
                         <div class="field">
                             <label>חיוב/זיכוי:</label>
                             <select required class="ui fluid dropdown" id="charge">
@@ -85,9 +79,23 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="field">
-                        <button id="addPaymentBtn" type="submit" class="ui primary button">הוסף</button>
-                    </div> -->
+                    <div class="two fields">
+                        <div class="field">
+                            <label>סכום:</label>
+                            <input type="number" min="0" required id="amount" placeholder="סכום">
+                        </div>
+                        <div class="field">
+                            <label>האם הונפקה קבלה?</label>
+                            <select required class="ui fluid dropdown" id="receipt">
+                                <option disabled selected value value="">האם הונפקה קבלה?</option>
+                                <option value="true">כן</option>
+                                <option value="false">לא</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
                     <div class="actions left floated">
                         <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
                                 class="checkmark icon"></i></button>
@@ -98,14 +106,15 @@
     </div>
     </div>
 
-
+    <!-- Start Of Table -->
     <div class="my-custom-scrollbar table-wrapper-scroll-y" id="tablePlaceHolder" dir="rtl">
     </div>
     <!-- End Of Table -->
 
 
-    <div class="ui huge circular icon button" data-content="הוסף תשלום/זיכוי" data-position="right center" id="addPayModalBtn">
-            <i class="add icon"></i>
+    <div class="ui huge circular icon button" data-content="הוסף תשלום/זיכוי" data-position="right center"
+        id="addPayModalBtn">
+        <i class="add icon"></i>
     </div>
 
 </body>
