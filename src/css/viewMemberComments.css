@@ -3,16 +3,33 @@
     padding: 0 210px;
   }
 
+  .modalText{
+    text-align: right !important;
+  }
+  
   .table{
     text-align: right !important; 
     margin: 110px;
   }
 
-  th {
-    text-size-adjust: 100px !important;
+  .trash:hover{
+    cursor: pointer;
+  }
+  
+  .my-custom-scrollbar {
+    height: 300px;
+    overflow: auto;
+  }
+  
+  .table-wrapper-scroll-y {
+    display: block;
+    margin: 20px 300px 20px 300px;
+  }
+  
+
+  th{
+    text-size-adjust:  100px !important;
     font-size: 20px;
-    position:sticky !important;
-    top: 0px;
   }
 
   td{

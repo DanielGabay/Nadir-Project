@@ -23,9 +23,18 @@
 
 <body class="ndr" dir="rtl">
 
+
+    <div class="ui mini modal">
+        <i class="window close icon"></i>
+        <div class="header modalText">
+            האם בטוח שברצונך למחוק?
+        </div>
+        <div class="actions">
+            <div class="ui positive left labeled icon button" id="modalYes">כן<i class="checkmark icon"></i></div>
+            <div class="ui negative left labeled icon button" id="modalNo">לא<i class="close icon"></i></div>
+        </div>
+    </div>
     <div id="navbar"></div>
-
-
     <h1>מעקב אישי</h1>
     <h1 id="namePlaceHoler"></h1>
 
@@ -57,6 +66,7 @@
                     <div class="field">
                         <button id="addCommentBtn" type="submit" class="ui primary button">הוסף</button>
                     </div>
+                    <br />
                 </div>
             </form>
             <div class="accordion transition hidden"></div>
@@ -66,25 +76,9 @@
     <!-- End of Add Payment Section -->
 
     <!-- Table Section -->
-    <div class="table-wrapper" dir="rtl">
-        <table class="ui compact striped table" id="comment_table">
-            <thead>
-                <col width="5%">
-                <col width="15%">
-                <col width="20%">
-                <col width="60%">
-                <tr height="50">
-                    <th></th>
-                    <th>שם הכותב</th>
-                    <th>תאריך</th>
-                    <th>פרטים</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <!-- End Of Table -->
+    <div class="my-custom-scrollbar table-wrapper-scroll-y" id="tablePlaceHolder" dir="rtl">
+    </div>
+    <!-- End Of Table -->
 </body>
 
 </html>
