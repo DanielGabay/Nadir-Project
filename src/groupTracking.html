@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+    <script src="semantic/semantic.min.js"></script>
+    <link rel="stylesheet" href="css/ndr.css">
+    <link rel="stylesheet" href="css/groupTracking.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/transition.js"></script>
+    <script src="js/groupTracking.js"></script>
+    <script>
+        $(function () {
+            $('#navbar').load('topNavbar.html');
+        });
+    </script>
+</head>
+
+
+<body class="ndr" dir="rtl">
+
+
+    <div class="ui mini modal">
+        <i class="window close icon"></i>
+        <div class="header modalText">
+            האם בטוח שברצונך למחוק?
+        </div>
+        <div class="actions">
+            <div class="ui positive left labeled icon button" id="modalYes">כן<i class="checkmark icon"></i></div>
+            <div class="ui negative left labeled icon button" id="modalNo">לא<i class="close icon"></i></div>
+        </div>
+    </div>
+    <div id="navbar"></div>
+    <h1>מעקב קבוצתי</h1>
+    <h1 id="namePlaceHoler"></h1>
+
+
+    <!-- Add Payment Section -->
+
+    <div class="ui styled accordion">
+        <div class="title">
+            <i class="dropdown icon"></i>
+            הוסף הערה
+        </div>
+        <div class="content">
+            <form id="addCommentForm">
+                <div class="ui form">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>שם הכותב</label>
+                            <input type="text" required placeholder="שם הכותב" id="auther">
+                        </div>
+                        <div class="field">
+                            <label>תאריך:</label>
+                            <input type="date" required id="datePicker">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>הוסף הערה:</label>
+                        <textarea id="comment" required rows="4"></textarea>
+                    </div>
+                    <div class="field">
+                        <button id="addCommentBtn" type="submit" class="ui primary button">הוסף</button>
+                    </div>
+                    <br />
+                </div>
+            </form>
+            <div class="accordion transition hidden"></div>
+        </div>
+    </div>
+
+    <!-- End of Add Payment Section -->
+
+    <!-- Table Section -->
+    <div class="my-custom-scrollbar table-wrapper-scroll-y" id="tablePlaceHolder" dir="rtl">
+    </div>
+    <!-- End Of Table -->
+</body>
+
+</html>
