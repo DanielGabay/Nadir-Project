@@ -1,16 +1,16 @@
 const firestore = firebase.firestore();
-const selectedMemberKey = sessionStorage.getItem('selectedPersonKey');
-const selectedMember = JSON
-  .parse(sessionStorage.getItem('memberList'))
-  .find(member => member.Key === selectedMemberKey);
-console.log(selectedMember);
+const selectedGroupKey = sessionStorage.getItem('selectedGroupKey');
+const selectedGroup = JSON
+  .parse(sessionStorage.getItem('groupsData'))
+  .find(group => group.Key === selectedGroupKey);
+console.log(selectedGroup);
 
 
 $(document).ready(function () {
   $('.ui.accordion').accordion(); //activate acordion effect
   $("#datePicker").attr("value", todayDate());
-  // place selectedMember name at the header
-  let name = selectedMember.First + " " + selectedMember.Last;
+  // place selectedGroup name at the header
+  let name = selectedGroup.groupName;
   $("#namePlaceHoler").text(name);
 
   $("#modalYes").click(deleteComment);
@@ -72,19 +72,19 @@ function addComment(e) {
 }
 
 function updateDataBase(commentObj) {
-  firestore.collection("Members").doc(selectedMemberKey).update({
-    PersonalTracking: firebase.firestore.FieldValue.arrayUnion(commentObj)
+  firestore.collection("Groups").doc(selectedGroupKey).update({
+    groupTracking: firebase.firestore.FieldValue.arrayUnion(commentObj)
   });
 }
 
 function updateSessionStorage(commentObj) {
-  list = JSON.parse(sessionStorage.getItem('memberList'))
-  list.find(member => member.Key === selectedMemberKey).PersonalTracking.push(commentObj);
-  sessionStorage.setItem('memberList', JSON.stringify(list));
+  list = JSON.parse(sessionStorage.getItem('groupsData'))
+  list.find(group => group.Key === selectedGroupKey).groupTracking.push(commentObj);
+  sessionStorage.setItem('groupsData', JSON.stringify(list));
 }
 
 function getCommentArrray() {
-  return JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey).PersonalTracking;
+  return JSON.parse(sessionStorage.getItem('groupsData')).find(group => group.Key === selectedGroupKey).groupTracking;
 }
 
 /*inserting new comment into table*/
@@ -123,7 +123,7 @@ function createTable() {
 
 
 function getCommentArrray() {
-  return JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey).PersonalTracking;
+  return JSON.parse(sessionStorage.getItem('groupsData')).find(group => group.Key === selectedGroupKey).groupTracking;
 }
 function todayDate() {
   var today = new Date();
@@ -186,23 +186,23 @@ function deleteComment() {
   let len = getCommentArrray().length;
   if (len == 0) {
     //if the FinancialTracking array is empty remove table
-    $("#comment_table").remove();
+    $("#tablePlaceHolder").remove();
   }
   $('.mini.modal').modal('hide')
 }
 
 
 function removeFromDataBase(commentObj) {
-  firestore.collection("Members").doc(selectedMemberKey).update({
-    PersonalTracking: firebase.firestore.FieldValue.arrayRemove(commentObj)
+  firestore.collection("Groups").doc(selectedGroupKey).update({
+    groupTracking: firebase.firestore.FieldValue.arrayRemove(commentObj)
   });
 }
 
 function removeFromSession(id) {
-  let memList = JSON.parse(sessionStorage.getItem('memberList'));
-  let index = memList.findIndex(i => i.Key === selectedMemberKey);
-  memList[index].PersonalTracking = memList[index].PersonalTracking.filter(pay => pay.Id !== id);
-  sessionStorage.setItem('memberList', JSON.stringify(memList));
+  let groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
+  let index = groupsData.findIndex(i => i.Key === selectedGroupKey);
+  groupsData[index].groupTracking = groupsData[index].groupTracking.filter(pay => pay.Id !== id);
+  sessionStorage.setItem('groupsData', JSON.stringify(groupsData));
 }
 
 
