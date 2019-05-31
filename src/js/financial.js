@@ -88,9 +88,16 @@ function displayAll() {
 
 function addPayment(e) {
   e.preventDefault();
+  let $charge = $("#charge").val()
   const $group = $("#group").val();
-  console.log($group);
-  const $amount = $("#amount").val() * $("#charge").val(); //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
+  const $amount = $("#amount").val() * $charge ; //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
+  let $receipt;
+  if($charge == 1) { //dont need receipt
+    $receipt = "";
+  }
+  else if($charge == -1){ //set automaticly all receipt to no.
+    $receipt = "false";
+  }
 
   let id = uuidv4();
   const paymentObj = {
@@ -100,6 +107,7 @@ function addPayment(e) {
     Charge: $("#charge").val(),
     PaymentMethod: "", //DONT NEED THIS FOR GROUP PAYMENT!
     Id: id,
+    Receipt: $receipt,
   };
 
   updateDbAndSession(paymentObj, $group);
@@ -117,6 +125,7 @@ function addPayment(e) {
   $("#amount").val("");
   $("#paymentMethod").val("");
   $("#group").val("");
+  $("#receipt").val("");
 
   $('.ui.modal').modal('hide');
 }
@@ -237,7 +246,6 @@ function getGroupsData() {
     let groupsData = []; // save all the member data.
 
     if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
-      console.log("groupsData is from FireBase")
       firestore.collection("Groups").get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
@@ -251,7 +259,6 @@ function getGroupsData() {
 
     } else {
       groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
-      console.log("groupsData is from session")
       resolve(groupsData);
     }
 
@@ -267,7 +274,6 @@ function setGroups(groupsData) {
       str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'
     $("#group").append(str);
   } else {
-    console.log("there is no groups yet. so appent nothing")
     $("#group").append(str);
   }
 
@@ -278,7 +284,6 @@ function setGroups(groupsData) {
 function getAllMembers() {
   return new Promise((resolve) => { // resolve <--->is need with promise.
     if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
-      console.log("memberList is from FireBase")
       firestore.collection("Members").where("IsAdult", "==", "false").get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
@@ -291,7 +296,6 @@ function getAllMembers() {
 
     } else {
       memberList = JSON.parse(sessionStorage.getItem('memberList'));
-      console.log("memberlist is from session")
       resolve(memberList);
     }
 

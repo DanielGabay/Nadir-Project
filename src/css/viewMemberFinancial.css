@@ -43,6 +43,7 @@ th {
 }
 
 
+
 td {
   text-size-adjust: 100px !important;
   font-size: 16px;
@@ -66,4 +67,42 @@ td {
 #addPayModalBtn {
   background-color:#7fa99b;
   color: white;
+}
+
+.receiptBtn{
+  width:4em;
+}
+
+.receiptBtn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.receiptBtnYes span:after {
+  content: 'לא \00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -50px;
+  transition: 0.5s;
+}
+
+.receiptBtnNo span:after {
+  content: 'כן \00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -50px;
+  transition: 0.5s;
+}
+
+.receiptBtn:hover span {
+  padding-right: 50px;
+}
+
+.receiptBtn:hover span:after {
+  opacity: 1;
+  right: 0;
 }
