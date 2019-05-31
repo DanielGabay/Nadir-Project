@@ -1,6 +1,7 @@
 const firestore = firebase.firestore();
 let memberList = [];
 let displayInTable = [];
+let multiSelectArr = [];
 
 $(document).ready(function () {
   getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
@@ -17,21 +18,96 @@ $(document).ready(function () {
   })
 
   $('#addGroupPayment')
-  .popup({
-    inline: true
-  })
-;
+    .popup({
+      inline: true
+    });
 
   $("#displayAllBtn").click(displayAll);
   $("#displayOnlyRedBtn").click(displayOnlyRed);
   $("#displayOnlyGreenBtn").click(displayOnlyGreen);
   $("#addGroupPayment").click(addGroupPayment);
+  $("#group").change(openMemberSelectModal);
+  $("#selectModalNo").click(function () {
+    multiSelectArr = [];
+    addGroupPayment();
+  });
+  $("#selectModalYes").click(addGroupPayment);
 
-
+  $('#select-all').click(function () {
+      $('#selectFromGroup').multiSelect('select_all');
+      return false;
+    }),
+    $('#deselect-all').click(function () {
+      $('#selectFromGroup').multiSelect('deselect_all');
+      return false;
+    })
 });
 
+function openMemberSelectModal() {
+  $('#selectPlaceHolder').empty();
+  let select = '<select multiple="multiple" id="selectFromGroup">';
+  let group = $('#group').val();
+  console.log(group);
+  let optionArr = [];
+  memberList.forEach(mem => {
+    if (mem.Group === group) {
+      optionArr.push(mem);
+    }
+  })
+
+  optionArr.sort(function (a, b) {
+    let aName = a.First + " " + a.Last;
+    let bName = b.First + " " + b.Last;
+    if (aName < bName)
+      return -1;
+    if (aName > bName)
+      return 1;
+    return 0;
+  });
+
+  optionArr.forEach(mem => {
+    let name = mem.First + " " + mem.Last;
+    let option = '<option value="' + mem.Key + '">' + name + '</option>'
+    select += option;
+  });
+  select += "</select>";
+  $('#selectPlaceHolder').append(select);
+
+
+
+  $('#selectFromGroup').multiSelect({
+    selectableHeader: "<div class='selectableHeader large-text'>בחר חניכים</div>",
+    selectionHeader: "<div class='selectableHeader large-text'>חניכים שנבחרו</div>",
+    afterSelect: function (values) {
+      values.forEach(val => {
+        multiSelectArr.push(val);
+      })
+      console.log(multiSelectArr);
+    },
+    afterDeselect: function (values) {
+      values.forEach(val => {
+        let index = multiSelectArr.indexOf(val);
+        if (index > -1) {
+          multiSelectArr.splice(index, 1);
+        }
+      })
+
+      console.log(multiSelectArr);
+    }
+  });
+
+
+
+
+  $('#selectMembersList').modal({
+      inverted: true
+    }).modal('setting', 'closable', false)
+    .modal('show');
+}
+
 function addGroupPayment() {
-  $('.ui.modal')
+  console.log(multiSelectArr);
+  $('#groupPaymentModal')
     .modal({
       inverted: true
     })
@@ -88,14 +164,17 @@ function displayAll() {
 
 function addPayment(e) {
   e.preventDefault();
+  //no members selected
+  if (multiSelectArr.length == 0)
+    return;
+
   let $charge = $("#charge").val()
   const $group = $("#group").val();
-  const $amount = $("#amount").val() * $charge ; //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
+  const $amount = $("#amount").val() * $charge; //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
   let $receipt;
-  if($charge == 1) { //dont need receipt
+  if ($charge == 1) { //dont need receipt
     $receipt = "";
-  }
-  else if($charge == -1){ //set automaticly all receipt to no.
+  } else if ($charge == -1) { //set automaticly all receipt to no.
     $receipt = "false";
   }
 
@@ -110,7 +189,8 @@ function addPayment(e) {
     Receipt: $receipt,
   };
 
-  updateDbAndSession(paymentObj, $group);
+
+  updateDbAndSession(paymentObj);
 
   displayInTable.forEach(elem => {
     if (elem.member.Group === $group)
@@ -130,16 +210,19 @@ function addPayment(e) {
   $('.ui.modal').modal('hide');
 }
 
-function updateDbAndSession(paymentObj, group) {
-  memberList.forEach(member => {
-    if (member.Group === group) {
-      firestore.collection("Members").doc(member.Key).update({
-        FinancialMonitoring: firebase.firestore.FieldValue.arrayUnion(paymentObj)
-      })
-      member.FinancialMonitoring.push(paymentObj);
-    }
+function updateDbAndSession(paymentObj) {
+  multiSelectArr.forEach(key => {
+    firestore.collection("Members").doc(key).update({
+      FinancialMonitoring: firebase.firestore.FieldValue.arrayUnion(paymentObj)
+    })
+    memberList.forEach(mem => {
+      if (mem.Key === key)
+        mem.FinancialMonitoring.push(paymentObj);
+    })
+
   })
   sessionStorage.setItem('memberList', JSON.stringify(memberList));
+  multiSelectArr = [];
 }
 
 function getFinancialArrray() {

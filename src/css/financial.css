@@ -50,3 +50,12 @@ td {
 .modalContent{
   background-color: #f1f1f1 !important;
 }
+
+.selectableHeader{
+  background-color: #f1f1f1 !important;
+
+}
+
+.actions{
+  text-align: center !important;
+}

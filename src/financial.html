@@ -8,6 +8,7 @@
     <script src="semantic/semantic.min.js"></script>
     <link rel="stylesheet" href="css/ndr.css">
     <link rel="stylesheet" href="css/financial.css">
+    <link href="jQuery_MultySelect/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="js/config.js"></script>
@@ -30,7 +31,7 @@
         <p id="summaryAmount" dir="ltr">0</p>
     </h2>
 
-   
+
 
     <div class="ui  buttons" id="buttonsDiv">
         <button class="ui button" id="displayAllBtn">הצג הכל</button>
@@ -38,7 +39,7 @@
         <button class="ui button" id="displayOnlyGreenBtn">הצג זיכויים בלבד</button>
     </div>
 
-   
+
 
 
     <!-- Table Section -->
@@ -60,12 +61,13 @@
     <!-- End Of Table -->
 
 
-    <div class="ui huge circular icon button" data-content="הוסף תשלום קבוצתי" data-position="right center" id="addGroupPayment">
-            <i class="add icon"></i>
+    <div class="ui huge circular icon button" data-content="הוסף תשלום קבוצתי" data-position="right center"
+        id="addGroupPayment">
+        <i class="add icon"></i>
     </div>
 
 
-    <div class="ui modal" dir="rtl">
+    <div class="ui modal" id="groupPaymentModal" dir="rtl">
         <i class="close icon"></i>
         <div class="header">
             הוסף תשלום קבוצתי
@@ -80,10 +82,11 @@
                             <input type="text" required placeholder="פרטים" id="details">
                         </div>
                         <div class="field">
-                            <label>קבוצה:</label>
-                            <select class="ui fluid dropdown" id="group" required>
-                            </select>
+                            <label>סכום:</label>
+                            <input type="number" min="0" required id="amount" placeholder="סכום">
                         </div>
+
+
 
                     </div>
                     <div class="two fields">
@@ -103,28 +106,54 @@
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>סכום:</label>
-                            <input type="number" min="0" required id="amount" placeholder="סכום">
+                            <label>קבוצה:</label>
+                            <select class="ui fluid dropdown" id="group" required>
+                            </select>
                         </div>
-
+                        <!-- <div class="field">
+                            <div class="ui button">בחר את כולם</div>
+                        </div>
+                        <div class="field">
+                            <a class="ui button">הצג קבוצה</a>
+                        </div> -->
                     </div>
-                </div>
-                <div class="actions left floated">
-                    <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
-                            class="checkmark icon"></i></button>
-                    <div class="ui negative left labeled icon button">ביטול<i class="close icon"></i></div>
-                </div>
+                    <div class="actions">
+                        <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
+                                class="checkmark icon"></i></button>
+                        <div class="ui negative left labeled icon button">ביטול<i class="close icon"></i></div>
+                    </div>
             </form>
         </div>
-
-
     </div>
+
+
+    <div class="ui modal" id="selectMembersList" dir="rtl">
+        <div class="header">
+            בחר חניכים מהקבוצה
+        </div>
+        <div class="content modalContent">
+            <div class="ui primary button" id='select-all'>בחר את כולם</div>
+            <div class="ui primary button" id='deselect-all'>בטל את כולם</div>
+            <div id="selectPlaceHolder" align="center">
+
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui positive left labeled icon button" id="selectModalYes">אישור<i class="checkmark icon"></i>
+            </div>
+            <div class="ui negative left labeled icon button" id="selectModalNo">ביטול<i class="close icon"></i></div>
+        </div>
+    </div>
+
+
+
 
 
     <!-- this is the loader template -->
     <div id="loader" class="ui active inverted dimmer">
         <div class="ui loader"></div>
     </div>
+    <script src="jQuery_MultySelect/js/jquery.multi-select.js" type="text/javascript"></script>
 
 </body>
 
