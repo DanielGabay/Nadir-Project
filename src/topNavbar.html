@@ -10,9 +10,6 @@
 	.item {
 		text-align: right !important;
 	}
-
-
-
 </style>
 
 
@@ -45,7 +42,7 @@
 		<div class="left menu">
 			<div class="item">
 
-				<a class="ui basic red button" href="#">התנתק<i class="sign out alternate icon"></i></a>
+				<a class="ui basic red button" id="logoutBtn" href="#">התנתק<i class="sign out alternate icon"></i></a>
 			</div>
 
 		</div>
@@ -53,6 +50,13 @@
 </div>
 
 <script>
+
+	document.querySelector("#logoutBtn").addEventListener('click',function(e){
+		e.preventDefault();
+		sessionStorage.clear();
+		document.location.href = "login-ndr.html";
+	});
+	
 	function goBack() {
 		window.history.back();
 	}

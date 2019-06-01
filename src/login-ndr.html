@@ -2,58 +2,64 @@
 <html lang="en" dir="ltr">
 
 <head>
-		<meta charset="utf-8">
-		<script src="js/jquery-3.3.1.min.js"></script>
- 	  <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-	  <link rel="stylesheet" type="text/css" href="css/login-ndr.css" />
-    <script src="semantic/semantic.min.js"></script>
-    <link rel="stylesheet" href="css/ndr.css">
-		<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
-		<script src="js/config.js"></script>
-		<script src="js/login-ndr.js"></script>
-		<script src="js/transition.js"></script>
+	<meta charset="utf-8">
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="css/login-ndr.css" />
+	<script src="semantic/semantic.min.js"></script>
+	<link rel="stylesheet" href="css/ndr.css">
+	<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/login-ndr.js"></script>
+	<script src="js/transition.js"></script>
 
 </head>
 
 
 <body class="ndr" dir="rtl">
-    
-	
+
+
 	<div class="ui middle aligned center aligned grid">
 		<div class="column">
-		  <h2 class="ui teal image">
-				
-			<img src="images/logo.png" class="logo">
-			<div class="content">
-			</div>
-		  </h2>
-		  <form class="ui large form">
-			<div class="ui stacked segment">
-			  <div class="field">
-				<div class="ui right icon input">
-				  <i class="user right icon"></i>
-				  <input class = "text-ndr" type="text" id="email" placeholder="כתובת מייל" >
+			<h2 class="ui teal image">
+
+				<img src="images/logo.png" class="logo">
+				<div class="content">
 				</div>
-			  </div>
-			  <div class="field">
-				<div class="ui right icon input">
-				  <i class="lock icon right"></i>
-				  <input class = "text-ndr" type="password" id="password" placeholder="סיסמא">
+			</h2>
+			<form class="ui large form">
+				<div class="ui stacked segment">
+					<div class="field">
+						<div class="ui right icon input">
+							<i class="user right icon"></i>
+							<input class="text-ndr" type="text" id="email" placeholder="כתובת מייל">
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui right icon input">
+							<i class="lock icon right"></i>
+							<input class="text-ndr" type="password" id="password" placeholder="סיסמא">
+						</div>
+					</div>
+					<div class="ui fluid large teal submit button" id="signInBtn">כניסה</div>
 				</div>
-			  </div>
-			  <div class="ui fluid large teal submit button" id ="signInBtn">כניסה</div>
-			</div>
-	  
-			<div class="ui error message"></div>
-	  
-		  </form>
-	  
-		  <!-- <div class="ui message" id="signUpBtn">
+
+
+			</form>
+			<p class="" id="errorPlaceHolder" dir="ltr"></p>
+
+
+
+			<!-- <div class="ui message" id="signUpBtn">
 			משתמש חדש? <a href="#">הירשם</a>
 		  </div> -->
 		</div>
-	  </div>
+	</div>
 
+	
+	<div id="loader" class="ui inverted dimmer">
+		<div class="ui loader"></div>
+	</div>
 </body>
 
 </html>

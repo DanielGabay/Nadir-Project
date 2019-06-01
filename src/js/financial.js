@@ -96,9 +96,7 @@ function openMemberSelectModal() {
     }
   });
 
-
-
-
+  $('#selectMemberListHeader').text("בחר חניכים מקבוצת " + group);
   $('#selectMembersList').modal({
       inverted: true
     }).modal('setting', 'closable', false)
@@ -222,7 +220,7 @@ function updateDbAndSession(paymentObj) {
 
   })
   sessionStorage.setItem('memberList', JSON.stringify(memberList));
-  multiSelectArr = [];
+  multiSelectArr = [];  
 }
 
 function getFinancialArrray() {

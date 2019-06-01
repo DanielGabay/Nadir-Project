@@ -19,16 +19,20 @@ $(document).ready(function () {
     $("#signInBtn").click(function () {
         let email = $('#email').val();
         let password = $('#password').val();
-
+        $('#loader').addClass('active');
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(function (result) {
+                $('#loader').removeClass('active');
+                $('#errorPlaceHolder').removeClass("ui error message");
+                $('#errorPlaceHolder').text("");
                 document.location.href = 'homePage.html';
             })
             .catch(function (err) {
-                if (err != null) {
-                    console.log(err.message);
-                    return;
-                }
+                $('#loader').removeClass('active');
+                $('#errorPlaceHolder').addClass("ui error message");
+                $('#errorPlaceHolder').text(err.message);
+
+                console.log(err);
             })
     });
 });
