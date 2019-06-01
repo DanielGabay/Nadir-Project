@@ -59,3 +59,7 @@ td {
 .actions{
   text-align: center !important;
 }
+
+#selectedCountIcon{
+  margin-right: 2px;
+}

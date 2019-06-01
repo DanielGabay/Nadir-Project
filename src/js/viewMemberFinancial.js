@@ -313,7 +313,7 @@ function sortTable() {
       y = rows[i + 1].getElementsByTagName("td")[2];
       //check if the two rows should switch place:
 
-      if ((x.innerHTML).split("").join("") > y.innerHTML.split("").join("")) {
+      if ((x.innerHTML).split("/").reverse().join("") > y.innerHTML.split("/").reverse().join("")) {
         //if so, mark as a switch and break the loop:
         shouldSwitch = true;
         break;

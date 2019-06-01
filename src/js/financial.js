@@ -22,11 +22,20 @@ $(document).ready(function () {
       inline: true
     });
 
+  $("#selectedCountIcon").hide();
+
+
   $("#displayAllBtn").click(displayAll);
   $("#displayOnlyRedBtn").click(displayOnlyRed);
   $("#displayOnlyGreenBtn").click(displayOnlyGreen);
   $("#addGroupPayment").click(addGroupPayment);
-  $("#group").change(openMemberSelectModal);
+  $("#group").change(function(){
+    openMemberSelectModal(false);
+  });
+  $("#displayBtn").click(function(){
+    openMemberSelectModal(true);
+  });
+
   $("#selectModalNo").click(function () {
     multiSelectArr = [];
     addGroupPayment();
@@ -43,17 +52,26 @@ $(document).ready(function () {
     })
 });
 
-function openMemberSelectModal() {
+function openMemberSelectModal(btnClicked) {
   $('#selectPlaceHolder').empty();
   let select = '<select multiple="multiple" id="selectFromGroup">';
   let group = $('#group').val();
-  console.log(group);
+  if(btnClicked === false)
+    multiSelectArr = [];
+  if (group === null)
+    return;
   let optionArr = [];
-  memberList.forEach(mem => {
-    if (mem.Group === group) {
+  if (group !== "allGroups") {
+    memberList.forEach(mem => {
+      if (mem.Group === group) {
+        optionArr.push(mem);
+      }
+    })
+  } else {
+    memberList.forEach(mem => {
       optionArr.push(mem);
-    }
-  })
+    })
+  }
 
   optionArr.sort(function (a, b) {
     let aName = a.First + " " + a.Last;
@@ -67,13 +85,15 @@ function openMemberSelectModal() {
 
   optionArr.forEach(mem => {
     let name = mem.First + " " + mem.Last;
-    let option = '<option value="' + mem.Key + '">' + name + '</option>'
+    let option;
+    if (btnClicked && multiSelectArr.includes(mem.Key))
+      option = '<option selected value="' + mem.Key + '">' + name + '</option>';
+    else
+      option = '<option value="' + mem.Key + '">' + name + '</option>'
     select += option;
   });
   select += "</select>";
   $('#selectPlaceHolder').append(select);
-
-
 
   $('#selectFromGroup').multiSelect({
     selectableHeader: "<div class='selectableHeader large-text'>בחר חניכים</div>",
@@ -82,7 +102,6 @@ function openMemberSelectModal() {
       values.forEach(val => {
         multiSelectArr.push(val);
       })
-      console.log(multiSelectArr);
     },
     afterDeselect: function (values) {
       values.forEach(val => {
@@ -92,19 +111,29 @@ function openMemberSelectModal() {
         }
       })
 
-      console.log(multiSelectArr);
     }
   });
 
-  $('#selectMemberListHeader').text("בחר חניכים מקבוצת " + group);
+  if (group === "allGroups")
+    $('#selectMemberListHeader').text("בחר חניכים");
+  else
+    $('#selectMemberListHeader').text("בחר חניכים מקבוצת " + group);
   $('#selectMembersList').modal({
       inverted: true
     }).modal('setting', 'closable', false)
     .modal('show');
+
 }
 
 function addGroupPayment() {
-  console.log(multiSelectArr);
+  $('#selectedCountIcon').empty();
+  $('#selectedCountIcon').append(multiSelectArr.length + '<i class ="child icon"></i>').show();
+  if (multiSelectArr.length != 0) {
+    $("#errorPlaceHolder").removeClass("ui error mesage").hide();
+  } else {
+
+  }
+
   $('#groupPaymentModal')
     .modal({
       inverted: true
@@ -163,9 +192,12 @@ function displayAll() {
 function addPayment(e) {
   e.preventDefault();
   //no members selected
-  if (multiSelectArr.length == 0)
+  if (multiSelectArr.length === 0) {
+    $("#errorPlaceHolder").addClass("ui error message").text("שגיאה. לא נבחרו חניכים").show();
     return;
-
+  } else {
+    $("#errorPlaceHolder").removeClass("ui error mesage").hide();
+  }
   let $charge = $("#charge").val()
   const $group = $("#group").val();
   const $amount = $("#amount").val() * $charge; //if charge = "חיוב" -> val is 1. if charge = "זיכוי" -> val = -1
@@ -190,10 +222,17 @@ function addPayment(e) {
 
   updateDbAndSession(paymentObj);
 
-  displayInTable.forEach(elem => {
-    if (elem.member.Group === $group)
+  if ($group === "allGroups")
+    displayInTable.forEach(elem => {
       elem.sum += $amount;
-  })
+    })
+
+  else {
+    displayInTable.forEach(elem => {
+      if (elem.member.Group === $group)
+        elem.sum += $amount;
+    })
+  }
 
   fill_table(displayInTable);
 
@@ -220,7 +259,7 @@ function updateDbAndSession(paymentObj) {
 
   })
   sessionStorage.setItem('memberList', JSON.stringify(memberList));
-  multiSelectArr = [];  
+  multiSelectArr = [];
 }
 
 function getFinancialArrray() {
@@ -300,11 +339,9 @@ function sumAllPayments(financialArray) {
 function updatePaymentMethodDropDown() {
   let elm = $("#charge");
   if (elm.val() === "-1") {
-    $("#formThirdRow").removeClass().addClass("two fields");
     $("#paymentMethod").prop('required', true)
     $("#payMethodDiv").show();
   } else {
-    // $("#formThirdRow").removeClass().addClass("field");
     $("#paymentMethod").prop('required', false)
     $("#payMethodDiv").hide();
   }
@@ -351,8 +388,9 @@ function getGroupsData() {
 function setGroups(groupsData) {
   let str = '<option disabled value="" selected value>בחר קבוצה</option>';
   if (groupsData) {
+    str += '<option value="allGroups">כל הקבוצות</option>';
     for (let i = 0; i < groupsData.length; i++)
-      str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'
+      str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>';
     $("#group").append(str);
   } else {
     $("#group").append(str);

@@ -75,7 +75,6 @@
         <div class="content modalContent">
             <form id="addPaymentForm" dir="rtl">
                 <div class="ui form">
-
                     <div class="two fields">
                         <div class="field">
                             <label>פרטים</label>
@@ -85,9 +84,6 @@
                             <label>סכום:</label>
                             <input type="number" min="0" required id="amount" placeholder="סכום">
                         </div>
-
-
-
                     </div>
                     <div class="two fields">
                         <div class="field">
@@ -102,33 +98,29 @@
                                 <option value="-1">זיכוי</option>
                             </select>
                         </div>
-
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>קבוצה:</label>
                             <select class="ui fluid dropdown" id="group" required>
                             </select>
                         </div>
-                        <!-- <div class="field">
-                            <div class="ui button">בחר את כולם</div>
-                        </div>
-                        <div class="field">
-                            <a class="ui button">הצג קבוצה</a>
-                        </div> -->
+                            <div id="selectedCountIcon" class ="ui icon button disabled basic right floated"></div>
                     </div>
-                    <div class="actions">
-                        <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
-                                class="checkmark icon"></i></button>
-                        <div class="ui negative left labeled icon button">ביטול<i class="close icon"></i></div>
-                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui blue button " id="displayBtn">בחר מתוך הקבוצה</div>
+                    <button id="addPaymentBtn" type="submit" class="ui green left labeled icon button">הוסף תשלום<i
+                            class="checkmark icon"></i></button>
+                    <div class="ui negative left labeled icon button">ביטול<i class="close icon"></i></div>
+                </div>
             </form>
+            <p class="" id="errorPlaceHolder"></p>
         </div>
     </div>
 
 
     <div class="ui modal" id="selectMembersList" dir="rtl">
-        <div class="header" id ="selectMemberListHeader">
+        <div class="header" id="selectMemberListHeader">
         </div>
         <div class="content modalContent">
             <div class="ui primary button" id='select-all'>בחר את כולם</div>
