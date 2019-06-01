@@ -117,9 +117,9 @@ function insertToTable(obj) {
   }
   let receiptId = "btn" + obj.Id;
   if (obj.Receipt && obj.Receipt === "false") {
-    html += '<td><div class = "ui circular pink button receiptBtn receiptBtnNo" data-hover="לחץ כדי לשנות" id = "' + receiptId + '" ><span>לא</span></div></td>';
+    html += '<td><div class = "ui circular pink button receiptBtn receiptBtnNo"  title="לחץ כדי לשנות" id = "' + receiptId + '" ><span>לא</span></div></td>';
   } else if (obj.Receipt && obj.Receipt === "true") {
-    html += '<td><div class = "ui circular teal button receiptBtn receiptBtnYes" data-hover="לחץ כדי לשנות" id = "' + receiptId + '" ><span>כן</span></div></td>';
+    html += '<td><div class = "ui circular teal button receiptBtn receiptBtnYes" title="לחץ כדי לשנות " id = "' + receiptId + '" ><span>כן</span></div></td>';
   } else {
     html += '<td></td>';
 
