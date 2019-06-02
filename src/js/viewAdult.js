@@ -1,6 +1,7 @@
 const firestore = firebase.firestore();
 let theMember = [];
 let updateMember = {};
+
 $(document).ready(function () {
   $("#payment-track-btn").click(function () {
     document.location.href = "viewMemberFinancial.html";
@@ -15,6 +16,7 @@ $(document).ready(function () {
   theMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
   updateMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
   console.log("this is who we need:" + theMember.Key);
+  getGroupsData();
   setFields(); //set the page of the member
 });
 
@@ -269,9 +271,9 @@ function deleteFunc() {
 
 function displayGroups() {
   let str = "";
-  let groups = JSON.parse(sessionStorage.getItem('groupsData'));
+  let groups = JSON.parse(sessionStorage.getItem('groupsData')); 
   for (let i = 0; i < groups.length; i++)
-    str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>';
+    str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>'; 
   return str;
 }
 
@@ -281,4 +283,31 @@ function sumAllPayments(financialArray) {
     sum += obj.Amount;
   })
   return sum;
+}
+
+function getGroupsData() {
+  return new Promise((resolve) => { // resolve <--->is need with promise.
+      let groupsData = []; // save all the member data.
+
+      if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
+          console.log("groupsData is from FireBase")
+          firestore.collection("Groups").get()
+              .then(function (querySnapshot) {
+                  querySnapshot.forEach(function (doc) {
+                      const group = doc.data(); // pointer for document
+                      groupsData.push(group); // add for array of all names
+                  })
+
+                  sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); // save it temporeriy
+                  resolve(groupsData);
+              })
+
+      } else {
+          groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
+          console.log("groupsData is from session")
+          resolve(groupsData);
+      }
+
+  })
+
 }
