@@ -1,6 +1,7 @@
 const firestore = firebase.firestore();
 let theMember = [];
 let updateMember = {};
+
 $(document).ready(function () {
   $("#payment-track-btn").click(function () {
     document.location.href = "viewMemberFinancial.html";
@@ -15,6 +16,7 @@ $(document).ready(function () {
   theMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
   updateMember = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
   console.log("this is who we need:" + theMember.Key);
+  console.log("aaa:" + theMember.Group );
   setFields(); //set the page of the member
 });
 
@@ -269,9 +271,9 @@ function deleteFunc() {
 
 function displayGroups() {
   let str = "";
-  let groups = JSON.parse(sessionStorage.getItem('groupsData'));
+  let groups = JSON.parse(sessionStorage.getItem('groupsData')); 
   for (let i = 0; i < groups.length; i++)
-    str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>';
+    str += '<option value="' + groups[i].groupName + '">' + groups[i].groupName + '</option>'; 
   return str;
 }
 

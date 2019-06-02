@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/searchAdlt.css" />
+    <link rel="stylesheet" type="text/css" href="css/searchAdult.css" />
     <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
     <link rel="stylesheet" href="css/ndr.css">
     <script src="semantic/semantic.min.js"></script>
@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
     <script src="js/config.js"></script>
     <script src="js/transition.js"></script>
-    <script src="js/searchAdlt.js"></script>
+    <script src="js/searchAdult.js"></script>
 
 
     <script>
@@ -29,9 +29,9 @@
     <h1 class="search-ndr">חיפוש בוגר</h1>
  
     <div class="ui buttons">
-            <button class="ui button">חיפוש לפי שם</button>
+            <button class="ui button" id="byName">חיפוש לפי שם</button>
             <div class="or" data-text="או"></div>
-            <button class="ui button " >חיפוש לפי מקצוע</button>       
+            <button class="ui button" id="byPro" >חיפוש לפי מקצוע</button>       
     </div>
     <br> <br>
     <div class="ui fluid search search-ndr">
@@ -45,23 +45,15 @@
 
     
     <br> <br>
-    <!-- <div class="wrapper">
-        <button class=" button ui primary button" id="show-all">
-            רשימת כל בוגרים
-        </button>
+ 
+    <div class="table-wrapper-scroll-y my-custom-scrollbar"  dir="rtl">
+        <table class="ui selectable table table-ndr" id="adultsTable"></table>
+    </div>
+    
+        <!-- this is the loader template -->
+    <div id="loader" class="ui active inverted dimmer">
+        <div class="ui loader"></div>
     </div>
 
-    <div class="table-wrapper-scroll-y my-custom-scrollbar" dir="rtl">
-        <table class="ui selectable table table-ndr" id="membersTable">
-        </table>
-    </div> -->
-
-    <!-- this is the loader template -->
-    <!-- <div id="loader" class="ui active inverted dimmer">
-        <div class="ui loader"></div>
-    </div> -->
-
-
 </body>
-
 </html>
