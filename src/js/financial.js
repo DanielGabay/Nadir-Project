@@ -1,46 +1,47 @@
-const firestore = firebase.firestore();
-let memberList = [];
-let displayInTable = [];
-let multiSelectArr = [];
+const firestore = firebase.firestore(); /*initialize firestore*/
+let memberList = []; /*keeping memberList from db or sessionStorage*/
+let displayInTable = []; /*list of all memebers that are currently displayed in table*/
+let selectedMembersArr = []; /*list of selectedMembers in add Group Payment modal*/
 
+/*when page is loaded*/
 $(document).ready(function () {
+  /*fetch all membres from db/seesion storage*/
   getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
     $('#loader').removeClass('active'); // remove the loader .
     $("#datePicker").attr("value", todayDate());
+    /*fetch all group data from db/session storage*/
     getGroupsData().then(groupsData => {
+      /*fill dropdown of group section in addPayment modal*/
       setGroups(groupsData);
     })
 
-    //setting functionality
-    $("#addPaymentForm").submit(addPayment);
-    $("#charge").change(updatePaymentMethodDropDown);
-    displayAll();
+    fillTable_displayAll();
   })
+  /*Setting listeners*/
+  //display in table buttons
+  $("#displayAllBtn").click(fillTable_displayAll);
+  $("#displayOnlyRedBtn").click(fillTable_displayOnlyRed);
+  $("#displayOnlyGreenBtn").click(fillTable_displayOnlyGreen);
 
-  $('#addGroupPayment')
+  /*addPayment modal*/
+  $("#addGroupPaymentBtn").click(addGroupPaymentModal); // opens
+  $("#addPaymentForm").submit(addPayment);
+  $('#addGroupPaymentBtn')
     .popup({
       inline: true
     });
-
-  $("#selectedCountIcon").hide();
-
-
-  $("#displayAllBtn").click(displayAll);
-  $("#displayOnlyRedBtn").click(displayOnlyRed);
-  $("#displayOnlyGreenBtn").click(displayOnlyGreen);
-  $("#addGroupPayment").click(addGroupPayment);
-  $("#group").change(function(){
+  $("#group").change(function () {
     openMemberSelectModal(false);
   });
-  $("#displayBtn").click(function(){
+  $("#displayBtn").click(function () {
     openMemberSelectModal(true);
   });
 
   $("#selectModalNo").click(function () {
-    multiSelectArr = [];
-    addGroupPayment();
+    selectedMembersArr = [];
+    addGroupPaymentModal();
   });
-  $("#selectModalYes").click(addGroupPayment);
+  $("#selectModalYes").click(addGroupPaymentModal);
 
   $('#select-all').click(function () {
       $('#selectFromGroup').multiSelect('select_all');
@@ -52,14 +53,117 @@ $(document).ready(function () {
     })
 });
 
+
+
+/*=============functions=============*/
+
+/*===fiiling by filter table==-*/
+
+function fillTable_displayAll() {
+  $("#displayAllBtn").addClass("twitter");
+  $("#displayOnlyRedBtn").removeClass("twitter");
+  $("#displayOnlyGreenBtn").removeClass("twitter");
+  displayInTable = [];
+  memberList.forEach(member => {
+    let sum = sumAllPayments(member.FinancialMonitoring);
+    displayInTable.push({
+      member,
+      sum
+    });
+  })
+  fill_table(displayInTable);
+}
+
+function fillTable_displayOnlyRed() {
+  $("#displayAllBtn").removeClass("twitter");
+  $("#displayOnlyRedBtn").addClass("twitter");
+  $("#displayOnlyGreenBtn").removeClass("twitter");
+  displayInTable = [];
+  memberList.forEach(member => {
+    let sum = sumAllPayments(member.FinancialMonitoring);
+    if (sum > 0)
+      displayInTable.push({
+        member,
+        sum
+      });
+  })
+  fill_table(displayInTable);
+}
+
+function fillTable_displayOnlyGreen() {
+  $("#displayAllBtn").removeClass("twitter");
+  $("#displayOnlyRedBtn").removeClass("twitter");
+  $("#displayOnlyGreenBtn").addClass("twitter");
+  displayInTable = [];
+  memberList.forEach(member => {
+    let sum = sumAllPayments(member.FinancialMonitoring);
+    if (sum < 0)
+      displayInTable.push({
+        member,
+        sum
+      });
+  })
+  fill_table(displayInTable);
+}
+
+
+/*===modals init===*/
+
+/*opening addGroupPayment Modal*/
+function addGroupPaymentModal() {
+  $('#selectedCountIcon').empty();
+  $('#selectedCountIcon').append(selectedMembersArr.length + '<i class ="child icon"></i>').show();
+  if (selectedMembersArr.length != 0) {
+    $("#errorPlaceHolder").removeClass("ui error mesage").hide();
+  } 
+  $('#groupPaymentModal')
+    .modal({
+      inverted: true
+    })
+    .modal('show');
+}
+
+
 function openMemberSelectModal(btnClicked) {
   $('#selectPlaceHolder').empty();
   let select = '<select multiple="multiple" id="selectFromGroup">';
   let group = $('#group').val();
-  if(btnClicked === false)
-    multiSelectArr = [];
+  if (btnClicked === false)
+    selectedMembersArr = [];
   if (group === null)
     return;
+
+  let optionArr = getMembersToSelect(group);
+  /*filtering option -> if btnClicked (means that the user want to change the current selection from that group)
+    then fill the selected members with the previous selection
+  */
+  optionArr.forEach(mem => {
+    let name = mem.First + " " + mem.Last;
+    let option;
+    if (btnClicked && selectedMembersArr.includes(mem.Key))
+      option = '<option selected value="' + mem.Key + '">' + name + '</option>';
+    else
+      option = '<option value="' + mem.Key + '">' + name + '</option>'
+    select += option;
+  });
+  select += "</select>";
+  $('#selectPlaceHolder').append(select);
+
+  /*filling the selected/unselcted cols*/
+  initMultySelect();
+  if (group === "allGroups")
+    $('#selectMemberListHeader').text("בחר חניכים");
+  else
+    $('#selectMemberListHeader').text("בחר חניכים מקבוצת " + group);
+  $('#selectMembersList').modal({
+      inverted: true
+    }).modal('setting', 'closable', false)
+    .modal('show');
+
+}
+
+
+function getMembersToSelect(group) {
   let optionArr = [];
   if (group !== "allGroups") {
     memberList.forEach(mem => {
@@ -83,116 +187,35 @@ function openMemberSelectModal(btnClicked) {
     return 0;
   });
 
-  optionArr.forEach(mem => {
-    let name = mem.First + " " + mem.Last;
-    let option;
-    if (btnClicked && multiSelectArr.includes(mem.Key))
-      option = '<option selected value="' + mem.Key + '">' + name + '</option>';
-    else
-      option = '<option value="' + mem.Key + '">' + name + '</option>'
-    select += option;
-  });
-  select += "</select>";
-  $('#selectPlaceHolder').append(select);
+  return optionArr;
+}
 
+function initMultySelect(){
   $('#selectFromGroup').multiSelect({
     selectableHeader: "<div class='selectableHeader large-text'>בחר חניכים</div>",
     selectionHeader: "<div class='selectableHeader large-text'>חניכים שנבחרו</div>",
     afterSelect: function (values) {
       values.forEach(val => {
-        multiSelectArr.push(val);
+        selectedMembersArr.push(val);
       })
     },
     afterDeselect: function (values) {
       values.forEach(val => {
-        let index = multiSelectArr.indexOf(val);
+        let index = selectedMembersArr.indexOf(val);
         if (index > -1) {
-          multiSelectArr.splice(index, 1);
+          selectedMembersArr.splice(index, 1);
         }
       })
 
     }
   });
-
-  if (group === "allGroups")
-    $('#selectMemberListHeader').text("בחר חניכים");
-  else
-    $('#selectMemberListHeader').text("בחר חניכים מקבוצת " + group);
-  $('#selectMembersList').modal({
-      inverted: true
-    }).modal('setting', 'closable', false)
-    .modal('show');
-
 }
 
-function addGroupPayment() {
-  $('#selectedCountIcon').empty();
-  $('#selectedCountIcon').append(multiSelectArr.length + '<i class ="child icon"></i>').show();
-  if (multiSelectArr.length != 0) {
-    $("#errorPlaceHolder").removeClass("ui error mesage").hide();
-  } else {
-
-  }
-
-  $('#groupPaymentModal')
-    .modal({
-      inverted: true
-    })
-    .modal('show');
-}
-
-function displayOnlyGreen() {
-  $("#displayAllBtn").removeClass("twitter");
-  $("#displayOnlyRedBtn").removeClass("twitter");
-  $("#displayOnlyGreenBtn").addClass("twitter");
-  displayInTable = [];
-  memberList.forEach(member => {
-    let sum = sumAllPayments(member.FinancialMonitoring);
-    if (sum < 0)
-      displayInTable.push({
-        member,
-        sum
-      });
-  })
-  fill_table(displayInTable);
-}
-
-function displayOnlyRed() {
-  $("#displayAllBtn").removeClass("twitter");
-  $("#displayOnlyRedBtn").addClass("twitter");
-  $("#displayOnlyGreenBtn").removeClass("twitter");
-  displayInTable = [];
-  memberList.forEach(member => {
-    let sum = sumAllPayments(member.FinancialMonitoring);
-    if (sum > 0)
-      displayInTable.push({
-        member,
-        sum
-      });
-  })
-  fill_table(displayInTable);
-}
-
-function displayAll() {
-  $("#displayAllBtn").addClass("twitter");
-  $("#displayOnlyRedBtn").removeClass("twitter");
-  $("#displayOnlyGreenBtn").removeClass("twitter");
-  displayInTable = [];
-  memberList.forEach(member => {
-    let sum = sumAllPayments(member.FinancialMonitoring);
-    displayInTable.push({
-      member,
-      sum
-    });
-  })
-  fill_table(displayInTable);
-}
-
-
+/*====adding payment, update db & session, clear form and selected members, update table====*/
 function addPayment(e) {
   e.preventDefault();
   //no members selected
-  if (multiSelectArr.length === 0) {
+  if (selectedMembersArr.length === 0) {
     $("#errorPlaceHolder").addClass("ui error message").text("שגיאה. לא נבחרו חניכים").show();
     return;
   } else {
@@ -213,53 +236,44 @@ function addPayment(e) {
     Details: $("#details").val(),
     Date: $("#datePicker").val(),
     Amount: $amount,
-    Charge: $("#charge").val(),
+    Charge: $charge,
     PaymentMethod: "", //DONT NEED THIS FOR GROUP PAYMENT!
     Id: id,
     Receipt: $receipt,
   };
-
-
   updateDbAndSession(paymentObj);
-
-  if ($group === "allGroups")
     displayInTable.forEach(elem => {
-      elem.sum += $amount;
-    })
-
-  else {
-    displayInTable.forEach(elem => {
-      if (elem.member.Group === $group)
+      if (selectedMembersArr.includes(elem.member.Key))
         elem.sum += $amount;
     })
-  }
 
   fill_table(displayInTable);
-
-  $("#details").val("");
-  $("#datePicker").attr("value", todayDate());
-  $("#charge").val("");
-  $("#amount").val("");
-  $("#paymentMethod").val("");
-  $("#group").val("");
-  $("#receipt").val("");
+  clearFormAndSelectedMembers();
 
   $('.ui.modal').modal('hide');
 }
 
+function clearFormAndSelectedMembers() {
+  selectedMembersArr = [];
+  $("#details").val("");
+  $("#datePicker").attr("value", todayDate());
+  $("#charge").val("");
+  $("#amount").val("");
+  $("#group").val("");
+}
+
 function updateDbAndSession(paymentObj) {
-  multiSelectArr.forEach(key => {
+  selectedMembersArr.forEach(key => {
     firestore.collection("Members").doc(key).update({
       FinancialMonitoring: firebase.firestore.FieldValue.arrayUnion(paymentObj)
-    })
-    memberList.forEach(mem => {
-      if (mem.Key === key)
-        mem.FinancialMonitoring.push(paymentObj);
-    })
-
+    }).then(()=>{
+      memberList.forEach(mem => {
+        if (mem.Key === key)
+          mem.FinancialMonitoring.push(paymentObj);
+          sessionStorage.setItem('memberList', JSON.stringify(memberList));
+      })
+    });
   })
-  sessionStorage.setItem('memberList', JSON.stringify(memberList));
-  multiSelectArr = [];
 }
 
 function getFinancialArrray() {
@@ -335,19 +349,6 @@ function sumAllPayments(financialArray) {
   return sum;
 }
 
-/*When charge value is '-1' (זיכוי) then show paymentMenthod drop down, o.w hide it*/
-function updatePaymentMethodDropDown() {
-  let elm = $("#charge");
-  if (elm.val() === "-1") {
-    $("#paymentMethod").prop('required', true)
-    $("#payMethodDiv").show();
-  } else {
-    $("#paymentMethod").prop('required', false)
-    $("#payMethodDiv").hide();
-  }
-}
-
-
 function todayDate() {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -359,6 +360,30 @@ function todayDate() {
 }
 
 
+/*return a promise - mean, that this function return something that we can do .then() after it*/
+function getAllMembers() {
+  return new Promise((resolve) => { // resolve <--->is need with promise.
+    if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
+      firestore.collection("Members").where("IsAdult", "==", "false").get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            const person = doc.data(); // pointer for document
+            memberList.push(person); // add for array of all names
+          })
+          sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
+          resolve(memberList);
+        })
+
+    } else {
+      memberList = JSON.parse(sessionStorage.getItem('memberList'));
+      resolve(memberList);
+    }
+
+  })
+
+}
+
+/*return a promise - mean, that this function return something that we can do .then() after it*/
 function getGroupsData() {
   return new Promise((resolve) => { // resolve <--->is need with promise.
     let groupsData = []; // save all the member data.
@@ -398,29 +423,6 @@ function setGroups(groupsData) {
 
 }
 
-
-/*return a promise - mean, that this function return something that we can do .then() after it*/
-function getAllMembers() {
-  return new Promise((resolve) => { // resolve <--->is need with promise.
-    if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time 
-      firestore.collection("Members").where("IsAdult", "==", "false").get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            const person = doc.data(); // pointer for document
-            memberList.push(person); // add for array of all names
-          })
-          sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
-          resolve(memberList);
-        })
-
-    } else {
-      memberList = JSON.parse(sessionStorage.getItem('memberList'));
-      resolve(memberList);
-    }
-
-  })
-
-}
 
 /**Generating id for each payment */
 function uuidv4() {
