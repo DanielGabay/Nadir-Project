@@ -25,21 +25,6 @@ $(document).ready(function () {
         });
         showTable(adltList); // load the table.first -> without display it.
      
-        // const $table = $('#adultsTable');
-        // $("#show-all").click(function () { // show-table. we can change animation.
-        //     $table.transition('slide down');
-        // });
-
-        // $('#adultsTable td').click(function () {
-        //     const id = ($(this).closest('tr').attr('id'));
-        //     console.log(id); // add click even to every row!!!
-        //     if (id) {
-        //         sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
-        //         document.location.href = 'viewAdult.html'; //TODO   show the view member. we need to change this command to new window
-        //     }
-
-        // });
-
       
     })
 });
