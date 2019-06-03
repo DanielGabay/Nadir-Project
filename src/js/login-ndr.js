@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $("#signUpBtn").click(function () {
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
@@ -34,5 +34,25 @@ $(document).ready(function () {
 
                 console.log(err);
             })
+    });
+
+    $('#forgotPasswordBtn').click(function () {
+        $('#forgotPassModal')
+      
+            .modal('show');
+    })
+
+    $('#sendBtn').click(function () {
+        let email = $("#modalEmail").val();
+        firebase.auth().sendPasswordResetEmail(email).then(function(result) {
+            $('#modalErrorPlaceHolder').removeClass("ui error message");
+            $('#modalErrorPlaceHolder').addClass("ui positive message");
+            $('#modalErrorPlaceHolder').text("נשלח בהצלחה");
+        }).catch(function(err) {
+            $('#modalErrorPlaceHolder').removeClass("ui positive message");
+            $('#modalErrorPlaceHolder').addClass("ui error message");
+            $('#modalErrorPlaceHolder').text(err.message);
+            console.log(err);
+        });
     });
 });

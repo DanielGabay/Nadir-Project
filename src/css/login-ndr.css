@@ -11,12 +11,28 @@ body > .grid {
   max-width: 450px;
 }
 
-.button {
-  background-color: #3a9c86 !important;
+#signInBtn {
+  background-color: #00b7a8 !important;
   padding: 10px !important;
+}
 
+#forgotPasswordBtn {
+  background-color: #735372 !important;
+  padding: 10px !important;
 }
 
 .text-ndr{
   text-align: right !important; 
+}
+
+.ui.modal {
+  text-align: center !important;
+}
+
+.content{
+  text-align: center !important;
+}
+
+#modalEmail{
+  width: 80% !important;
 }
