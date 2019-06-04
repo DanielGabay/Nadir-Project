@@ -19,6 +19,11 @@ $(document).ready(function () {
             });
     })
 
+    $("#trackingGroupBtn").click(function () {
+        sessionStorage.setItem('selectedGroupKey', selectedGroup.Key); // save it temporeriy
+        document.location.href = "groupTracking.html";
+      })
+
     $('#editGroupBtn').unbind().click(function () {     // edit button press
         console.log("edit clicked")
         formAddToEdit();
@@ -102,9 +107,6 @@ function groupsDropDown(groupsData) {
 }
 
 function onChange(value, text, $choise) {
-
-    selectedGroup = {}  
-    groupMembers = []; 
 
     if ($choise.attr('id') && $choise.attr('id') == "addGroupChoice") // add new group option
     {
