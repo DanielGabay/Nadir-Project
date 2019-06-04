@@ -137,6 +137,8 @@ function addNewMemeber() {
     const youthMovement = $("#youth-movement").val();
     const anotherEducation = $("#another-education").val();
     const isInstructor = $("#is-instructor").val();
+    if(isInstructor == null)
+        isInstructor = "false";
     const isAdult = $("#isAdult").val();
     const adultProffesion = $("#adultProffesion").val();
     let personalTracking = [];
