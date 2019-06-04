@@ -12,6 +12,9 @@ $(document).ready(function () {
         // $(.text).val("hhhh");
         $('#loader').removeClass('active'); // remove the loader .
 
+        /**   show by defult the no group details */
+        showNoGroup();
+
         $('.ui.dropdown')   // drop down settings
             .dropdown({
                 on: 'hover',
@@ -103,8 +106,8 @@ function groupsDropDown(groupsData) {
 
 function onChange(value, text, $choise) {
 
-    selectedGroup = {}  
-    groupMembers = []; 
+    selectedGroup = {}
+    groupMembers = [];
 
     if ($choise.attr('id') && $choise.attr('id') == "addGroupChoice") // add new group option
     {
@@ -118,29 +121,8 @@ function onChange(value, text, $choise) {
     groupDetails();
 
     getGorupMembers(selectedgroupName).then(memberGroup => {  // only when getallmembers return the memberlist continue:
-        $('#howMany b').text(memberGroup.length + " חניכים בקבוצה");
-        if (memberGroup.length > 0) // there is members in this group
-        {
-            showTable(memberGroup); // load the table.first -> without display it.
 
-            const $table = $('#groupMemberTable');
-            // // show-table. we can change animation.
-            $table.transition('pulse');
-
-            $('#groupMemberTable td').click(function (event) {
-                const id = ($(this).closest('tr').attr('id'));
-                console.log(id);   // add click even to every row!!!    
-                if (id) {
-                    sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
-                    document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
-                }
-            });
-        }
-        else {
-            $("#groupMemberTable").html("");
-            $('#groupMemberTable').hide();
-
-        }
+        groupMemberDeatails(memberGroup);
 
     })
 }
@@ -269,6 +251,16 @@ function formEditToAdd() {
 
 
 function formAddToEdit() {
+
+    if (selectedGroup.groupName == noGroupName) {
+        $('#successfully-add').modal('show');
+        $("#popUpText").text("לא ניתן לערוך את הקבוצה!");
+        $(".add-btn").modal({
+            closable: true
+        });
+        return;
+    }
+
     $("#group-details").hide();
     $("#groupIcons").hide();
     $("#showNamePlaceHoler").text("");
@@ -498,5 +490,50 @@ function deleteGroup() {
             });
 
     }
+
+}
+
+
+
+function groupMemberDeatails(memberGroup) {
+    $('#howMany b').text(memberGroup.length + " חניכים בקבוצה");
+    if (memberGroup.length > 0) // there is members in this group
+    {
+        showTable(memberGroup); // load the table.first -> without display it.
+
+        const $table = $('#groupMemberTable');
+        // // show-table. we can change animation.
+        $table.transition('pulse');
+
+        $('#groupMemberTable td').click(function (event) {
+            const id = ($(this).closest('tr').attr('id'));
+            console.log(id);   // add click even to every row!!!    
+            if (id) {
+                sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+                document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
+            }
+        });
+    }
+    else {
+        $("#groupMemberTable").html("");
+        $('#groupMemberTable').hide();
+
+    }
+
+}
+
+
+function showNoGroup() {
+    selectedGroup = groupsData.find(group => group.groupName === noGroupName);  // update the global selectedGroup
+    if (selectedGroup == null)
+        return
+    groupDetails();
+
+    getGorupMembers(noGroupName).then(memberGroup => {  // only when getallmembers return the memberlist continue:
+
+        groupMemberDeatails(memberGroup);
+
+    })
+
 
 }
