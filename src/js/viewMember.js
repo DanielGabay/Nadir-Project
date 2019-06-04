@@ -78,11 +78,17 @@ function updateMemDetails() {
       updateMember.First = $("#first-name").val();
       updateMember.Last = $("#last-name").val();
       updateMember.Date = $("#date").val();
-      updateMember.Group = $("#group").val();
+      if( $("#group").val() == null)
+        updateMember.Group = "לא משויך לקבוצה";
+      else
+        updateMember.Group = $("#group").val();
       updateMember.Comments = $("#comments").val();
       updateMember.School = $("#school").val();
       updateMember.PhoneNum = $("#phone-num").val();
-      updateMember.Grade = $("#grade").val();
+      if( $("#grade").val() == null)
+        updateMember.Grade = "";
+      else
+        updateMember.Grade = $("#grade").val();
       updateMember.ParentPhoneNum = $("#parent-phone-num").val();
       updateMember.YouthMovement = $("#youth-movement").val();
       updateMember.AnotherEducation = $("#another-education").val();
@@ -232,7 +238,7 @@ function updateFunc() { //update in session and database
       IsInstructor: updateMember.IsInstructor
     })
     .then(function () {
-      console.log("Document successfully updated!BB!");
+      console.log("Document successfully updated!AAAB!");
     })
     .catch(function (error) {
       // The document probably doesn't exist.
