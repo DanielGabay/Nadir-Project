@@ -10,6 +10,9 @@ $(document).ready(function () {
     document.location.href = "viewMemberComments.html";
   })
 
+  /*get groups names from db/session*/
+  getGroupsData();
+
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   console.log("we passed this data to the next screen:" + selectedPersonKey);
   theMember = JSON.parse(sessionStorage.getItem('memberList')).find(x => x.Key === selectedPersonKey);
@@ -296,4 +299,29 @@ function sumAllPayments(financialArray) {
     sum += obj.Amount;
   })
   return sum;
+}
+
+/*return a promise - mean, that this function return something that we can do .then() after it*/
+function getGroupsData() {
+  return new Promise((resolve) => { // resolve <--->is need with promise.
+    let groupsData = []; // save all the member data.
+
+    if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
+      firestore.collection("Groups").get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            const group = doc.data(); // pointer for document
+            groupsData.push(group); // add for array of all names
+          })
+
+          sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); // save it temporeriy
+          resolve(groupsData);
+        })
+
+    } else {
+      groupsData = JSON.parse(sessionStorage.getItem('groupsData'));
+      resolve(groupsData);
+    }
+  })
+
 }

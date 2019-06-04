@@ -8,6 +8,8 @@ $(document).ready(function () {
         const byProList =  createAdultListByPro(adltList);
 
         $('#byName').click(function () { //search by name
+            $("#byName").addClass("buttonFocus");
+            $("#byPro").removeClass("buttonFocus");
             console.log("clicked");
 
                 $('.ui.search').search({ // to show the search options
@@ -16,7 +18,9 @@ $(document).ready(function () {
                 })
         });
 
-        $('#byPro').click(function () { // search by proffesion    
+        $('#byPro').click(function () { // search by proffesion 
+            $("#byPro").addClass("buttonFocus");
+            $("#byName").removeClass("buttonFocus");   
             console.log("clicked2");
                 $('.ui.search').search({ // to show the search options
                     source: byProList,

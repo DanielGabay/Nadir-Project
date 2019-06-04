@@ -52,7 +52,6 @@ $(document).ready(function () {
             $('#modalErrorPlaceHolder').removeClass("ui positive message");
             $('#modalErrorPlaceHolder').addClass("ui error message");
             $('#modalErrorPlaceHolder').text(err.message);
-            console.log(err);
         });
     });
 });
