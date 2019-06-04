@@ -54,10 +54,10 @@ function addComment(e) {
     Comment: handle_comment($("#comment").val()),
     Id: id,
   };
-
-  if (getCommentArrray().length == 0)
+  console.log(getCommentArrray().length);
+  if (getCommentArrray().length === 0)
     createTable();
- 
+
   //updating the table and the db
   updateDataBase(commentObj);
   updateSessionStorage(commentObj);
@@ -118,6 +118,8 @@ function createTable() {
   tableStr += '  <tr height="50">  <th></th>  <th>שם הכותב</th>  <th>תאריך</th>  <th>פרטים</th>';
   tableStr += ' </tr></thead><tbody></tbody></table>';
   $("#tablePlaceHolder").append(tableStr);
+  console.log("crate table");
+
 }
 
 
@@ -144,6 +146,9 @@ function handle_comment(comment) {
 function sortTable() {
   var table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById("comment_table");
+  console.log("jfgjfjfj");
+  if (table === null)
+    return;
   switching = true;
   /*Make a loop that will continue until
   no switching has been done:*/
@@ -186,7 +191,7 @@ function deleteComment() {
   let len = getCommentArrray().length;
   if (len == 0) {
     //if the FinancialTracking array is empty remove table
-    $("#tablePlaceHolder").remove();
+    $("#comment_table").remove();
   }
   $('.mini.modal').modal('hide')
 }

@@ -302,8 +302,6 @@ function updateDatabase() {
         formEditToAdd();
         return;
     }
-
-
     console.log("gonna updata now:" + groupNameUpdated, guideNameUpdated, guidePhoneNumUpdated);
 
     var updateRef = firestore.collection("Groups").doc(selectedGroup.Key);
@@ -324,8 +322,6 @@ function updateDatabase() {
             selectedGroup.groupInstructor = guideNameUpdated
             selectedGroup.groupPhoneNum = guidePhoneNumUpdated
             updateSession();
-
-
         })
         .catch(function (error) {
             // The document probably doesn't exist.
@@ -343,12 +339,9 @@ function updateSession() {
     formEditToAdd();
     groupsDropDown(groupsData);
 }
-
 function getGroupsData() {
     return new Promise((resolve) => { // resolve <--->is need with promise.
         //  let groupsData = []; // save all the member data.
-
-
         if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
             console.log("groupsData is from FireBase")
             firestore.collection("Groups").get()
@@ -417,7 +410,6 @@ function showTable(GroupMembers) {
     $("#groupMemberTable").html(str);
 }
 
-
 function changeGroupName(oldGroupName, newGroupName) {
 
     if (groupMembers) {
@@ -463,7 +455,6 @@ function updateGroupNameSession(oldGroupName, newGroupName) {
     }
 }
 
-
 function deleteGroup() {
     if (selectedGroup) {
         let groupName = selectedGroup.groupName;
@@ -478,7 +469,6 @@ function deleteGroup() {
             return;
         }
 
-
         console.log("delete group now!")
         let foundIndex = groupsData.findIndex(x => x.Key == selectedGroup.Key);
         groupsData.splice(foundIndex, 1);
@@ -492,8 +482,6 @@ function deleteGroup() {
     }
 
 }
-
-
 
 function groupMemberDeatails(memberGroup) {
     $('#howMany b').text(memberGroup.length + " חניכים בקבוצה");
@@ -521,7 +509,6 @@ function groupMemberDeatails(memberGroup) {
     }
 
 }
-
 
 function showNoGroup() {
     selectedGroup = groupsData.find(group => group.groupName === noGroupName);  // update the global selectedGroup

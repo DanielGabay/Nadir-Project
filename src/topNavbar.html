@@ -20,9 +20,9 @@
 			<img class="ui small image" src="images/logo.png">
 		</div>
 		<div class="item">
-			<a href="#" class="item" onclick="goBack()"><i class="arrow right icon"></i></a>
+			<a href="#" class="item" onclick="goBack()" ><i class="arrow right icon"></i></a>
 			<a href="#" class="item" onclick="goForward()"><i class="arrow left icon"></i></a>
-			<a href="#" class="item" onclick="refresh()"><i class="undo icon"></i></a>
+			<a href="#" class="item" onclick="refresh()" title="לחץ כדי לעדכן"><i class="undo icon"></i></a>
 		</div>
 
 
@@ -66,6 +66,8 @@
 	}
 
 	function refresh() {
+		sessionStorage.clear();
 		location.reload();
+		
 	}
 </script>
