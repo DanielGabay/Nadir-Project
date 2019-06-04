@@ -103,6 +103,9 @@ function groupsDropDown(groupsData) {
 
 function onChange(value, text, $choise) {
 
+    selectedGroup = {}  
+    groupMembers = []; 
+
     if ($choise.attr('id') && $choise.attr('id') == "addGroupChoice") // add new group option
     {
         ScreenToaddGroup();
