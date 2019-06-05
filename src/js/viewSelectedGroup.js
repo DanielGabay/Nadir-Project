@@ -12,17 +12,15 @@ $(document).ready(function () {
         // $(.text).val("hhhh");
         $('#loader').removeClass('active'); // remove the loader .
 
+        /**   show by defult the no group details */
+        showNoGroup();
+
         $('.ui.dropdown')   // drop down settings
             .dropdown({
                 on: 'hover',
                 onChange: onChange
             });
     })
-
-    $("#trackingGroupBtn").click(function () {
-        sessionStorage.setItem('selectedGroupKey', selectedGroup.Key); // save it temporeriy
-        document.location.href = "groupTracking.html";
-      })
 
     $('#editGroupBtn').unbind().click(function () {     // edit button press
         console.log("edit clicked")
@@ -108,6 +106,9 @@ function groupsDropDown(groupsData) {
 
 function onChange(value, text, $choise) {
 
+    selectedGroup = {}
+    groupMembers = [];
+
     if ($choise.attr('id') && $choise.attr('id') == "addGroupChoice") // add new group option
     {
         ScreenToaddGroup();
@@ -120,29 +121,8 @@ function onChange(value, text, $choise) {
     groupDetails();
 
     getGorupMembers(selectedgroupName).then(memberGroup => {  // only when getallmembers return the memberlist continue:
-        $('#howMany b').text(memberGroup.length + " חניכים בקבוצה");
-        if (memberGroup.length > 0) // there is members in this group
-        {
-            showTable(memberGroup); // load the table.first -> without display it.
 
-            const $table = $('#groupMemberTable');
-            // // show-table. we can change animation.
-            $table.transition('pulse');
-
-            $('#groupMemberTable td').click(function (event) {
-                const id = ($(this).closest('tr').attr('id'));
-                console.log(id);   // add click even to every row!!!    
-                if (id) {
-                    sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
-                    document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
-                }
-            });
-        }
-        else {
-            $("#groupMemberTable").html("");
-            $('#groupMemberTable').hide();
-
-        }
+        groupMemberDeatails(memberGroup);
 
     })
 }
@@ -271,6 +251,16 @@ function formEditToAdd() {
 
 
 function formAddToEdit() {
+
+    if (selectedGroup.groupName == noGroupName) {
+        $('#successfully-add').modal('show');
+        $("#popUpText").text("לא ניתן לערוך את הקבוצה!");
+        $(".add-btn").modal({
+            closable: true
+        });
+        return;
+    }
+
     $("#group-details").hide();
     $("#groupIcons").hide();
     $("#showNamePlaceHoler").text("");
@@ -312,8 +302,6 @@ function updateDatabase() {
         formEditToAdd();
         return;
     }
-
-
     console.log("gonna updata now:" + groupNameUpdated, guideNameUpdated, guidePhoneNumUpdated);
 
     var updateRef = firestore.collection("Groups").doc(selectedGroup.Key);
@@ -334,8 +322,6 @@ function updateDatabase() {
             selectedGroup.groupInstructor = guideNameUpdated
             selectedGroup.groupPhoneNum = guidePhoneNumUpdated
             updateSession();
-
-
         })
         .catch(function (error) {
             // The document probably doesn't exist.
@@ -353,12 +339,9 @@ function updateSession() {
     formEditToAdd();
     groupsDropDown(groupsData);
 }
-
 function getGroupsData() {
     return new Promise((resolve) => { // resolve <--->is need with promise.
         //  let groupsData = []; // save all the member data.
-
-
         if (sessionStorage.getItem("groupsData") === null || JSON.parse(sessionStorage.getItem('groupsData')).length === 0) { // if its the first time 
             console.log("groupsData is from FireBase")
             firestore.collection("Groups").get()
@@ -427,7 +410,6 @@ function showTable(GroupMembers) {
     $("#groupMemberTable").html(str);
 }
 
-
 function changeGroupName(oldGroupName, newGroupName) {
 
     if (groupMembers) {
@@ -473,7 +455,6 @@ function updateGroupNameSession(oldGroupName, newGroupName) {
     }
 }
 
-
 function deleteGroup() {
     if (selectedGroup) {
         let groupName = selectedGroup.groupName;
@@ -488,7 +469,6 @@ function deleteGroup() {
             return;
         }
 
-
         console.log("delete group now!")
         let foundIndex = groupsData.findIndex(x => x.Key == selectedGroup.Key);
         groupsData.splice(foundIndex, 1);
@@ -500,5 +480,47 @@ function deleteGroup() {
             });
 
     }
+
+}
+
+function groupMemberDeatails(memberGroup) {
+    $('#howMany b').text(memberGroup.length + " חניכים בקבוצה");
+    if (memberGroup.length > 0) // there is members in this group
+    {
+        showTable(memberGroup); // load the table.first -> without display it.
+
+        const $table = $('#groupMemberTable');
+        // // show-table. we can change animation.
+        $table.transition('pulse');
+
+        $('#groupMemberTable td').click(function (event) {
+            const id = ($(this).closest('tr').attr('id'));
+            console.log(id);   // add click even to every row!!!    
+            if (id) {
+                sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+                document.location.href = 'viewMember.html'; //TODO   show the view member. we need to change this command to new window
+            }
+        });
+    }
+    else {
+        $("#groupMemberTable").html("");
+        $('#groupMemberTable').hide();
+
+    }
+
+}
+
+function showNoGroup() {
+    selectedGroup = groupsData.find(group => group.groupName === noGroupName);  // update the global selectedGroup
+    if (selectedGroup == null)
+        return
+    groupDetails();
+
+    getGorupMembers(noGroupName).then(memberGroup => {  // only when getallmembers return the memberlist continue:
+
+        groupMemberDeatails(memberGroup);
+
+    })
+
 
 }
