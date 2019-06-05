@@ -1,75 +1,68 @@
-#addGroupForm{
-    display: none;
+#addGroupForm {
+  display: none;
 }
 
-#groupMemberTable{
+#groupMemberTable {
 
-    text-align: right;
+  text-align: right;
 }
 
-#groups-menu{
-    text-align: right !important;
+#groups-menu {
+  text-align: right !important;
 }
 
-.actions{
+.actions {
   text-align: center !important;
 }
 
-.textLeft{
-  
-    text-align: right !important;
+.textLeft {
+
+  text-align: right !important;
 
 }
 
-.ta-ndr{
-    text-align: center !important; 
-  }
-עןא
-
-.button{
-    
-    text-align: right !important;
+.button {
+  text-align: right !important;
 }
 
-#trackingGroupBtn{
-    display: none;
+#trackingGroupBtn {
+  display: none;
 }
 
 
-#delGroupBtn{
+#delGroupBtn {
   margin-top: 20px !important;
   /* margin-left: 10px !important; */
   display: none;
 }
 
-#editGroupBtn{
-    margin-top: 20px !important;
-    /* margin: 10px !important; */
-    display: none;
+#editGroupBtn {
+  margin-top: 20px !important;
+  /* margin: 10px !important; */
+  display: none;
 }
 
-#group-details{
-    display: none;
-    margin: auto;
-   width: 50%;
-    padding: 10px;
+#group-details {
+  display: none;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
 }
 
 td:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
+}
 
-#groupMemberTable{
-    display: none;
-  }
+#groupMemberTable {
+  display: none;
+}
 
-.my-custom-scrollbar {
-    height: 400px;
-    overflow: auto;
-  }
-  
-  .table-wrapper-scroll-y {
-    display: block;
-    margin: 20px 160px 0 160px;
-  }
-  
+/* .my-custom-scrollbar {
+  height: 400px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+  margin: 20px 160px 0 160px;
+} */

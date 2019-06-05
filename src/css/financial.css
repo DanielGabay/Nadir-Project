@@ -2,41 +2,8 @@
   text-align: right !important;
 }
 
-.table td {
-  cursor: pointer;
-}
-
-.my-custom-scrollbar {
-  height: 300px;
-  overflow: auto;
-}
-
-.table-wrapper-scroll-y {
-  display: block;
-  margin: 20px 200px 20px 200px;
-}
-
-th {
-  text-size-adjust: 100px !important;
-  font-size: 20px;
-  position:sticky !important;
-  top: 0px;
-}
-
-td {
-  text-size-adjust: 100px !important;
-  font-size: 16px;
-}
-
-.vmf-positive {
-  color: green;
-  font-weight: bold;
-
-}
-
-.vmf-negative {
-  color: red;
-  font-weight: bold;
+td:hover{
+  cursor: pointer;;
 }
 
 #addGroupPaymentBtn {
@@ -44,9 +11,6 @@ td {
   color: white;
 }
 
-.ui.modal {
-  text-align: center !important;
-}
 .modalContent{
   background-color: #f1f1f1 !important;
 }
@@ -54,10 +18,6 @@ td {
 .selectableHeader{
   background-color: #f1f1f1 !important;
   
-}
-
-.actions{
-  text-align: center !important;
 }
 
 #selectedCountIcon{

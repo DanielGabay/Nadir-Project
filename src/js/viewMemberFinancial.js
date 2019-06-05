@@ -13,6 +13,14 @@ $(document).ready(function () {
   $('#addPayModalBtn').click(function () {
     $('#addPaymentModal').modal('show');
   })
+
+  $('#viewMemberBtn').popup({
+    inline: true
+  })
+
+  $('#viewMemberBtn').click(function(){
+    document.location.href = "viewMember.html";
+  })
   $("#datePicker").attr("value", todayDate()); //set datePicker to current date automaticly
   let name = "מעקב כספי- " + selectedMember.First + " " + selectedMember.Last;
   $("#namePlaceHoler").text(name); //place selectedMember name at the header
@@ -70,7 +78,7 @@ function addPayment(e) {
   $('.ui.modal').modal('hide');
 
   //uncomment to scroll down when inserting payment
- // $("#tablePlaceHolder").scrollTop($("#tablePlaceHolder")[0].scrollHeight);
+  // $("#tablePlaceHolder").scrollTop($("#tablePlaceHolder")[0].scrollHeight);
 }
 
 /**Generating id for each payment */
@@ -97,9 +105,22 @@ function fill_table() {
 }
 
 function createTable() {
-  let tableStr = '<table class="ui compact striped table" id="financial_table">'
-  tableStr += '<thead><tr><th></th><th>פרטים</th><th>תאריך</th><th>אופן תשלום</th><th>חובה</th><th>זכות</th><th>הונפקה קבלה?</th></tr>'
-  tableStr += '</thead><tbody></tbody></table>';
+  let tableStr =
+    `<table class="ui compact striped table" id="financial_table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>פרטים</th>
+        <th>תאריך</th>
+        <th>אופן תשלום</th>
+        <th>חובה</th>
+        <th>זכות</th>
+        <th>הונפקה קבלה?</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>`
   $("#tablePlaceHolder").append(tableStr);
 }
 
@@ -124,8 +145,6 @@ function insertToTable(obj) {
     html += '<td></td>';
 
   }
-
-
   html += "</tr>"
   updateSum(obj.Amount);
   $table.append(html);

@@ -57,7 +57,7 @@ function addComment(e) {
 
   if (getCommentArrray().length == 0)
     createTable();
- 
+
   //updating the table and the db
   updateDataBase(commentObj);
   updateSessionStorage(commentObj);
@@ -113,10 +113,19 @@ function fill_table() {
 }
 
 function createTable() {
-  let tableStr = '<table class="ui compact striped table" id="comment_table">'
-  tableStr += '<thead>  <col width="5%">  <col width="15%">  <col width="20%">  <col width="60%">'
-  tableStr += '  <tr height="50">  <th></th>  <th>שם הכותב</th>  <th>תאריך</th>  <th>פרטים</th>';
-  tableStr += ' </tr></thead><tbody></tbody></table>';
+  let tableStr =
+    `<table class="ui compact striped table" id="comment_table">
+  <colgroup><col width="5%"><col width="15%">  <col width="20%">  <col width="60%"></colgroup>
+    <thead>
+      <tr height="50">
+        <th></th>
+        <th>שם הכותב</th>
+        <th>תאריך</th>
+        <th>פרטים</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>`
   $("#tablePlaceHolder").append(tableStr);
 }
 
@@ -125,6 +134,7 @@ function createTable() {
 function getCommentArrray() {
   return JSON.parse(sessionStorage.getItem('memberList')).find(member => member.Key === selectedMemberKey).PersonalTracking;
 }
+
 function todayDate() {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');

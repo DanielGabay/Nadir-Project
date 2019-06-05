@@ -13,14 +13,13 @@
 </style>
 
 
-
 <div class="ui borderless menu">
 	<div class="ui container">
 		<div class="item">
 			<img class="ui small image" src="images/logo.png">
 		</div>
 		<div class="item">
-			<a href="#" class="item" onclick="goBack()" ><i class="arrow right icon"></i></a>
+			<a href="#" class="item" onclick="goBack()"><i class="arrow right icon"></i></a>
 			<a href="#" class="item" onclick="goForward()"><i class="arrow left icon"></i></a>
 			<a href="#" class="item" onclick="refresh()" title="לחץ כדי לעדכן"><i class="undo icon"></i></a>
 		</div>
@@ -38,6 +37,7 @@
 
 		<a href="groups.html" class="item"><i class="tab users large icon"></i>קבוצות</a>
 		<a href="financial.html" class="item"><i class="tab shekel icon"></i>כספים</a>
+		<a href="#" class="item" id="settings"><i class="setting icon"></i>הגדרות</a>
 
 		<div class="left menu">
 			<div class="item">
@@ -49,14 +49,61 @@
 	</div>
 </div>
 
-<script>
+<!-- <script>
+	$('#settings').hide();
+	firebase.auth().onAuthStateChanged(function (user) {
+		if (user) {
+			if (user.uid === "CJ8zwxSWD5Y5AqECBPByLeoMzD53")
+				$('#settings').show();
+				// User is signed in.
+				console.log("logged in");
 
-	document.querySelector("#logoutBtn").addEventListener('click',function(e){
+		} else {
+			// No user is signed in.
+			alert("שגיאה בהתחברות. יש לבצע כניסה מחדש");
+			sessionStorage.clear();
+			document.location.href = "login-ndr.html";
+		}
+	});
+</script> -->
+<script>
+	$('#settings').hide();
+	let user = firebase.auth().currentUser;
+	if (user) {
+		if (user.uid === "CJ8zwxSWD5Y5AqECBPByLeoMzD53")
+			$('#settings').show();
+		// User is signed in.
+		console.log("logged in");
+
+	} else {
+		// No user is signed in.
+		console.log("not logged in");
+		// alert("שגיאה בהתחברות. יש לבצע כניסה מחדש");
+		// sessionStorage.clear();
+		// document.location.href = "login-ndr.html";
+	}
+</script>
+
+<script>
+	document.querySelector("#logoutBtn").addEventListener('click', function (e) {
 		e.preventDefault();
 		sessionStorage.clear();
 		document.location.href = "login-ndr.html";
+
+		firebase.auth().signOut().then(function () {
+			// Sign-out successful.
+			sessionStorage.clear();
+			document.location.href = "login-ndr.html";
+		}, function (error) {
+			// An error happened.
+			sessionStorage.clear(); /*delete this!!*/
+			document.location.href = "login-ndr.html";	/*delete this!!*/
+
+			console.log(error);
+		});
+
 	});
-	
+
 	function goBack() {
 		window.history.back();
 	}
@@ -68,6 +115,5 @@
 	function refresh() {
 		sessionStorage.clear();
 		location.reload();
-		
 	}
 </script>

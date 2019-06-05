@@ -3,23 +3,74 @@
     margin-left: 20%;
   }
 
-  
-  body{
+
+  body {
     background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
     text-align: center;
-  } 
-
-  .large-text{
-    font-size: 1.5rem!important;
   }
 
-  .table-text{
+  .large-text {
+    font-size: 1.5rem !important;
+  }
+
+  .table-text {
     font-size: 1.3rem !important;
   }
 
-  .meduim-text{
-    font-size: 1.1rem!important;
+  .meduim-text {
+    font-size: 1.1rem !important;
   }
 
-  
-  
+  /*moved globaly*/
+  .ui.modal {
+    text-align: center !important;
+  }
+
+  .actions {
+    text-align: center !important;
+  }
+
+  .trash.icon {
+    cursor: pointer;
+  }
+
+  .table {
+    text-align: right !important;
+  }
+
+  .my-custom-scrollbar {
+    height: 300px;
+    overflow: auto;
+  }
+
+  .table-wrapper-scroll-y {
+    display: block;
+    margin: 20px 200px 20px 200px;
+  }
+
+  th {
+    text-size-adjust: 100px !important;
+    font-size: 20px;
+    position: sticky !important;
+    top: 0px;
+  }
+
+  td {
+    text-size-adjust: 100px !important;
+    font-size: 16px;
+  }
+
+  .vmf-positive {
+    color: green;
+    font-weight: bold;
+
+  }
+
+  .vmf-negative {
+    color: red;
+    font-weight: bold;
+  }
+
+  .ta-ndr {
+    text-align: center !important;
+  }

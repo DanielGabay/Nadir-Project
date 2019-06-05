@@ -8,13 +8,6 @@ h3 {
   text-decoration: underline
 }
 
-th {
-  text-size-adjust: 100px !important;
-  font-size: 20px;
-  position:sticky !important;
-  top: 0px;
-}
-
 .search-ndr {
   text-align: center !important;
   max-width: 211px;
@@ -36,20 +29,6 @@ td:hover {
 
 th{
   text-align: right !important;
-}
-.table-ndr {
-  text-align: right !important;
-}
-
-
-.my-custom-scrollbar {
-  height: 400px;
-  overflow: auto;
-}
-
-.table-wrapper-scroll-y {
-  display: block;
-  margin: 20px 160px 0 160px;
 }
 
 .wrapper {

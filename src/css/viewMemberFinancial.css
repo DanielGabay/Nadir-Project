@@ -1,67 +1,24 @@
-.ui.modal {
-  text-align: center !important;
-}
-
-
 .modalContent{
   background-color: #f1f1f1 !important;
 }
-
 
 .sumAll{
   margin: auto !important;
   width: 30% !important;
 }
 
-.table {
-  text-align: right !important;
-}
-
-.trash.icon {
-  cursor: pointer;
-}
-
-.my-custom-scrollbar {
-  height: 300px;
-  overflow: auto;
-}
-
-.table-wrapper-scroll-y {
-  display: block;
-  margin: 20px 200px 20px 200px;
-}
-
-th {
-  text-size-adjust: 100px !important;
-  font-size: 20px;
-  position:sticky !important;
-  top: 0px;
-}
-
-
-
-td {
-  text-size-adjust: 100px !important;
-  font-size: 16px;
-}
-
-.vmf-positive {
-  color: green;
-  font-weight: bold;
-
-}
-
 .actions{
   text-align: center !important;
 }
 
-.vmf-negative {
-  color: red;
-  font-weight: bold;
-}
 
 #addPayModalBtn {
   background-color:#7fa99b;
+  color: white;
+}
+
+#viewMemberBtn {
+  background-color:#987fa9;
   color: white;
 }
 
