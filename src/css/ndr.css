@@ -74,3 +74,25 @@
   .ta-ndr {
     text-align: center !important;
   }
+
+  @font-face { font-family: Shuneet; 
+    src: url('../fonts/shuneet_book_v2.otf'); } 
+
+    * {
+      /* font-size: 100%; */
+       font-family:Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif; 
+      
+     }
+
+  h1
+{
+  font-family: 'Shuneet', serif !important;
+  font-size:40px;
+}
+
+h2
+{
+  font-family: 'Shuneet', serif !important;
+  font-size:30px;
+}
+

@@ -42,6 +42,11 @@
   display: none;
 }
 
+#showNamePlaceHoler{
+  font-family: 'Shuneet', serif !important;
+  font-size:25px;
+}
+
 #group-details {
   display: none;
   margin: auto;
