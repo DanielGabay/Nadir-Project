@@ -255,7 +255,7 @@ function addPayment(e) {
 
 function clearFormAndSelectedMembers() {
   selectedMembersArr = [];
-  $("#details").val("");
+  $("#details").val("");  
   $("#datePicker").attr("value", todayDate());
   $("#charge").val("");
   $("#amount").val("");
