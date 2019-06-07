@@ -25,7 +25,7 @@ $(document).ready(function () {
     $("#trackingGroupBtn").click(function () {
         sessionStorage.setItem('selectedGroupKey', selectedGroup.Key); // save it temporeriy
         document.location.href = "groupTracking.html";
-      })
+    })
 
     $('#editGroupBtn').unbind().click(function () {     // edit button press
         console.log("edit clicked")
@@ -104,9 +104,7 @@ function groupsDropDown(groupsData) {
     }
     else {
         console.log("there is no groups yet. so appent nothing")
-
     }
-
 }
 
 function onChange(value, text, $choise) {
@@ -373,15 +371,17 @@ function getGroupsData() {
 function getGorupMembers(selectedgroup) {
     return new Promise((resolve) => {   // resolve <--->is need with promise.
         //    let Groupmembers = []; // save all the member data.
+        let memberList = []; // save all the member data.
 
         if (sessionStorage.getItem("memberList") === null || JSON.parse(sessionStorage.getItem('memberList')).length === 0) { // if its the first time   // if its the first time 
-            firestore.collection("Members").where("Group", "==", selectedgroup).where("IsAdult", "==", "false").get()
+            firestore.collection("Members").where("IsAdult", "==", "false").get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         const person = doc.data(); // pointer for document
-                        groupMembers.push(person); // add for array of all names
+                        memberList.push(person); // add for array of all names
                     });
-
+                    sessionStorage.setItem('memberList', JSON.stringify(memberList)); // save it temporeriy
+                    groupMembers = memberList.filter(member => member.Group == selectedgroup);
                     resolve(groupMembers);
                 });
         }
