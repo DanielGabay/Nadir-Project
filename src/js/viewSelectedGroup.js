@@ -289,7 +289,7 @@ function updateDatabase() {
     let isGroupNameChanged = selectedGroup.groupName != groupNameUpdated;
     //  console.log("name changed? " + isGroupNameChanged);
 
-    if (isGroupNameChanged && groupsData.find(group => group.groupName == groupNameUpdated)) // if there is already group with the new name
+    if (isGroupNameChanged && groupsData.find(group => group.groupName == groupNameUpdated)) // if there is already group with the new name ====> to avoid the space .replace(/ /g,"")
     {
         $('#successfully-add').modal('show');
         $("#popUpText").text("שם הקבוצה תפוס , בחר שם אחר");
@@ -407,9 +407,9 @@ function showTable(GroupMembers) {
         return 0;
     });
 
-    let str = '<thead>  <tr> <th>שם </th> <th>טלפון</th> </tr> </thead>  <tbody> ';
+    let str = '<thead>  <tr> <th>שם </th> <th>טלפון</th> <th >בית ספר</th> <th class="two wide">כיתה</th> </tr> </thead>  <tbody> ';
     GroupMembers.forEach(function (member) {
-        str += '<tr id = ' + member.Key + ' > <td>' + member.First + ' ' + member.Last + '</td> <td>' + (member.PhoneNum) + '</td> </tr>';
+        str += '<tr id = ' + member.Key + ' > <td>' + member.First + ' ' + member.Last + '</td> <td>' + (member.PhoneNum) + '</td> <td>' + (member.School) + '</td> <td>' + (member.Grade) + '</td> </tr>';
     })
     str += '</tbody>';
     $("#groupMemberTable").html(str);
@@ -474,7 +474,7 @@ function deleteGroup() {
             return;
         }
 
-        console.log("delete group now!")
+        
         let foundIndex = groupsData.findIndex(x => x.Key == selectedGroup.Key);
         groupsData.splice(foundIndex, 1);
         sessionStorage.setItem('groupsData', JSON.stringify(groupsData)); //save to session after delete
@@ -483,11 +483,8 @@ function deleteGroup() {
                 changeGroupName(groupName, noGroupName);
                 document.location.href = "homePage.html";
             });
-
     }
-
 }
-
 function groupMemberDeatails(memberGroup) {
     $('#howMany b').text(memberGroup.length + " חניכים בקבוצה");
     if (memberGroup.length > 0) // there is members in this group
@@ -510,11 +507,8 @@ function groupMemberDeatails(memberGroup) {
     else {
         $("#groupMemberTable").html("");
         $('#groupMemberTable').hide();
-
     }
-
 }
-
 function showNoGroup() {
     selectedGroup = groupsData.find(group => group.groupName === noGroupName);  // update the global selectedGroup
     if (selectedGroup == null)
@@ -522,10 +516,6 @@ function showNoGroup() {
     groupDetails();
 
     getGorupMembers(noGroupName).then(memberGroup => {  // only when getallmembers return the memberlist continue:
-
         groupMemberDeatails(memberGroup);
-
     })
-
-
 }
