@@ -6,6 +6,7 @@
 
   body {
     background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
+    /* background: -webkit-linear-gradient(65deg, #cfc6ef 52%, rgb(241, 228, 253) 50%) no-repeat fixed; */
     text-align: center;
   }
 
@@ -75,24 +76,23 @@
     text-align: center !important;
   }
 
-  @font-face { font-family: Shuneet; 
-    src: url('../fonts/shuneet_book_v2.otf'); } 
+  @font-face {
+    font-family: Shuneet;
+    src: url('../fonts/shuneet_book_v2.otf');
+  }
 
-    * {
-      /* font-size: 100%; */
-       font-family:Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif; 
-      
-     }
+  * {
+    /* font-size: 100%; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif;
 
-  h1
-{
-  font-family: 'Shuneet', serif !important;
-  font-size:40px;
-}
+  }
 
-h2
-{
-  font-family: 'Shuneet', serif !important;
-  font-size:30px;
-}
+  h1 {
+    font-family: 'Shuneet', serif !important;
+    font-size: 40px;
+  }
 
+  h2 {
+    font-family: 'Shuneet', serif !important;
+    font-size: 30px;
+  }
