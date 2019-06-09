@@ -99,9 +99,9 @@ npm run package-linux
 - [NodeJs](https://nodejs.org/en/) - Server Environment
 
 ## ✍️ Authors <a name = "authors"></a>
-- [DanielGabay](https://github.com/DanielGabay)
-- [shachar-israeli](https://github.com/shachar-israeli)
-- [estyKolin](https://github.com/estyKolin)
-- [guuy1](https://github.com/guuy1)
-- [saraize](https://github.com/saraize)
+- [Daniel Gabay](https://github.com/DanielGabay)
+- [Shachar Israeli](https://github.com/shachar-israeli)
+- [Esty Kolin](https://github.com/estyKolin)
+- [Guy Udi](https://github.com/guuy1)
+- [Sarai Zarbib](https://github.com/saraize)
 
