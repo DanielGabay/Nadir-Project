@@ -4,9 +4,17 @@
   }
 
 
+  /* #container {
+   
+  } */
+
+
+
   body {
     background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
     text-align: center;
+    /* height: 1000px;
+    width: 1300px; */
   }
 
   .large-text {
@@ -66,6 +74,11 @@
 
   }
 
+  input::placeholder,
+  textarea::placeholder{
+    color:black !important;
+  }
+
   .vmf-negative {
     color: red;
     font-weight: bold;
@@ -78,10 +91,9 @@
   @font-face { font-family: Shuneet; 
     src: url('../fonts/shuneet_book_v2.otf'); } 
 
-    * {
+    body {
       /* font-size: 100%; */
        font-family:Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif; 
-      
      }
 
   h1
