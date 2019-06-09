@@ -15,6 +15,10 @@
 ---
 
 <p align="left"> 
+This project is developed as part of the requirements for a software engineering course at the software engineering department
+- Azrieli College of Engineering, Jerusalem, Israel.
+</p>
+<p align="left">
 Our project provides a cross platfrom (Windows,MAC & Linux) Desktop application for the "Nadir Project" association.
 </p>
 
@@ -96,7 +100,9 @@ npm run package-linux
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [Firebase](http://firebase.google.com) - Database
 - [Electron](https://electronjs.org/) - Desktop application Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [NodeJs](https://nodejs.org/en/) 
+- [git](https://git-scm.com/) - version control system 
+- [github](https://github.com/) - hosting platform for collaboration and version control
 
 ## ✍️ Authors <a name = "authors"></a>
 - [Daniel Gabay](https://github.com/DanielGabay)
