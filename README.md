@@ -83,7 +83,7 @@ On the navbar under "חניכים" you can add members by choosing "הוסף ח�
 Then search for the member under "חיפוש חניך".
 
 ## 🚀 Deployment <a name = "deployment"></a>
-To get a realse-build of your app you'll need to change the icons on src/icons for win/mac/linux to your app logo, and after that run the folloing scripts:
+To get a realse-build of your app you'll need to change the icons on src/icons for win/mac/linux to your app logo, and after that run the following scripts:
 ```
 # Packaging for windows:
 npm run package-win
