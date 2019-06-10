@@ -3,7 +3,7 @@
 .search-ndr {
   text-align: center !important;
   max-width: 211px;
-  margin: 20px auto;
+  margin: 7px auto;
 }
 
 td:hover {
@@ -39,6 +39,11 @@ th{
 
 .result {
   text-align: center !important;
+}
+
+.content{
+
+  font-size: 10px !important;
 }
 
 /* 

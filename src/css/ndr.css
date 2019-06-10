@@ -53,19 +53,19 @@
 
   .table-wrapper-scroll-y {
     display: block;
-    margin: 20px 200px 20px 200px;
+    margin: 20px 200px 2px 200px;
   }
 
   th {
     text-size-adjust: 100px !important;
-    font-size: 20px;
+    font-size: 12px;
     position: sticky !important;
     top: 0px;
   }
 
   td {
     text-size-adjust: 100px !important;
-    font-size: 16px;
+    font-size: 10px;
   }
 
   .vmf-positive {
@@ -99,12 +99,12 @@
   h1
 {
   font-family: 'Shuneet', serif !important;
-  font-size:40px;
+  font-size:25px;
 }
 
 h2
 {
   font-family: 'Shuneet', serif !important;
-  font-size:30px;
+  font-size:15px;
 }
 
