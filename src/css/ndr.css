@@ -3,13 +3,6 @@
     margin-left: 20%;
   }
 
-
-  /* #container {
-   
-  } */
-
-
-
   body {
     /* background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed; */
     background: url("../images/background1.jpg") no-repeat center center fixed; 
@@ -112,4 +105,3 @@ h2
   font-family: 'Shuneet', serif !important;
   font-size:15px;
 }
-
