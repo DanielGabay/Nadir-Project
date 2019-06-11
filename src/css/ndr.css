@@ -4,12 +4,12 @@
   }
 
   body {
-    /* background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed; */
-    background: url("../images/background1.jpg") no-repeat center center fixed; 
+    background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
+    /* background: url("../images/background2.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover; */
     text-align: center;
     /* height: 1000px;
     width: 1300px; */
@@ -56,14 +56,14 @@
 
   th {
     text-size-adjust: 100px !important;
-    font-size: 12px;
+    font-size: 16px;
     position: sticky !important;
     top: 0px;
   }
 
   td {
     text-size-adjust: 100px !important;
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .vmf-positive {
@@ -73,8 +73,8 @@
   }
 
   input::placeholder,
-  textarea::placeholder{
-    color:black !important;
+  textarea::placeholder {
+    color: black !important;
   }
 
   .vmf-negative {
@@ -86,22 +86,22 @@
     text-align: center !important;
   }
 
-  @font-face { font-family: Shuneet; 
-    src: url('../fonts/shuneet_book_v2.otf'); } 
+  @font-face {
+    font-family: Shuneet;
+    src: url('../fonts/shuneet_book_v2.otf');
+  }
 
-    body {
-      /* font-size: 100%; */
-       font-family:Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif; 
-     }
+  body {
+    /* font-size: 100%; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif;
+  }
 
-  h1
-{
-  font-family: 'Shuneet', serif !important;
-  font-size:25px;
-}
+  h1 {
+    font-family: 'Shuneet', serif !important;
+    font-size: 30px;
+  }
 
-h2
-{
-  font-family: 'Shuneet', serif !important;
-  font-size:15px;
-}
+  h2 {
+    font-family: 'Shuneet', serif !important;
+    font-size: 20px;
+  }
