@@ -4,14 +4,15 @@
 <head>
   <meta charset="utf-8">
   <title>הוספת חניך</title>
-  <link rel="stylesheet" type="text/css" href="css/addMember.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="css/addMember.css" /> -->
   <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
   <link rel="stylesheet" href="css/ndr.css">
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="semantic/semantic.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script><!--Authentication-->
+  <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+  <!--Authentication-->
   <script src="js/config.js"></script>
   <script src="js/transition.js"></script>
   <script src="js/addMember.js"></script>
@@ -27,64 +28,64 @@
 
 <body class="ndr" dir="rtl">
 
+  <div id="container>">
+    <div id="navbar"></div>
 
-  <div id="navbar"></div>
-
-  <div class="ui mini modal" id="successfully-add">
-    <div class="ta-ndr header">
-      החניך הוסף בהצלחה !
-    </div>
-    <div class="actions ta-ndr">
-      <div class="ui positive left labeled icon button ">
-        אישור
-        <i class="checkmark icon"></i>
+    <div class="ui mini modal" id="successfully-add">
+      <div class="ta-ndr header">
+        החניך הוסף בהצלחה !
+      </div>
+      <div class="actions ta-ndr">
+        <div class="ui positive left labeled icon button ">
+          אישור
+          <i class="checkmark icon"></i>
+        </div>
       </div>
     </div>
-  </div>
 
 
 
-  <h2>הוספת חניך</h2><br>
-  <div class="ndr">
-    <div class="ndr-form">
-      <form id="form-Add">
-        <div class="ui form">
+    <h1>הוספת חניך</h1>
+    <div class="ndr">
+      <div class="ndr-form">
+        <form id="form-Add">
+          <div class="ui form">
 
 
-          <div class="three fields">
+            <div class="three fields">
 
-            <div class="field">
-              <label>*שם פרטי:</label>
-              <input type="text" required id="first-name" placeholder="שם פרטי">
+              <div class="field">
+                <!-- <label>*שם פרטי:</label> -->
+                <input type="text" required id="first-name" placeholder="שם פרטי">
+              </div>
+
+              <div class="field">
+                <!-- <label>*שם משפחה:</label> -->
+                <input type="text" required id="last-name" placeholder="שם משפחה ">
+              </div>
+
+              <div class="field">
+                <!-- <label>*טלפון:</label> -->
+                <input type="number" class="ndr-input" required id="phone-num" placeholder="טלפון">
+              </div>
+
             </div>
 
-            <div class="field">
-              <label>*שם משפחה:</label>
-              <input type="text" required id="last-name" placeholder="שם משפחה ">
-            </div>
+            <div class="two fields">
 
-            <div class="field">
-              <label>*טלפון:</label>
-              <input type="number" class="ndr-input" required id="phone-num" placeholder="טלפון">
-            </div>
+              <div class="field">
+                <!-- <label>קבוצה:</label> -->
+                <select class="ui fluid dropdown" id="group">
+                </select>
+              </div>
 
-          </div>
+              <div class="field">
+                <!-- <label>בית ספר:</label> -->
+                <input type="text" placeholder="בית ספר" id="school">
+              </div>
 
-          <div class="two fields">
-
-            <div class="field">
-              <label>קבוצה:</label>
-              <select class="ui fluid dropdown" id="group">
-              </select>
-            </div>
-
-            <div class="field">
-              <label>בית ספר:</label>
-              <input type="text" placeholder="בית ספר" id="school">
-            </div>
-
-            <div class="field">
-                <label>כיתה:</label>
+              <div class="field">
+                <!-- <label>כיתה:</label> -->
                 <select class="ui fluid dropdown" id="grade">
                   <option disabled selected value value="">בחר כיתה</option>
                   <option value="ז">ז'</option>
@@ -96,81 +97,77 @@
                 </select>
               </div>
 
-          </div>
+            </div>
 
 
-          <div class="two fields">
 
+            <div class="two fields">
+              <div class="field">
+                <!-- <label>תאריך לידה:</label> -->
+                <input type="date" name="bday" id="date">
+              </div>
+              <div class="field">
+                <!-- <label>טלפון אבא/אמא:</label> -->
+                <input type="number" placeholder="טלפון אבא/אמא" maxlength="10" id="parent-phone-num">
+              </div>
+            </div>
 
-           
-          </div>
+            <div class="three fields">
+              <div class="field">
+                <!-- <label>תנועת נוער:</label> -->
+                <input type="text" placeholder="תנועת נוער" id="youth-movement">
+              </div>
+              <div class="field">
+                <!-- <label>האם מדריך:</label> -->
+                <select class="ui fluid dropdown" id="is-instructor">
+                  <option value="false">לא</option>
+                  <option value="true">כן</option>
+                </select>
+              </div>
+              <div class="field">
+                <!-- <label>מסגרת נוספת:</label> -->
+                <input type="text" placeholder="מסגרת נוספת" id="another-education">
+              </div>
+            </div>
 
-          <div class="two fields">
             <div class="field">
-              <label>תאריך לידה:</label>
-              <input type="date" name="bday" id="date">
+              <!-- <label>הערות:</label> -->
+              <textarea id="comments" placeholder="הערות" rows="4"></textarea>
             </div>
-            <div class="field">
-              <label>טלפון אבא/אמא:</label>
-              <input type="number" placeholder="טלפון אבא/אמא" maxlength="10" id="parent-phone-num">
-            </div>
-          </div>
+            <div class="three fields" id="adltSection">
+              <div class="field">
+                <!-- <label>הוספה כבוגר:</label> -->
+                <select required class="ui fluid dropdown" id="isAdult">
+                  <option value="false" selected value>לא</option>
+                  <option value="true">כן</option>
+                </select>
+              </div>
+              <div class="field" id="proffesionDiv">
+                <!-- <label>הוסף עיסוק:</label> -->
+                <input type="text" placeholder="הוסף עיסוק" id="adultProffesion">
+              </div>
 
-          <div class="three fields">
-            <div class="field">
-              <label>תנועת נוער:</label>
-              <input type="text" placeholder="תנועת נוער" id="youth-movement">
-            </div>
-            <div class="field">
-              <label>האם מדריך:</label>
-              <select class="ui fluid dropdown" id="is-instructor">
-                <option value="false">לא</option>
-                <option value="true">כן</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>מסגרת נוספת:</label>
-              <input type="text" placeholder="מסגרת נוספת" id="another-education">
-            </div>
-          </div>
-
-          <div class="field">
-            <label>הערות:</label>
-            <textarea id="comments" rows="4"></textarea>
-          </div>
-          <div class="three fields" id="adltSection">
-            <div class="field">
-              <label>הוספה כבוגר:</label>
-              <select required class="ui fluid dropdown" id="isAdult">
-                <option  value="false" selected value>לא</option>
-                <option value="true">כן</option>
-              </select>
-            </div>
-            <div class="field" id="proffesionDiv">
-              <label>הוסף עיסוק:</label>
-              <input type="text" placeholder="הוסף עיסוק" id="adultProffesion">
-            </div>
-
-            <!-- div if we hiding the div proffesionDiv -->
-            <div class="field" id="nullDiv">
+              <!-- div if we hiding the div proffesionDiv -->
+              <div class="field" id="nullDiv">
                 <label> &nbsp </label>
                 <label> &nbsp </label>
               </div>
 
 
-            <div class="field" id="saveDiv">
-              <label> &nbsp </label>
-              <button id="add-btn" type="submit" class="left floated ui primary button">שמור</button>
+              <div class="field" id="saveDiv">
+                <button id="add-btn" type="submit" class="left floated ui purple button">שמור</button>
+              </div>
+
             </div>
-
           </div>
-        </div>
-      </form>
+        </form>
 
-      <!-- this is the loader template -->
-    <div id="loader" class="ui active inverted dimmer">
-      <div class="ui loader"></div>
-  </div>
+        <!-- this is the loader template -->
+        <div id="loader" class="ui active inverted dimmer">
+          <div class="ui loader"></div>
+        </div>
+
+      </div>
 
 </body>
 

@@ -3,6 +3,7 @@ const firestore = firebase.firestore(); // connect to our firebase storage.
 /*when document is ready*/
 $(document).ready(function () {
     getAllMembers().then(memberList => { // only when getallmembers return the memberlist continue:
+        $('.description b').text(memberList.length);
         $('#loader').removeClass('active'); // remove the loader .
 
         const searchList = convertMemberListToSearchList(memberList);

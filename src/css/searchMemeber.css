@@ -1,17 +1,9 @@
-h3 {
-  font-family: Calibri;
-  font-size: 25pt;
-  font-style: normal;
-  font-weight: bold;
-  color: SlateBlue;
-  text-align: center;
-  text-decoration: underline
-}
+
 
 .search-ndr {
   text-align: center !important;
   max-width: 211px;
-  margin: 20px auto;
+  margin: 7px auto;
 }
 
 td:hover {
@@ -48,3 +40,19 @@ th{
 .result {
   text-align: center !important;
 }
+
+.content{
+
+  font-size: 10px !important;
+}
+
+/* 
+ .my-custom-scrollbar {
+  height: 400px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+  margin: 20px 160px 0 160px;
+}  */

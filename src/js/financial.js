@@ -150,7 +150,7 @@ function openMemberSelectModal(btnClicked) {
   $('#selectPlaceHolder').append(select);
 
   /*filling the selected/unselcted cols*/
-  initMultySelect();
+  initMultiSelect();
   if (group === "allGroups")
     $('#selectMemberListHeader').text("בחר חניכים");
   else
@@ -190,7 +190,7 @@ function getMembersToSelect(group) {
   return optionArr;
 }
 
-function initMultySelect(){
+function initMultiSelect(){
   $('#selectFromGroup').multiSelect({
     selectableHeader: "<div class='selectableHeader large-text'>בחר חניכים</div>",
     selectionHeader: "<div class='selectableHeader large-text'>חניכים שנבחרו</div>",
@@ -255,7 +255,7 @@ function addPayment(e) {
 
 function clearFormAndSelectedMembers() {
   selectedMembersArr = [];
-  $("#details").val("");
+  $("#details").val("");  
   $("#datePicker").attr("value", todayDate());
   $("#charge").val("");
   $("#amount").val("");

@@ -113,10 +113,11 @@ function fill_table() {
 }
 
 function createTable() {
-  let tableStr = '<table class="ui compact striped table" id="comment_table">'
-  tableStr += '<thead>  <col width="5%">  <col width="15%">  <col width="20%">  <col width="60%">'
-  tableStr += '  <tr height="50">  <th></th>  <th>שם הכותב</th>  <th>תאריך</th>  <th>פרטים</th>';
-  tableStr += ' </tr></thead><tbody></tbody></table>';
+  let tableStr = `<table class="ui compact striped table" id="comment_table">
+   <colgroup> <col width="5%">  <col width="15%">  <col width="20%">  <col width="60%"></colgroup>
+  <thead>
+  <tr height="50">  <th></th>  <th>שם הכותב</th>  <th>תאריך</th>  <th>פרטים</th>
+  </tr></thead><tbody></tbody></table>`;
   $("#tablePlaceHolder").append(tableStr);
   console.log("crate table");
 

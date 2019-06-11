@@ -42,6 +42,11 @@
   display: none;
 }
 
+#showNamePlaceHoler{
+  font-family: 'Shuneet', serif !important;
+  font-size:25px;
+}
+
 #group-details {
   display: none;
   margin: auto;
@@ -55,6 +60,21 @@ td:hover {
 
 #groupMemberTable {
   display: none;
+}
+
+/* ui override */
+.ui.placeholder.segment.tab {
+  height: 260px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+td{
+  font-size: 12px;
+}
+
+th{
+  font-size: 10px !important;
 }
 
 /* .my-custom-scrollbar {

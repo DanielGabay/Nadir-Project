@@ -27,6 +27,10 @@
 
 <body class="ndr" dir="rtl">
 
+<!-- this is the loader template -->
+<div id="loader" class="ui active inverted dimmer">
+    <div class="ui loader"></div>
+</div>
 
     <div id="navbar"></div>
     <h1 class="search-ndr">חיפוש חניך</h1>
@@ -38,20 +42,25 @@
             <div id="search" class="results search-ndr"></div>
     </div>
 
-    <div class="wrapper">
-        <button class=" button ui primary button" id="show-all">
-            רשימת כל החניכים
-        </button>
-    </div>
+
+    <div class="ui centered cards">
+        <div class=" blue card">
+          <div class="content">
+            <div class="header"> סה"כ מספר החניכים הפעילים</div>
+            <div class="description">
+                    <i class="child icon"></i>
+                    <b></b>
+            </div>
+          </div>
+          <div id="show-all" class="ui bottom attached purple button">
+            <i class=" list icon"></i>   רשימת כל החניכים</div>
+        </div>
+       
+      </div>
 
     <div class="table-wrapper-scroll-y my-custom-scrollbar"  dir="rtl">
         <table class="ui selectable table table-ndr" id="membersTable">
         </table>
-    </div>
-
-    <!-- this is the loader template -->
-    <div id="loader" class="ui active inverted dimmer">
-        <div class="ui loader"></div>
     </div>
 
 
