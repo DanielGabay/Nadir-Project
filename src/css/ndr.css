@@ -56,14 +56,14 @@
 
   th {
     text-size-adjust: 100px !important;
-    font-size: 12px;
+    font-size: 16px;
     position: sticky !important;
     top: 0px;
   }
 
   td {
     text-size-adjust: 100px !important;
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .vmf-positive {

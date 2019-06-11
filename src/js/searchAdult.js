@@ -5,50 +5,31 @@ $(document).ready(function () {
     getAllMemebers().then(adltList => { // only when getallmemebers return the memberlist continue:
         $('#loader').removeClass('active'); // remove the loader 
 
-       $('#byName').click(function () { //search by name
-        $('#search-input').val("");
-            const byNameList = createAdultListByName(adltList);
-            $("#byName").addClass("buttonFocus");
-            $("#byPro").removeClass("buttonFocus");
-            console.log("clicked");
+        let byNameList = createAdultListByName(adltList);
 
-            $('.ui.search').search({ // to show the search options
-                source: byNameList,
-                onSelect: onSelect
-            })
-    
-        });
-        
-      $('#byPro').click(function () { // search by proffesion 
-        $('#search-input').val("");    
-        const byProList = createAdultListByPro(adltList);
-            $("#byPro").addClass("buttonFocus");
-            $("#byName").removeClass("buttonFocus");
-            console.log("clicked2");
-            $('.ui.search').search({ // to show the search options
-                source: byProList,
-                onSelect: onSelect
-            })
-        
-        });
+        $('.ui.search').search({ // to show the search options
+            source: byNameList,
+            onSelect: onSelect
+        })
 
         showTable(adltList); // load the table.first -> without display it.
 
         const $table = $('#adultTable');
-        $("#show-all").click(function () { // show-table. we can change animation.
+        $table.hide();
+        $("#showAdlt").click(function () { // show-table. we can change animation.
             $table.transition('slide down');
         });
-  
 
-    $('#adultTable td').click(function () {
-        const id = ($(this).closest('tr').attr('id'));
-        console.log(id); // add click even to every row!!!
-        if (id) {
-            sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
-            document.location.href = 'viewAdult.html'; //TODO   show the view member. we need to change this command to new window
-        }
-    });
-      })
+
+        $('#adultTable td').click(function () {
+            const id = ($(this).closest('tr').attr('id'));
+            console.log(id); // add click even to every row!!!
+            if (id) {
+                sessionStorage.setItem('selectedPersonKey', id); // save it temporeriy
+                document.location.href = 'viewAdult.html'; //TODO   show the view member. we need to change this command to new window
+            }
+        });
+    })
 });
 
 function getAllMemebers() {
@@ -86,7 +67,8 @@ function createAdultListByName(adltList) {
         } = member;
         return {
 
-            title: First + ' ' + Last ,
+            title: First + ' ' + Last,
+            description: AdultProffesion,
             firebaseKey: Key
 
         };
@@ -95,23 +77,7 @@ function createAdultListByName(adltList) {
     return byNameList;
 }
 
-function createAdultListByPro(adltList) {
-    const byProList = adltList.map(member => {
-        const {
-            AdultProffesion,
-            First,
-            Last,
-            Key
-        } = member;
 
-        return {
-            title: AdultProffesion + ' ' + First + ' ' + Last,
-            firebaseKey: Key
-        };
-
-    })
-    return byProList;
-}
 
 /* the 'click listener' of the search. works with 'click' and also with enter! */
 function onSelect(result, response) {
@@ -127,11 +93,11 @@ function onSelect(result, response) {
 
 /*TODO- sort before show!    show the table of all the memberlists. */
 function showTable(adltList) {
-    
+
     adltList.sort(function (a, b) {
 
-        let nameA = a.First + " " + a.Last ;
-        let nameB = b.First + " " + b.Last ;
+        let nameA = a.First + " " + a.Last;
+        let nameB = b.First + " " + b.Last;
         if (nameA < nameB)
             return -1;
         if (nameA > nameB)
@@ -156,30 +122,30 @@ function sortTable() {
     /*Make a loop that will continue until
     no switching has been done:*/
     while (switching) {
-      //start by saying: no switching is done:
-      switching = false;
-      rows = table.rows;
-      /*Loop through all table rows (except the
-      first, which contains table headers):*/
-      for (i = 1; i < (rows.length - 1); i++) {
-        //start by saying there should be no switching:
-        shouldSwitch = false;
-        /*Get the two elements you want to compare,
-        one from current row and one from the next:*/
-        x = rows[i].getElementsByTagName("td")[0];
-        y = rows[i + 1].getElementsByTagName("td")[0];
-        //check if the two rows should switch place:
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+        first, which contains table headers):*/
+        for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare,
+            one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("td")[0];
+            y = rows[i + 1].getElementsByTagName("td")[0];
+            //check if the two rows should switch place:
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+            }
         }
-      }
-      if (shouldSwitch) {
-        /*If a switch has been marked, make the switch
-        and mark that a switch has been done:*/
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-      }
+        if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
     }
-  }
+}
