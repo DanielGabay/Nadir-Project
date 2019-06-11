@@ -2,3 +2,51 @@
    background-color:rgb(143, 90, 241) !important;
    color: white !important;   
 }
+
+h3 {
+   font-family: Calibri;
+   font-size: 25pt;
+   font-style: normal;
+   font-weight: bold;
+   color: SlateBlue;
+   text-align: center;
+   text-decoration: underline
+ }
+ 
+ .search-ndr {
+   text-align: center !important;
+   max-width: 211px;
+   margin: 20px auto;
+ }
+ 
+
+ th {
+   text-size-adjust: 100px !important;
+   font-size: 12px;
+ #search-input {
+   text-align: right !important;
+   padding: 10px 15px 10px 30px !important;
+ }
+ 
+ #membersTable {
+   display: none;
+ }
+ 
+ 
+  .wrapper {
+   text-align: center;
+ } 
+ 
+ .button {
+   margin: 0 auto;
+   /* background: #bebec4 !important;  */
+ }
+
+ .search.icon {
+   left: 0 !important;
+   right: auto !important;
+ }
+ 
+ .result {
+   text-align: center !important;
+ }
