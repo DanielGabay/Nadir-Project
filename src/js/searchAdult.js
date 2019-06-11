@@ -3,6 +3,7 @@ const firestore = firebase.firestore(); // connect to our firebase storage.
 /*when document is ready*/
 $(document).ready(function () {
     getAllMemebers().then(adltList => { // only when getallmemebers return the memberlist continue:
+        $('.description b').text(adltList.length);
         $('#loader').removeClass('active'); // remove the loader 
 
         let byNameList = createAdultListByName(adltList);
@@ -15,8 +16,9 @@ $(document).ready(function () {
         showTable(adltList); // load the table.first -> without display it.
 
         const $table = $('#adultTable');
-        $table.hide();
-        $("#showAdlt").click(function () { // show-table. we can change animation.
+       $table.hide();
+        $("#showAdult").click(function () { 
+            console.log("in");// show-table. we can change animation.
             $table.transition('slide down');
         });
 
