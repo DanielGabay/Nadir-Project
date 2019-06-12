@@ -1,4 +1,7 @@
-const {app, BrowserWindow } = require('electron');
+const {
+    app,
+    BrowserWindow
+} = require('electron');
 let mainWindow;
 
 app.on('ready', function () {
@@ -7,9 +10,11 @@ app.on('ready', function () {
         height: 1000
     });
      mainWindow.loadURL(`file://${__dirname}/src/homePage.html`);
-     //mainWindow.loadURL(`file://${__dirname}/src/login-ndr.html`);
-    //  win.setMenu(null);
-    //win.webContents.on("devtools-opened", () => { win.webContents.closeDevTools(); });
+    // mainWindow.loadURL(`file://${__dirname}/src/login-ndr.html`);
+    // mainWindow.setMenu(null);
+    // mainWindow.webContents.on("devtools-opened", () => {
+    //     win.webContents.closeDevTools();
+    // });
     mainWindow.on('close', function () {
         mainWindow = null;
     });

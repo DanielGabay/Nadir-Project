@@ -5,12 +5,8 @@
 
 
   body {
-    background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
-    /* background: url("../images/background2.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover; */
+    background: -webkit-linear-gradient( #c6cbef, #E4E9FD ) no-repeat fixed;
+
     text-align: center;
     /* height: 1000px;
     width: 1300px; */
@@ -80,12 +76,6 @@
     /* font-weight: normal; */
   }
 
-  input,textarea,select{
-    background: rgb(236, 235, 235) !important;
-    /* font-weight: bold; */
-  
-  }
- 
 
   .vmf-negative {
     color: red;

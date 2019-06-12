@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    // $('.logo')
+    //     .transition('set looping')
+    //     .transition('pulse', '6000ms');
+
     $("#signInBtn").click(signIn);
     /*ENTER key listener when password input is focused*/
     $('#password').keypress(function (e) {
@@ -41,16 +45,13 @@ function signIn() {
         .catch(function (err) {
             $('#loader').removeClass('active');
             $('#errorPlaceHolder').addClass("ui error message");
-            if(err.code === "auth/invalid-email"){
+            if (err.code === "auth/invalid-email") {
                 $('#errorPlaceHolder').text("כתובת המייל הוכנסה בצורה לא תקינה");
-            }
-            else if(err.code === "auth/wrong-password"){
+            } else if (err.code === "auth/wrong-password") {
                 $('#errorPlaceHolder').text("הסיסמא לא נכונה");
-            }
-            else if(err.code === "auth/user-not-found"){
+            } else if (err.code === "auth/user-not-found") {
                 $('#errorPlaceHolder').text("המשתמש לא נמצא");
-            }
-            else{
+            } else {
                 $('#errorPlaceHolder').text(err.message);
             }
         })

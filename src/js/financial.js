@@ -94,6 +94,7 @@ function fillTable_displayOnlyGreen() {
   $("#displayAllBtn").removeClass("twitter");
   $("#displayOnlyRedBtn").removeClass("twitter");
   $("#displayOnlyGreenBtn").addClass("twitter");
+
   displayInTable = [];
   memberList.forEach(member => {
     let sum = sumAllPayments(member.FinancialMonitoring);
