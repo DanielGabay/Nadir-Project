@@ -5,12 +5,12 @@
 
 
   body {
-    /* background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed; */
-    background: url("../images/background1.jpg") no-repeat center center fixed; 
+    background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed;
+    /* background: url("../images/background2.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover; */
     text-align: center;
     /* height: 1000px;
     width: 1300px; */
@@ -96,19 +96,20 @@
     text-align: center !important;
   }
 
-  @font-face { font-family: Shuneet; 
-    src: url('../fonts/shuneet_book_v2.otf'); } 
+  @font-face {
+    font-family: Shuneet;
+    src: url('../fonts/shuneet_book_v2.otf');
+  }
 
-    body {
-      /* font-size: 100%; */
-       font-family:Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif; 
-     }
+  body {
+    /* font-size: 100%; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif, Times, serif;
+  }
 
-  h1
-{
-  font-family: 'Shuneet', serif !important;
-  font-size:25px;
-}
+  h1 {
+    font-family: 'Shuneet', serif !important;
+    font-size: 30px;
+  }
 
 h2
 {
@@ -120,8 +121,12 @@ h2
 
 .ui.search>.results .result .title {
 
-  font-size: 1.5em !important;
+  font-size: 1.7em !important;
 
+}
+
+.ui.search>.results .result .description {
+  font-size: 1.3em !important;
 }
 
 

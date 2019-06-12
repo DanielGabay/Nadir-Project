@@ -34,17 +34,9 @@
 
     <div id="navbar"></div>
     <h1 class="search-ndr">חיפוש חניך</h1>
-    <div class="ui fluid search search-ndr">
-        <div class="ui icon input" >
-            <input id="search-input" class="prompt search-ndr"  maxlength="20"  type="text" placeholder="חפש חניך">
-            <i class="search icon "></i>
-        </div>
-            <div id="search" class="results search-ndr"></div>
-    </div>
-
-
+ 
     <div class="ui centered cards">
-        <div class=" blue card">
+        <div class="card">
           <div class="content">
             <div class="header"> סה"כ מספר החניכים הפעילים</div>
             <div class="description">
@@ -52,12 +44,18 @@
                     <b></b>
             </div>
           </div>
-          <div id="show-all" class="ui bottom attached blue button">
-            <i class=" list icon"></i>   רשימת כל החניכים</div>
-        </div>
+          <div id="show-all" class="ui bottom attached purple button">
+                <i class=" list icon"></i>   רשימת כל החניכים</div>
+            </div>
        
       </div>
-
+      <div class="ui fluid search search-ndr">
+        <div class="ui icon input" >
+            <input id="search-input" class="prompt search-ndr"  maxlength="20"  type="text" placeholder="חפש חניך לפי שם">
+            <i class="search icon "></i>
+        </div>
+            <div id="search" class="results search-ndr"></div>
+    </div>
     <div class="table-wrapper-scroll-y my-custom-scrollbar"  dir="rtl">
         <table class="ui selectable table table-ndr" id="membersTable">
         </table>

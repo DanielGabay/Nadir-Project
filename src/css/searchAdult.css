@@ -1,4 +1,58 @@
-.buttonFocus{
-   background-color:rgb(143, 90, 241) !important;
-   color: white !important;   
-}
+
+
+.search-ndr {
+   text-align: center !important;
+   max-width: 211px;
+   margin: 7px auto;
+ }
+ 
+ td:hover {
+   cursor: pointer;
+ }
+ 
+ #search-input {
+   text-align: right !important;
+   padding: 10px 15px 10px 30px !important;
+ }
+ 
+ #adultTable {
+   display: none;
+ }
+ 
+ th{
+   text-align: right !important;
+ }
+ 
+ .wrapper {
+   text-align: center;
+ }
+ 
+ .button {
+   margin: 0 auto;
+   /* background: #bebec4 !important; */
+ }
+ 
+ .search.icon {
+   left: 0 !important;
+   right: auto !important;
+ }
+ 
+ .result {
+   text-align: center !important;
+ }
+ 
+ .content{
+ 
+   font-size: 10px !important;
+ }
+ 
+ /* 
+  .my-custom-scrollbar {
+   height: 400px;
+   overflow: auto;
+ }
+ 
+ .table-wrapper-scroll-y {
+   display: block;
+   margin: 20px 160px 0 160px;
+ }  */
