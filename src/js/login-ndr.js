@@ -1,24 +1,6 @@
 $(document).ready(function () {
-
-    $("#signUpBtn").click(function () {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
-
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function (result) {
-                console.log(result);
-            })
-            .catch(function (err) {
-                if (err != null) {
-                    console.log(err.message);
-                    return;
-                }
-            })
-    });
-
-
-
     $("#signInBtn").click(signIn);
+    /*ENTER key listener when password input is focused*/
     $('#password').keypress(function (e) {
         var key = e.which || e.keyCode;
         if (key === 13) { // 13 is enter
@@ -28,7 +10,6 @@ $(document).ready(function () {
 
     $('#forgotPasswordBtn').click(function () {
         $('#forgotPassModal')
-
             .modal('show');
     })
 
@@ -60,8 +41,17 @@ function signIn() {
         .catch(function (err) {
             $('#loader').removeClass('active');
             $('#errorPlaceHolder').addClass("ui error message");
-            $('#errorPlaceHolder').text(err.message);
-
-            console.log(err);
+            if(err.code === "auth/invalid-email"){
+                $('#errorPlaceHolder').text("כתובת המייל הוכנסה בצורה לא תקינה");
+            }
+            else if(err.code === "auth/wrong-password"){
+                $('#errorPlaceHolder').text("הסיסמא לא נכונה");
+            }
+            else if(err.code === "auth/user-not-found"){
+                $('#errorPlaceHolder').text("המשתמש לא נמצא");
+            }
+            else{
+                $('#errorPlaceHolder').text(err.message);
+            }
         })
 }
