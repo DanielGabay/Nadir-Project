@@ -19,3 +19,13 @@ h3 {
 .title {
   text-align: center;
 }
+
+label,input{
+  margin: 0px !important;
+  font-size: 12px !important;
+
+}
+
+textarea{
+  padding:  0px;
+}

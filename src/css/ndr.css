@@ -3,6 +3,7 @@
     margin-left: 20%;
   }
 
+
   body {
     /* background: -webkit-linear-gradient(65deg, #c6cbef 52%, #E4E9FD 50%) no-repeat fixed; */
     background: url("../images/background1.jpg") no-repeat center center fixed; 
@@ -56,14 +57,14 @@
 
   th {
     text-size-adjust: 100px !important;
-    font-size: 12px;
+    font-size: 16px;
     position: sticky !important;
     top: 0px;
   }
 
   td {
     text-size-adjust: 100px !important;
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .vmf-positive {
@@ -73,9 +74,18 @@
   }
 
   input::placeholder,
-  textarea::placeholder{
-    color:black !important;
+  textarea::placeholder
+  {
+    color:rgb(0, 0, 0) !important;
+    /* font-weight: normal; */
   }
+
+  input,textarea,select{
+    background: rgb(236, 235, 235) !important;
+    /* font-weight: bold; */
+  
+  }
+ 
 
   .vmf-negative {
     color: red;
@@ -103,5 +113,21 @@
 h2
 {
   font-family: 'Shuneet', serif !important;
-  font-size:15px;
+  font-size:20px;
 }
+
+
+
+.ui.search>.results .result .title {
+
+  font-size: 1.5em !important;
+
+}
+
+
+
+/* for add-Member.html
+#adultProffesion{
+
+  margin-top: 24px;
+} */
