@@ -25,8 +25,7 @@ function setGroups(groupsData) {
         for (let i = 0; i < groupsData.length; i++)
             str += '<option value="' + groupsData[i].groupName + '">' + groupsData[i].groupName + '</option>'
         $("#group").append(str);
-    }
-    else {
+    } else {
         console.log("there is no groups yet. so appent nothing")
         $("#group").append(str);
     }
@@ -67,8 +66,8 @@ function updateSession(TheNewMemeber) {
 /** add the Id to the member that we just added to firebase  */
 function addId(docRef, TheNewMemeber) {
     firestore.collection("Members").doc(docRef.id).set({
-        Key: docRef.id // add the key of firebase to the data.
-    }, {
+            Key: docRef.id // add the key of firebase to the data.
+        }, {
             merge: true
         })
         .then(function () {
@@ -136,8 +135,8 @@ function addNewMemeber() {
     const parentPhoneNum = $("#parent-phone-num").val();
     const youthMovement = $("#youth-movement").val();
     const anotherEducation = $("#another-education").val();
-    const isInstructor = $("#is-instructor").val();
-    if(isInstructor == null)
+    let isInstructor = $("#is-instructor").val();
+    if (isInstructor == null)
         isInstructor = "false";
     const isAdult = $("#isAdult").val();
     const adultProffesion = $("#adultProffesion").val();
@@ -162,7 +161,7 @@ function addNewMemeber() {
         IsAdult: isAdult,
         AdultProffesion: adultProffesion
     }
-   
+
     /* make the object to add ===> key : value */
     firestore.collection("Members").add({ // add the member with Auto id 
         AnotherEducation: anotherEducation,

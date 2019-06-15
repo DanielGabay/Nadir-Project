@@ -289,9 +289,9 @@ function insertToTable(member, sum) {
   html += '<td>' + member.PhoneNum + '</td>';
   html += '<td>' + member.Group + '</td>';
   if (sum > 0)
-    html += '<td class ="vmf-negative">' + sum + '</td>';
+    html += '<td class ="vmf-negative" dir="ltr">' + sum + '</td>';
   else
-    html += '<td class ="vmf-positive">' + sum + '</td>';
+    html += '<td class ="vmf-positive" dir="ltr">' + sum + '</td>';
   html += "</tr>"
   updateSum(sum);
   $table.append(html);
