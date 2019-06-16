@@ -7,6 +7,7 @@
   <!-- <link rel="stylesheet" type="text/css" href="css/addMember.css" /> -->
   <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
   <link rel="stylesheet" href="css/ndr.css">
+  <link rel="stylesheet" href="css/addMember.css">
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="semantic/semantic.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
@@ -42,51 +43,47 @@
         </div>
       </div>
     </div>
-
-
-
+  
+  
     <h1>הוספת חניך</h1>
     <div class="ndr">
-      <div class="ndr-form">
-        <form id="form-Add">
-          <div class="ui form">
-
+      <div class="form-wrapper">
+        <form id="form-Add" class="ui form form">
 
             <div class="three fields">
 
-              <div class="field">
-                <!-- <label>*שם פרטי:</label> -->
-                <input type="text" required id="first-name" placeholder="שם פרטי">
+              <div class="form-group required field">
+                <label class="form-label" for="first-name">שם פרטי</label>
+                <input type="text" class="form-input" required id="first-name" >
               </div>
 
-              <div class="field">
-                <!-- <label>*שם משפחה:</label> -->
-                <input type="text" required id="last-name" placeholder="שם משפחה ">
+              <div class="form-group required field">
+                <label class="form-label" for="last-name">שם משפחה</label>
+                <input type="text" class="form-input" required id="last-name" >
               </div>
 
-              <div class="field">
-                <!-- <label>*טלפון:</label> -->
-                <input type="number" class="ndr-input" required id="phone-num" placeholder="טלפון">
+              <div class="form-group required field">
+                <label class="form-label" for="phone-num">טלפון</label>
+                <input type="number" class="form-input" class="ndr-input" required id="phone-num" >
               </div>
 
             </div>
 
             <div class="two fields">
 
-              <div class="field">
-                <!-- <label>קבוצה:</label> -->
+              <div class="form-group field">
+                <!-- <label class="form-label" for="group">קבוצה:</label> -->
                 <select class="ui fluid dropdown" id="group">
                 </select>
               </div>
 
-              <div class="field">
-                <!-- <label>בית ספר:</label> -->
-                <input type="text" placeholder="בית ספר" id="school">
+              <div class="form-group field">
+                <label class="form-label" for="school">בית ספר</label>
+                <input type="text" class="form-input"  id="school">
               </div>
 
-              <div class="field">
-                <!-- <label>כיתה:</label> -->
-                <select class="ui fluid dropdown" id="grade">
+              <div class="form-group field">
+                <select class="ui fluid dropdown " id="grade">
                   <option disabled selected value value="">בחר כיתה</option>
                   <option value="ז">ז'</option>
                   <option value="ח">ח'</option>
@@ -100,67 +97,65 @@
             </div>
 
 
-
             <div class="two fields">
-              <div class="field">
-                <!-- <label>תאריך לידה:</label> -->
-                <input type="date" name="bday" id="date">
+              <div class="form-group field">
+                <label class="form-label" for="date">תאריך לידה</label>
+                <input type="date"  class="form-input" name="bday" id="date">
               </div>
-              <div class="field">
-                <!-- <label>טלפון אבא/אמא:</label> -->
-                <input type="number" placeholder="טלפון אבא/אמא" maxlength="10" id="parent-phone-num">
+              <div class="form-group field">
+                <label class="form-label" for="parent-phone-num">טלפון אבא/אמא</label>
+                <input type="number" class="form-input"  maxlength="10" id="parent-phone-num">
               </div>
             </div>
 
             <div class="three fields">
-              <div class="field">
-                <!-- <label>תנועת נוער:</label> -->
-                <input type="text" placeholder="תנועת נוער" id="youth-movement">
+              <div class="form-group field">
+                <label class="form-label" for="youth-movement">תנועת נוער</label>
+                <input type="text" class="form-input"  id="youth-movement">
               </div>
-              <div class="field">
-                <!-- <label>האם מדריך:</label> -->
+              <div class="form-group field">
+                <label class="form-label" for="is-instructor">האם מדריך</label>
                 <select class="ui fluid dropdown" id="is-instructor">
                   <option disabled selected value="false">האם מדריך</option>
                   <option value="false">לא מדריך</option>
                   <option value="true">מדריך</option>
                 </select>
               </div>
-              <div class="field">
-                <!-- <label>מסגרת נוספת:</label> -->
-                <input type="text" placeholder="מסגרת נוספת" id="another-education">
+              <div class="form-group field">
+                <label class="form-label" for="another-education">מסגרת נוספת</label>
+                <input type="text" class="form-input"  id="another-education">
               </div>
             </div>
 
-            <div class="field">
-              <!-- <label>הערות:</label> -->
-              <textarea id="comments" placeholder="הערות" rows="4"></textarea>
+            <div class="form-group field">
+              <label class="form-label" for="comments">הערות</label>
+              <textarea id="comments"  rows="4"></textarea>
             </div>
             <div class="three fields" id="adltSection">
-              <div class="field">
-                <!-- <label>הוספה כבוגר:</label> -->
+              <div class="form-group field">
+                <label class="form-label" for="isAdult">הוספה כבוגר</label>
                 <select required class="ui fluid dropdown" id="isAdult">
                   <option value="false" selected value>הוסף כחניך</option>
                   <option value="true">הוסף כבוגר</option>
                 </select>
               </div>
-              <div class="field" id="proffesionDiv">
-                <!-- <label>הוסף עיסוק:</label> -->
-                <input type="text" placeholder="הוסף עיסוק" id="adultProffesion">
+              <div class="form-group field" id="proffesionDiv">
+                <label class="form-label" for="adultProffesion"> הוסף עיסוק</label>
+                <input type="text" class="form-input"  id="adultProffesion">
               </div>
 
               <!-- div if we hiding the div proffesionDiv -->
-              <div class="field" id="nullDiv">
+              <div class="form-group field" id="nullDiv">
                 <label> &nbsp </label>
                 <label> &nbsp </label>
               </div>
 
 
-              <div class="field" id="saveDiv">
+              <div class="form-group field" id="saveDiv">
                 <button id="add-btn" type="submit" class="left floated ui purple button">שמור</button>
               </div>
 
             </div>
-          </div>
         </form>
 
         <!-- this is the loader template -->

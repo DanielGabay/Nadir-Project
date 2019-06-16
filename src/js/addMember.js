@@ -3,6 +3,21 @@ const firestore = firebase.firestore();
 /*when document is ready*/
 $(document).ready(function () {
 
+  
+    $('input').focus(function(){
+        $(this).parents('.form-group').addClass('focused');
+      });
+      
+      $('input').blur(function(){
+        var inputValue = $(this).val();
+        if ( inputValue == "" ) {
+          $(this).removeClass('filled');
+          $(this).parents('.form-group').removeClass('focused');  
+        } else {
+          $(this).addClass('filled');
+        }
+      })  
+
     getGroupsData().then(groupsData => {
         $('#loader').removeClass('active'); // remove the loader .
         updateProffesionDiv(); // Initialize the line of "is Adult"
