@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -37,7 +37,7 @@
         החניך הוסף בהצלחה !
       </div>
       <div class="actions ta-ndr">
-        <div class="ui positive left labeled icon button ">
+        <div class="ui positive left labeled icon button" id = "confirmBtn">
           אישור
           <i class="checkmark icon"></i>
         </div>
@@ -79,11 +79,11 @@
 
               <div class="form-group field">
                 <label class="form-label" for="school">בית ספר</label>
-                <input type="text" class="form-input"  id="school">
+                <input type="text" class="form-input" id="school">
               </div>
 
               <div class="form-group field">
-                <select class="ui fluid dropdown " id="grade">
+                <select class="ui fluid dropdown" id="grade">
                   <option disabled selected value value="">בחר כיתה</option>
                   <option value="ז">ז'</option>
                   <option value="ח">ח'</option>
@@ -100,7 +100,7 @@
             <div class="two fields">
               <div class="form-group field">
                 <label class="form-label" for="date">תאריך לידה</label>
-                <input type="date"  class="form-input" name="bday" id="date">
+                <input type="text"  onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" class="form-input" name="bday" id="date">
               </div>
               <div class="form-group field">
                 <label class="form-label" for="parent-phone-num">טלפון אבא/אמא</label>
@@ -114,7 +114,6 @@
                 <input type="text" class="form-input"  id="youth-movement">
               </div>
               <div class="form-group field">
-                <label class="form-label" for="is-instructor">האם מדריך</label>
                 <select class="ui fluid dropdown" id="is-instructor">
                   <option disabled selected value="false">האם מדריך</option>
                   <option value="false">לא מדריך</option>
@@ -127,13 +126,12 @@
               </div>
             </div>
 
-            <div class="form-group field">
+            <div class="form-group field textarea-down">
               <label class="form-label" for="comments">הערות</label>
-              <textarea id="comments"  rows="4"></textarea>
+              <textarea id="comments" class="form-input" rows="4"></textarea>
             </div>
             <div class="three fields" id="adltSection">
               <div class="form-group field">
-                <label class="form-label" for="isAdult">הוספה כבוגר</label>
                 <select required class="ui fluid dropdown" id="isAdult">
                   <option value="false" selected value>הוסף כחניך</option>
                   <option value="true">הוסף כבוגר</option>

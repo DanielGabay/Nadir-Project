@@ -2,13 +2,11 @@ const firestore = firebase.firestore();
 
 /*when document is ready*/
 $(document).ready(function () {
-
-  
-    $('input').focus(function(){
+    $('input, textarea').focus(function(){
         $(this).parents('.form-group').addClass('focused');
       });
       
-      $('input').blur(function(){
+      $('input, textarea').blur(function(){
         var inputValue = $(this).val();
         if ( inputValue == "" ) {
           $(this).removeClass('filled');
@@ -17,6 +15,11 @@ $(document).ready(function () {
           $(this).addClass('filled');
         }
       })  
+
+      $('#confirmBtn').click(() =>{
+        document.location.href = "addMember.html";
+      
+      })
 
     getGroupsData().then(groupsData => {
         $('#loader').removeClass('active'); // remove the loader .
@@ -27,7 +30,7 @@ $(document).ready(function () {
         $("#form-Add").submit(function (event) {
             event.preventDefault();
             /* attach html elements*/
-            addNewMemeber()
+            addNewMemeber();
         });
     })
 });
