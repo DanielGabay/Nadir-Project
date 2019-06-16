@@ -132,9 +132,9 @@ function insertToTable(obj) {
   html += '<td>' + obj.Date.split('-').reverse().join('/') + '</td>';
   html += '<td>' + obj.PaymentMethod + '</td>';
   if (obj.Amount > 0) {
-    html += '<td class = "vmf-negative">' + obj.Amount + '</td><td></td>';
+    html += '<td class = "vmf-negative">' + numeral(obj.Amount).format('0,0') + '</td><td></td>';
   } else {
-    html += '<td></td><td class = "vmf-positive" dir="ltr">' + obj.Amount + '</td>';
+    html += '<td></td><td class = "vmf-positive" dir="ltr">' + numeral(obj.Amount).format('0,0') + '</td>';
   }
   let receiptId = "btn" + obj.Id;
   if (obj.Receipt && obj.Receipt === "false") {
@@ -265,14 +265,14 @@ function removeFromDataBase(paymentObj) {
 
 /*update overall sum when adding new payment*/
 function updateSum(amount) {
-  let $sum = $("#summaryAmount")
-  let newSum = parseInt($sum.text()) + amount;
+  let $sum = $("#summaryAmount");
+  let newSum = numeral($sum.text()).value() + amount;
   if (newSum > 0)
     $sum.removeClass().addClass("vmf-negative");
   else
     $sum.removeClass().addClass("vmf-positive");
 
-  $sum.text(newSum);
+  $sum.text(numeral(newSum).format('0,0'));
 }
 
 
@@ -327,6 +327,7 @@ function sortTable() {
       shouldSwitch = false;
       /*Get the two elements you want to compare,
       one from current row and one from the next:*/
+      
       x = rows[i].getElementsByTagName("td")[2];
 
       y = rows[i + 1].getElementsByTagName("td")[2];

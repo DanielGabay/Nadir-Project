@@ -289,9 +289,9 @@ function insertToTable(member, sum) {
   html += '<td>' + member.PhoneNum + '</td>';
   html += '<td>' + member.Group + '</td>';
   if (sum > 0)
-    html += '<td class ="vmf-negative" dir="ltr">' + sum + '</td>';
+    html += '<td class ="vmf-negative" dir="ltr">' + numeral(sum).format('0,0') + '</td>';
   else
-    html += '<td class ="vmf-positive" dir="ltr">' + sum + '</td>';
+    html += '<td class ="vmf-positive" dir="ltr">' + numeral(sum).format('0,0') + '</td>';
   html += "</tr>"
   updateSum(sum);
   $table.append(html);
@@ -301,17 +301,17 @@ function insertToTable(member, sum) {
 /*update overall sum when adding new payment*/
 function updateSum(amount) {
   let $sum = $("#summaryAmount");
-  let newSum = parseInt($sum.text()) + amount;
+  let newSum = numeral($sum.text()).value() + amount;
   if (newSum > 0)
     $sum.removeClass().addClass("vmf-negative");
   else
     $sum.removeClass().addClass("vmf-positive");
 
-  $sum.text(newSum);
+  setSum(newSum);
 }
 
 function setSum(sum) {
-  $("#summaryAmount").text(sum);
+  $("#summaryAmount").text(numeral(sum).format('0,0'));
 }
 
 function clearTableRows() {
@@ -432,4 +432,10 @@ function uuidv4() {
       v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
+}
+
+function formatNumber(num) {
+  let n = num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  console.log(n);
+  return n;
 }
