@@ -37,9 +37,9 @@ $(document).ready(function () {
     })
 
 
-
     $('select').change(function () {
-        $(this).css('box-shadow', '0 2px 0 0 rgb(55, 192, 55)');
+      //  $(this).css('box-shadow', '0 2px 0 0 rgb(55, 192, 55),important');
+        $(this).css("cssText", "box-shadow: 0 2px 0 0 rgb(55, 192, 55) !important;");
     })
 
 });
