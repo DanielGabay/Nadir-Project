@@ -112,7 +112,7 @@ function updateMemDetails() {
       $("#phone-num").attr("type", "text");
       $("#phone-num").val([theMember.PhoneNum.slice(0, 3), "-", theMember.PhoneNum.slice(3)].join('')); //add '-' after 3 digit
       $("#grade").replaceWith("<input readonly='' id='grade'>"); //disable select
-      if (updateMember.Grade != null)
+      if (updateMember.Grade != null && updateMember.Grade != "")
         $("#grade").val(updateMember.Grade + "'");
       $("#parent-phone-num").attr("readonly", "");
       $("#parent-phone-num").attr("type", "text");
