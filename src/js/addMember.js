@@ -2,24 +2,26 @@ const firestore = firebase.firestore();
 
 /*when document is ready*/
 $(document).ready(function () {
-    $('input, textarea').focus(function(){
-        $(this).parents('.form-group').addClass('focused');
-      });
-      
-      $('input, textarea').blur(function(){
-        var inputValue = $(this).val();
-        if ( inputValue == "" ) {
-          $(this).removeClass('filled');
-          $(this).parents('.form-group').removeClass('focused');  
-        } else {
-          $(this).addClass('filled');
-        }
-      })  
 
-      $('#confirmBtn').click(() =>{
+
+    $('input, textarea').focus(function () {
+        $(this).parents('.form-group').addClass('focused');
+    });
+
+    $('input, textarea').blur(function () {
+        var inputValue = $(this).val();
+        if (inputValue == "") {
+            $(this).removeClass('filled');
+            $(this).parents('.form-group').removeClass('focused');
+        } else {
+            $(this).addClass('filled');
+        }
+    })
+
+    $('#confirmBtn').click(() => {
         document.location.href = "addMember.html";
-      
-      })
+
+    })
 
     getGroupsData().then(groupsData => {
         $('#loader').removeClass('active'); // remove the loader .
@@ -33,6 +35,13 @@ $(document).ready(function () {
             addNewMemeber();
         });
     })
+
+
+
+    $('select').change(function () {
+        $(this).css('box-shadow', '0 2px 0 0 rgb(55, 192, 55)');
+    })
+
 });
 
 
@@ -202,9 +211,10 @@ function addNewMemeber() {
     }).then(function (docRef) {
         addId(docRef, TheNewMemeber);
 
-        $('#successfully-add').modal('show');
+        $('#successfully-add').modal('setting', 'closable', false)
+            .modal('show');
         $(".add-btn").modal({
-            closable: true
+            closable: false
         });
 
         $('#form-Add')[0].reset();
