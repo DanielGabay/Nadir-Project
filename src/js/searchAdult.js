@@ -107,9 +107,9 @@ function showTable(adltList) {
         return 0;
     });
     console.log(adltList);
-    let str = '<thead> <tr> <th>מקצוע</th><th>שם </th><th>מספר טלפון </th>  </thead>  <tbody> ';
+    let str = '<thead> <tr> <th>שם</th><th>מקצוע </th><th>מספר טלפון </th>  </thead>  <tbody> ';
     adltList.forEach(function (member) {
-        str += '<tr class = "table-text" id = ' + member.Key + '><td>' + (member.AdultProffesion) + '</td> <td>' + member.First + ' ' + member.Last + '</td><td>' + member.PhoneNum + '</td></tr>';
+        str += '<tr class = "table-text" id = ' + member.Key + '><td>' +  member.First + ' ' + member.Last + '</td> <td>' +(member.AdultProffesion) + '</td><td>' + member.PhoneNum + '</td></tr>';
     })
     str += '</tbody>';
 

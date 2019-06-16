@@ -34,124 +34,125 @@
 
     <div class="ui mini modal" id="successfully-add">
       <div class="ta-ndr header">
-       הוסף בהצלחה!
+        הוסף בהצלחה!
       </div>
       <div class="actions ta-ndr">
-        <div class="ui positive left labeled icon button" id = "confirmBtn">
+        <div class="ui positive left labeled icon button" id="confirmBtn">
           אישור
           <i class="checkmark icon"></i>
         </div>
       </div>
     </div>
-  
-  
+
+
     <h1>הוספת חניך</h1>
     <div class="ndr">
       <div class="form-wrapper">
         <form id="form-Add" class="ui form form">
 
-            <div class="three fields">
-              <div class="form-group field">
-                <label class="form-label" for="first-name">שם פרטי</label>
-                <input type="text" class="form-input" required id="first-name" >
-              </div>
-
-              <div class="form-group field">
-                <label class="form-label" for="last-name">שם משפחה</label>
-                <input type="text" class="form-input" required id="last-name" >
-              </div>
-
-              <div class="form-group field">
-                <label class="form-label" for="phone-num">טלפון</label>
-                <input type="number" class="form-input" class="ndr-input" required id="phone-num" >
-              </div>
-
+          <div class="three fields">
+            <div class="form-group field">
+              <label class="form-label" for="first-name">שם פרטי</label>
+              <input type="text" class="form-input" required id="first-name">
             </div>
 
-            <div class="two fields">
+            <div class="form-group field">
+              <label class="form-label" for="last-name">שם משפחה</label>
+              <input type="text" class="form-input" required id="last-name">
+            </div>
+
+            <div class="form-group field">
+              <label class="form-label" for="phone-num">טלפון</label>
+              <input type="number" class="form-input" class="ndr-input" required id="phone-num">
+            </div>
+
+          </div>
+
+          <div class="four fields">
 
               <div class="form-group field">
-                <select class="ui fluid dropdown" id="group">
-                </select>
-              </div>
+                  <label class="form-label" for="date">תאריך לידה</label>
+                  <input type="text" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'"
+                    class="form-input" name="bday" id="date">
+                </div>
+
+            <div class="form-group field">
+              <select class="ui fluid dropdown" id="group">
+              </select>
+            </div>
+
+            <div class="form-group field">
+              <label class="form-label" for="school">בית ספר</label>
+              <input type="text" class="form-input" id="school">
+            </div>
+
+            <div class="form-group field">
+              <select class="ui fluid dropdown" id="grade">
+                <option disabled selected value value="">בחר כיתה</option>
+                <option value="ז">ז'</option>
+                <option value="ח">ח'</option>
+                <option value="ט">ט'</option>
+                <option value="י">י'</option>
+                <option value="יא">י"א</option>
+                <option value="יב">י"ב</option>
+              </select>
+            </div>
+
+          </div>
+          
+
+          <div class="four fields">
 
               <div class="form-group field">
-                <label class="form-label" for="school">בית ספר</label>
-                <input type="text" class="form-input" id="school">
-              </div>
+                  <label class="form-label" for="parent-phone-num">טלפון אבא/אמא</label>
+                  <input type="number" class="form-input" maxlength="10" id="parent-phone-num">
+                </div>
 
-              <div class="form-group field">
-                <select class="ui fluid dropdown" id="grade">
-                  <option disabled selected value value="">בחר כיתה</option>
-                  <option value="ז">ז'</option>
-                  <option value="ח">ח'</option>
-                  <option value="ט">ט'</option>
-                  <option value="י">י'</option>
-                  <option value="יא">י"א</option>
-                  <option value="יב">י"ב</option>
-                </select>
-              </div>
+            <div class="form-group field">
+              <label class="form-label" for="youth-movement">תנועת נוער</label>
+              <input type="text" class="form-input" id="youth-movement">
+            </div>
+            <div class="form-group field">
+              <select class="ui fluid dropdown" id="is-instructor">
+                <option disabled selected value="false">האם מדריך</option>
+                <option value="false">לא מדריך</option>
+                <option value="true">מדריך</option>
+              </select>
+            </div>
+            <div class="form-group field">
+              <label class="form-label" for="another-education">מסגרת נוספת</label>
+              <input type="text" class="form-input" id="another-education">
+            </div>
+          </div>
 
+          <div class="form-group field textarea-down">
+            <label class="form-label" for="comments">הערות</label>
+            <textarea id="comments" class="form-input" rows="4"></textarea>
+          </div>
+          <div class="three fields" id="adltSection">
+            <div class="form-group field">
+              <select required class="ui fluid dropdown" id="isAdult">
+                <option value="false" selected value>הוסף כחניך</option>
+                <option value="true">הוסף כבוגר</option>
+              </select>
+            </div>
+            <div class="form-group field" id="proffesionDiv">
+              <label class="form-label" for="adultProffesion"> הוסף עיסוק</label>
+              <input type="text" class="form-input" id="adultProffesion">
+            </div>
+
+            <!-- div if we hiding the div proffesionDiv -->
+            <div class="form-group field" id="nullDiv">
+              <label> &nbsp </label>
+              <label> &nbsp </label>
             </div>
 
 
-            <div class="two fields">
-              <div class="form-group field">
-                <label class="form-label" for="date">תאריך לידה</label>
-                <input type="text"  onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" class="form-input" name="bday" id="date">
-              </div>
-              <div class="form-group field">
-                <label class="form-label" for="parent-phone-num">טלפון אבא/אמא</label>
-                <input type="number" class="form-input"  maxlength="10" id="parent-phone-num">
-              </div>
+            <div class="form-group field" id="saveDiv">
+              <button id="add-btn" type="submit" class="left floated ui purple button">שמור</button>
             </div>
 
-            <div class="three fields">
-              <div class="form-group field">
-                <label class="form-label" for="youth-movement">תנועת נוער</label>
-                <input type="text" class="form-input"  id="youth-movement">
-              </div>
-              <div class="form-group field">
-                <select class="ui fluid dropdown" id="is-instructor">
-                  <option disabled selected value="false">האם מדריך</option>
-                  <option value="false">לא מדריך</option>
-                  <option value="true">מדריך</option>
-                </select>
-              </div>
-              <div class="form-group field">
-                <label class="form-label" for="another-education">מסגרת נוספת</label>
-                <input type="text" class="form-input"  id="another-education">
-              </div>
-            </div>
-
-            <div class="form-group field textarea-down">
-              <label class="form-label" for="comments">הערות</label>
-              <textarea id="comments" class="form-input" rows="4"></textarea>
-            </div>
-            <div class="three fields" id="adltSection">
-              <div class="form-group field">
-                <select required class="ui fluid dropdown" id="isAdult">
-                  <option value="false" selected value>הוסף כחניך</option>
-                  <option value="true">הוסף כבוגר</option>
-                </select>
-              </div>
-              <div class="form-group field" id="proffesionDiv">
-                <label class="form-label" for="adultProffesion"> הוסף עיסוק</label>
-                <input type="text" class="form-input"  id="adultProffesion">
-              </div>
-
-              <!-- div if we hiding the div proffesionDiv -->
-              <div class="form-group field" id="nullDiv">
-                <label> &nbsp </label>
-                <label> &nbsp </label>
-              </div>
-
-
-              <div class="form-group field" id="saveDiv">
-                <button id="add-btn" type="submit" class="left floated ui purple button">שמור</button>
-              </div>
-
-            </div>
+          </div>
         </form>
 
         <!-- this is the loader template -->

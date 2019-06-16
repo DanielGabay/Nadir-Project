@@ -1,7 +1,7 @@
 .form-wrapper {
   /* max-width: 30%; */
   /* min-width: 300px; */
-  padding: 10px 30px 10px 30px;
+  padding: 30px 30px 10px 30px;
   margin-left: 20%;
   margin-right: 20%;
   background-color: #fff;
@@ -65,7 +65,7 @@ label {
 }
 
 .form-input:focus, select:focus{
-  box-shadow: 0 2px 0 0 blue !important;
+  box-shadow: 0 2px 0 0 rgb(123, 63, 163) !important;
 }
 
 .form-input.filled{
