@@ -17,10 +17,10 @@ $(document).ready(function () {
   updateAdult = JSON.parse(sessionStorage.getItem('adltList')).find(x => x.Key === selectedPersonKey);
   console.log("this is who we need:" + theAdult.Key);
   getGroupsData();
-  setFields(); //set the page of the member
+  setFields(); //set the page of the adult
 });
 
-function setFields() { //set the fields with info of wanted member
+function setFields() { //set the fields with info of wanted adult
   $("#nameTitle").append(theAdult.First + " " + theAdult.Last);
   $("#first-name").val(theAdult.First);
   $("#last-name").val(theAdult.Last);
@@ -76,7 +76,7 @@ function updateMemDetails() {
     } else if ($("#edit-btn").text() == "שמור") { //save btn was clicked 
       $("#edit-btn").text("עריכה").append("<i class='edit icon'></i>");
       $("#mmbr-btn").show(); //show the move to adult button after save
-      //create new obj for update member
+      //create new obj for update adu,t
       updateAdult.First = $("#first-name").val();
       updateAdult.Last = $("#last-name").val();
       updateAdult.Date = $("#date").val();
@@ -132,7 +132,7 @@ function moveToMember() {
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   let memberList = JSON.parse(sessionStorage.getItem('memberList'));
   let adltList = JSON.parse(sessionStorage.getItem('adltList'));
-  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //index of wanted member
+  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //index of wanted adult
 
   $('.mmbr-btn')
     .modal({
@@ -194,9 +194,9 @@ function moveToMember() {
 function updateFunc() { //update in session and database
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   let adltList = JSON.parse(sessionStorage.getItem('adltList'));
-  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //index of wanted member
+  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //index of wanted adult
 
-  //update the member in the list
+  //update the adult in the list
   adltList[foundIndex].First = updateAdult.First;
   adltList[foundIndex].Last = updateAdult.Last;
   adltList[foundIndex].Date = updateAdult.Date;
@@ -249,7 +249,7 @@ function updateFunc() { //update in session and database
 function deleteFunc() {
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   let adltList = JSON.parse(sessionStorage.getItem('adltList'));
-  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //inddex of wanted member
+  let foundIndex = adltList.findIndex(x => x.Key == selectedPersonKey); //inddex of wanted adult
 
     $('#dlt-section').modal('show');
     $(".dlt-btn").modal({
