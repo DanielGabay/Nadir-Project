@@ -3,13 +3,13 @@ let theAdult = [];
 let updateAdult = {};
 
 $(document).ready(function () {
-  $("#payment-track-btn").click(function () {
-    document.location.href = "viewMemberFinancial.html";
-  });
+  // $("#payment-track-btn").click(function () {
+  //   document.location.href = "viewMemberFinancial.html";
+  // });
 
-  $("#personal-track-btn").click(function () {
-    document.location.href = "viewMemberComments.html";
-  })
+  // $("#personal-track-btn").click(function () {
+  //   document.location.href = "viewMemberComments.html";
+  // })
 
   let selectedPersonKey = sessionStorage.getItem('selectedPersonKey');
   console.log("we passed this data to the next screen:" + selectedPersonKey);
