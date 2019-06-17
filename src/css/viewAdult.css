@@ -1,3 +1,18 @@
+.form-wrapper {
+  /* max-width: 30%; */
+  /* min-width: 300px; */
+  box-shadow: 0px 0px 3px 0px black;
+  padding: 30px 30px 10px 30px;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: rgb(247, 246, 246);
+  /* background-color: rgb(236, 231, 255); */
+  border-radius: 5px;
+  /* box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(219, 72, 72, 0.07); */
+}
+
+
+
 h3 {
   font-family: Calibri;
   font-size: 25pt;
