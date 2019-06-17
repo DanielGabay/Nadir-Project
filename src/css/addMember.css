@@ -6,7 +6,7 @@
   margin-right: 20%;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(219, 72, 72, 0.07) !important;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(219, 72, 72, 0.07) ;
 }
 
 .form-group {
@@ -45,6 +45,7 @@ label {
 }
 
 .form-input, select{
+  height: 35px !important;
   position: relative !important;
   /* padding: 12px 0px 5px 0px !important; */
   width: 100% !important;
@@ -65,7 +66,7 @@ label {
 } */
 
 .form-input:focus, select:focus{
-  box-shadow: inline 0 2px 0 0 rgb(123, 63, 163) !important;
+  box-shadow:  0 3px 0 0 rgb(123, 63, 163) !important;
 }
 
 .form-input.filled{

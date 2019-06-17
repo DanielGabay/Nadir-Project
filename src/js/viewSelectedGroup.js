@@ -43,7 +43,6 @@ $(document).ready(function () {
     });
 
     $('#addGroupForm').unbind().submit(function (e) {   // add button press
-        console.log(" clicked on sumbit - in the add submit");
         e.preventDefault();
 
         let addOrSaveBtn = $('#addGroupBtn').text();
@@ -137,6 +136,7 @@ function groupDetails() {
     const $form = $('#addGroupForm'); // no need from
     $form.hide();
     $("#group-details").show();
+   $('#group-details').transition('swing down in',"1500ms");
     $("#groupIcons").show();
     $("#showNamePlaceHoler").text(selectedGroup.groupName);
     $("#showInstructorName b").text(selectedGroup.groupInstructor);
@@ -149,10 +149,13 @@ function groupDetails() {
 /**  section ADD NEW GROUP */
 
 function ScreenToaddGroup() {
+    $("#group-details").removeClass('transition'); 
+    $("#group-details").removeClass('visible'); 
+    $("#group-details").css("cssText", "display: none !important;");
     $("#group-details").hide();
     $('#groupMemberTable').hide();
     selectedGroup = {};  //  reset the selected group;
-    console.log("ScreenToaddGroup function")
+    
     $('#formHeader').text("הוסף קבוצה חדשה");
     $("#newGroupName").val("");
     $("#guideName").val("");
@@ -263,8 +266,11 @@ function formAddToEdit() {
         });
         return;
     }
-
-    $("#group-details").hide();
+    $("#group-details").css("cssText", "display: none !important;");
+    $('#group-details').attr('style', "display: none !important");
+    $("#group-details").removeClass('transition'); 
+    $("#group-details").removeClass('visible'); 
+    //$("#group-details").hide();
     $("#groupIcons").hide();
     $("#showNamePlaceHoler").text("");
     $("#showInstructorName b").text("");
@@ -301,7 +307,7 @@ function updateDatabase() {
 
     if (groupNameUpdated == selectedGroup.groupName && guideNameUpdated == selectedGroup.groupInstructor && guidePhoneNumUpdated == selectedGroup.groupPhoneNum) // no change
     {
-        console.log("no change so do nothing")
+      
         formEditToAdd();
         return;
     }
