@@ -74,17 +74,21 @@ function updateMemDetails() {
       $("#is-instructor").replaceWith("<select class='ui fluid dropdown' id='is-instructor' ><option value='false'>לא</option><option value='true'>כן</option></select>");
       $("#is-instructor").val(theAdult.IsInstructor);
     } else if ($("#edit-btn").text() == "שמור") { //save btn was clicked 
+      updateAdult.First = $("#first-name").val();
+      updateAdult.Last = $("#last-name").val();
+      updateAdult.PhoneNum = $("#phone-num").val();
+      if (updateAdult.First == "" || updateAdult.Last == "" || updateAdult.PhoneNum == "") {
+        $('#required-section').modal('show');
+        return;
+      }
       $("#edit-btn").text("עריכה").append("<i class='edit icon'></i>");
       $("#mmbr-btn").show(); //show the move to adult button after save
       //create new obj for update adu,t
-      updateAdult.First = $("#first-name").val();
-      updateAdult.Last = $("#last-name").val();
       updateAdult.Date = $("#date").val();
       updateAdult.AdultProffesion = $("#adlt-proffesion").val();
       updateAdult.Group = $("#group").val();
       updateAdult.Comments = $("#comments").val();
       updateAdult.School = $("#school").val();
-      updateAdult.PhoneNum = $("#phone-num").val();
       updateAdult.Grade = $("#grade").val();
       updateAdult.ParentPhoneNum = $("#parent-phone-num").val();
       updateAdult.YouthMovement = $("#youth-movement").val();

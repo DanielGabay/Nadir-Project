@@ -11,7 +11,7 @@ $(document).ready(function () {
   })
 
 
-  
+
   /*get groups names from db/session*/
   getGroupsData();
 
@@ -74,20 +74,24 @@ function updateMemDetails() {
       $("#is-instructor").replaceWith("<select class='ui fluid dropdown' id='is-instructor' ><option value='false'>לא</option><option value='true'>כן</option></select>");
       $("#is-instructor").val(theMember.IsInstructor);
     } else if ($("#edit-btn").text() == "שמור") { //save btn was clicked 
+      updateMember.First = $("#first-name").val();
+      updateMember.Last = $("#last-name").val();
+      updateMember.PhoneNum = $("#phone-num").val();
+      if (updateMember.First == "" || updateMember.Last == "" || updateMember.PhoneNum == "") {
+        $('#required-section').modal('show');
+        return;
+      }
       $("#edit-btn").text("עריכה").append("<i class='edit icon'></i>");
       $("#adlt-btn").show(); //show the move to adult button after save
       //create new obj for update member
-      updateMember.First = $("#first-name").val();
-      updateMember.Last = $("#last-name").val();
       updateMember.Date = $("#date").val();
-      if( $("#group").val() == null)
+      if ($("#group").val() == null)
         updateMember.Group = "לא משויך לקבוצה";
       else
         updateMember.Group = $("#group").val();
       updateMember.Comments = $("#comments").val();
       updateMember.School = $("#school").val();
-      updateMember.PhoneNum = $("#phone-num").val();
-      if( $("#grade").val() == null)
+      if ($("#grade").val() == null)
         updateMember.Grade = "";
       else
         updateMember.Grade = $("#grade").val();
@@ -99,6 +103,7 @@ function updateMemDetails() {
       // if change where make save data in database and session
       if (JSON.stringify(updateMember) !== JSON.stringify(theMember))
         updateFunc();
+      
 
       //return to edit - display
       $("#first-name").attr("readonly", "");
@@ -155,10 +160,10 @@ function moveToAdlt() {
         }
         memberList.splice(foundIndex, 1);
         sessionStorage.setItem('memberList', JSON.stringify(memberList)); //save to session after delete
-  
+
         ///update database
         let updateRef = firestore.collection("Members").doc(selectedPersonKey);
-  
+
         updateRef.update({
             First: updateMember.First,
             Last: updateMember.Last,
