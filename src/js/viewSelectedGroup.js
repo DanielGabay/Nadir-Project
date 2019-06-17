@@ -152,6 +152,7 @@ function ScreenToaddGroup() {
     $("#group-details").removeClass('transition'); 
     $("#group-details").removeClass('visible'); 
     $("#group-details").css("cssText", "display: none !important;");
+    $('#group-details').attr('style', "display: none !important");
     $("#group-details").hide();
     $('#groupMemberTable').hide();
     selectedGroup = {};  //  reset the selected group;
