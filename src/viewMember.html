@@ -11,7 +11,8 @@
   <script src="semantic/semantic.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script><!--Authentication-->
+  <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+  <!--Authentication-->
   <script src="js/config.js"></script>
   <script src="js/viewMember.js"></script>
   <script src="js/transition.js"></script>
@@ -31,160 +32,162 @@
     <div class="ta-ndr header" id="ask-dlt">
       <p class="title">שים לב! לחניך זה קיימים חובות/זיכויים</p>
       <p>מה ברצונך לעשות?</p>
-     
+
     </div>
     <form class="ui form">
-      <br/>
-      
-    <div class="actions ta-ndr three fields tabRight">
-      <div class="ui negative left labeled icon button " id="dlt-anyway">
-        מחק בכל זאת
-        <i class="trash icon"></i>
-      </div>
-      <div class="ui yellow left labeled icon button" id="payment-btn">
+      <br />
+
+      <div class="actions ta-ndr three fields tabRight">
+        <div class="ui negative left labeled icon button " id="dlt-anyway">
+          מחק בכל זאת
+          <i class="trash icon"></i>
+        </div>
+        <div class="ui yellow left labeled icon button" id="payment-btn">
           עבור למעקב כספי
           <i class="shekel icon"></i>
         </div>
-      <div class="ui positive left labeled icon button">
-        אל תמחק
-        <i class="delete icon"></i>
+        <div class="ui positive left labeled icon button">
+          אל תמחק
+          <i class="delete icon"></i>
+        </div>
+
       </div>
-     
-    </div>
-  </form>
+    </form>
   </div>
 
   <div class="ui mini modal" id="dlt-section">
-      <div class="ta-ndr header" id="ask-dlt">
-        האם ברצונך למחוק?
+    <div class="ta-ndr header" id="ask-dlt">
+      האם ברצונך למחוק?
+    </div>
+    <div class="actions ta-ndr two fields">
+      <div class="ui positive left labeled icon button" id="dlt">
+        כן
+        <i class="checkmark icon"></i>
       </div>
-      <div class="actions ta-ndr two fields">
-        <div class="ui positive left labeled icon button" id="dlt">
-          כן
-          <i class="checkmark icon"></i>
-        </div>
-        <div class="ui negative left labeled icon button">
-          לא
-          <i class="delete icon"></i>
-        </div>
+      <div class="ui negative left labeled icon button">
+        לא
+        <i class="delete icon"></i>
       </div>
     </div>
+  </div>
 
-    <div class="ui mini modal" id="adlt-section">
-      <div class="ta-ndr header" id="ask-move-adlt">
-       <p>הוסף עיסוק</p>
-        <input type="text" id="adlt-proffesion" placeholder="">
-      </div>
-
-      <div class="actions ta-ndr two fields">
-        <div class="ui positive left labeled icon button" id="move-adlt">
-         אישור
-          <i class="checkmark icon"></i>
-        </div>
-        <div class="ui negative left labeled icon button">
-          ביטול
-          <i class="delete icon"></i>
-        </div>
-      </div>
+  <div class="ui mini modal" id="adlt-section">
+    <div class="ta-ndr header" id="ask-move-adlt">
+      <p>הוסף עיסוק</p>
+      <input type="text" id="adlt-proffesion" placeholder="">
     </div>
 
-    <div class="ui mini modal" id="acpt-adlt-section">
-      <div class="ta-ndr header" id="acpt-move-adlt">
-       <p>החניך הועבר לבוגרים בהצלחה</p>
+    <div class="actions ta-ndr two fields">
+      <div class="ui positive left labeled icon button" id="move-adlt">
+        אישור
+        <i class="checkmark icon"></i>
       </div>
-
-      <div class="actions ta-ndr">
-        <div class="ui positive left labeled icon button" id="acpt-adlt">
-         אישור
-          <i class="checkmark icon"></i>
-        </div>
+      <div class="ui negative left labeled icon button">
+        ביטול
+        <i class="delete icon"></i>
       </div>
     </div>
+  </div>
+
+  <div class="ui mini modal" id="acpt-adlt-section">
+    <div class="ta-ndr header" id="acpt-move-adlt">
+      <p>החניך הועבר לבוגרים בהצלחה</p>
+    </div>
+
+    <div class="actions ta-ndr">
+      <div class="ui positive left labeled icon button" id="acpt-adlt">
+        אישור
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
 
   <div class="title">
     <h1 id="nameTitle">
     </h1>
-    <button id="payment-track-btn" class="ui purple button ml-3">מעקב כספי<i class = "shekel icon"></i></button>
-    <button id="personal-track-btn" class="ui purple button">מעקב אישי<i class = "comment icon"></i></button>
+    <button id="payment-track-btn" class="ui purple button ml-3">מעקב כספי<i class="shekel icon"></i></button>
+    <button id="personal-track-btn" class="ui purple button">מעקב אישי<i class="comment icon"></i></button>
   </div><br>
 
   <div class="ndr">
-    <div class="ndr-form">
+    <div class="ndr-form form-wrapper">
       <form id="form-Add">
         <div class="ui form">
-          <div class="two fields">
+          <div class="three fields">
             <div class="field">
-              <label>שם פרטי:</label>
+              <label>שם פרטי</label>
               <input type="text" readonly="" id="first-name">
             </div>
             <div class="field">
-              <label>שם משפחה:</label>
+              <label>שם משפחה</label>
               <input type="text" readonly="" id="last-name">
             </div>
+
+            <div class="field">
+              <label>טלפון</label>
+              <input type="text" class = "foo" readonly="" id="phone-num" maxlength="10">
+            </div>
           </div>
 
-          <div class="two fields">
+
+
+
+          <div class="four fields">
             <div class="field">
-              <label>טלפון:</label>
-              <input type="text" readonly="" id="phone-num" maxlength="10">
+              <label>תאריך לידה</label>
+              <input class ="foo" type="text" id="date" readonly="">
             </div>
+
             <div class="field">
-              <label>קבוצה:</label>
+              <label>קבוצה</label>
               <input type="text" readonly="" id="group">
             </div>
-          </div>
 
-
-          <div class="two fields">
             <div class="field">
-              <label>בית ספר:</label>
+              <label>בית ספר</label>
               <input type="text" readonly="" id="school">
             </div>
 
             <div class="field">
-              <label>כיתה:</label>
+              <label>כיתה</label>
               <input readonly="" id="grade">
             </div>
           </div>
+          <div class="four fields">
 
-          <div class="two fields">
+
             <div class="field">
-              <label>תאריך לידה:</label>
-              <input type="text" id="date" readonly="">
-            </div>
-            <div class="field">
-              <label>טלפון אבא/אמא:</label>
+              <label>טלפון אבא/אמא</label>
               <input type="text" readonly="" maxlength="10" id="parent-phone-num">
             </div>
-          </div>
 
-          <div class="three fields">
             <div class="field">
-              <label>תנועת נוער:</label>
+              <label>תנועת נוער</label>
               <input type="text" readonly="" id="youth-movement">
             </div>
             <div class="field">
-              <label>האם מדריך:</label>
+              <label>האם מדריך</label>
               <input readonly="" id="is-instructor">
             </div>
             <div class="field">
-              <label>מסגרת נוספת:</label>
+              <label>מסגרת נוספת</label>
               <input type="text" readonly="" id="another-education">
             </div>
           </div>
 
           <div class="field">
-            <label>הערות:</label>
+            <label>הערות</label>
             <textarea id="comments" readonly="" rows="4"></textarea>
           </div>
         </div>
-       
       </form>
       <br>
-      <button id="edit-btn" onclick="updateMemDetails()" class="ui purple button">עריכה<i class="edit icon"></i></button>
+      <button id="edit-btn" onclick="updateMemDetails()" class="ui purple button">עריכה<i
+          class="edit icon"></i></button>
       <button id="print-btn" onclick="window.print()" class="ui purple button">הדפסה<i class="print icon"></i></button>
       <button id="dlt-btn" onclick="deleteFunc()" class="ui purple button">מחיקה<i class="trash icon"></i></button>
-      <button id="adlt-btn" onclick="moveToAdlt()" class="ui purple button">העבר לבוגרים<i class="paper plane icon"></i></button>
+      <button id="adlt-btn" onclick="moveToAdlt()" class="ui purple button">העבר לבוגרים<i
+          class="paper plane icon"></i></button>
       <br><br>
     </div>
   </div>

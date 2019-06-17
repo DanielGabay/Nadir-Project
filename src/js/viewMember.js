@@ -10,6 +10,8 @@ $(document).ready(function () {
     document.location.href = "viewMemberComments.html";
   })
 
+
+  
   /*get groups names from db/session*/
   getGroupsData();
 

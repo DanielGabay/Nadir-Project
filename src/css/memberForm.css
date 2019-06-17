@@ -55,16 +55,6 @@ label {
   transition: box-shadow 150ms ease-out !important;
 }
 
-/* #first-name:empty{
-  box-shadow: 0 2px 0 0 rgb(255, 8, 0);
-}
-#last-name:empty{
-  box-shadow: 0 2px 0 0 rgb(255, 8, 0);
-}
-#phone-num:empty{
-  box-shadow: 0 2px 0 0 rgb(255, 8, 0) ;
-} */
-
 .form-input:focus, select:focus{
   box-shadow:  0 3px 0 0 rgb(123, 63, 163) !important;
 }
