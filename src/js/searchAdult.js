@@ -46,7 +46,7 @@ function getAllMemebers() {
                         const person = doc.data(); // pointer for document
                         adltList.push(person); // add for array of all names
                     })
-                    sessionStorage.setItem('adltList', JSON.stringify(adltList)); // save it in session
+                    sessionStorage.setItem('adultList', JSON.stringify(adltList)); // save it in session
                     resolve(adltList);
                 })
 
