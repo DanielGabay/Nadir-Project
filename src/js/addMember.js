@@ -37,6 +37,7 @@ $(document).ready(function () {
     })
 
 
+
     $('select').change(function () {
         $(this).css("cssText", "box-shadow: 0 2px 0 0 rgb(165, 221, 165) !important;");
     })
@@ -165,7 +166,11 @@ function addNewMemeber() {
     if (isInstructor == null)
         isInstructor = "false";
     const isAdult = $("#isAdult").val();
-    const adultProffesion = $("#adultProffesion").val();
+    let adultProffesion;
+    if (isAdult === true)
+        adultProffesion = $("#adultProffesion").val();
+    else
+        adultProffesion = "";
     let personalTracking = [];
     let financialMonitoring = [];
 

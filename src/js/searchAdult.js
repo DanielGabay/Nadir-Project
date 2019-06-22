@@ -38,7 +38,7 @@ function getAllMemebers() {
     return new Promise((resolve) => { // resolve <--->is need with promise.
         let adltList = []; // save all the adlt data.      
 
-        if (sessionStorage.getItem("adultList") === null || JSON.parse(sessionStorage.getItem('adultList')).length === 0) { // if its the first time 
+        if (sessionStorage.getItem("adltList") === null || JSON.parse(sessionStorage.getItem('adltList')).length === 0) { // if its the first time 
             console.log("adltlist is from FireBase")
             firestore.collection("Members").where("IsAdult", "==", "true").get()
                 .then(function (querySnapshot) {
@@ -46,12 +46,12 @@ function getAllMemebers() {
                         const person = doc.data(); // pointer for document
                         adltList.push(person); // add for array of all names
                     })
-                    sessionStorage.setItem('adultList', JSON.stringify(adltList)); // save it in session
+                    sessionStorage.setItem('adltList', JSON.stringify(adltList)); // save it in session
                     resolve(adltList);
                 })
 
         } else {
-            adltList = JSON.parse(sessionStorage.getItem('adultList'));
+            adltList = JSON.parse(sessionStorage.getItem('adltList'));
             console.log("adltList is from session")
             resolve(adltList);
         }
