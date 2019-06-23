@@ -46,7 +46,7 @@ function signIn() {
             $('#loader').removeClass('active');
             $('#errorPlaceHolder').addClass("ui error message");
             if (err.code === "auth/invalid-email") {
-                $('#errorPlaceHolder').text("כתובת המייל הוכנסה בצורה לא תקינה");
+                $('#errorPlaceHolder').text("כתובת המייל לא תקינה");
             } else if (err.code === "auth/wrong-password") {
                 $('#errorPlaceHolder').text("הסיסמא לא נכונה");
             } else if (err.code === "auth/user-not-found") {

@@ -38,7 +38,7 @@
 		<div class="item">
 			<a href="#" class="item" onclick="goBack()"><i class="arrow right icon"></i></a>
 			<a href="#" class="item" onclick="goForward()"><i class="arrow left icon"></i></a>
-			<a href="#" class="item" onclick="refresh()" title="לחץ כדי לעדכן"><i class="undo icon"></i></a>
+			<a href="#" class="item" onclick="clearData()" title="לחץ כדי לעדכן נתונים"><i class="cloud large download icon"></i></a>
 		</div>
 
 
@@ -89,7 +89,7 @@
 		window.history.forward();
 	}
 
-	function refresh() {
+	function clearData() {
 		sessionStorage.clear();
 		window.location.href = "homePage.html";
 	}
