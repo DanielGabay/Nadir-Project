@@ -4,15 +4,22 @@
     <title>דף הבית</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-    <link rel="stylesheet" href="css/ndr.css">
+    <!-- <link rel="stylesheet" href="css/ndr.css"> -->
+    <link rel="stylesheet" href="css/homePage.css">
+
+    <meta charset="utf-8" />
+    <link href="css/styles.css" rel="stylesheet" />
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="semantic/semantic.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script><!--Authentication-->
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <!--Authentication-->
     <script src="js/config.js"></script>
     <script src="js/transition.js"></script>
-    
+    <script src="js/homePage.js"></script>
+
+
     <script>
         $(function () {
             $('#navbar').load('topNavbar.html');
@@ -25,7 +32,25 @@
 <body class="ndr" dir="rtl">
 
     <div id="navbar"></div>
-    <h2>מסך הבית</h2><br>
+
+    <div class="fadein"> 
+            <div id="slide"class="slide1"></div>
+            <div id="slide"class="slide2"></div>
+            <div id="slide"class="slide3"></div>
+            <div id="slide"class="slide4"></div>
+            <div id="slide"class="slide5"></div>
+            <div id="slide"class="slide6"></div>
+            <div id="slide"class="slide7"></div>
+            <div id="slide"class="slide8"></div>
+            <div id="slide"class="slide9"></div>
+            <div id="slide"class="slide10"></div>
+            <div id="slide"class="slide11"></div>
+     </div>
+     <div class="plate header-content">
+            <p class="shadow text1 header-title animate-pop-in ">ברוכים הבאים</p>
+            <p class="shadow text1 header-title animate-pop-in">תוכנת ניהול - פרויקט נדי"ר</p>
+        </div>
+       
 
 </body>
 

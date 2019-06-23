@@ -1,0 +1,196 @@
+html, body{
+  margin: 0;
+  padding:0;
+  height: 100%;
+  background-color: black !important;
+}
+
+#slide{
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  position:fixed;
+  width:100%;
+  height:100%;
+}
+.slide1{
+  background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (1).jpg") no-repeat center center fixed; 
+
+  }
+.slide2{
+  background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (2).jpg") no-repeat center center fixed; 
+  }
+.slide3{
+  background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (3).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide4{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (4).jpg")  no-repeat center center fixed; 
+  } 
+
+  .slide5{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (5).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide6{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (6).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide7{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (7).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide8{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (8).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide9
+  {
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (9).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide10{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (10).jpg")  no-repeat center center fixed; 
+  }
+
+  .slide11{
+    background:linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/homePageImg (11).jpg")  no-repeat center center fixed; 
+  }
+/*slideshow based off Jonathan Snook's tutorial:
+http://snook.ca/archives/javascript/simplest-jquery-slideshow */
+
+
+/* ---------------------------------- start of title */
+@import url(https://fonts.googleapis.com/css?family=Arvo:700);
+@import url(https://fonts.googleapis.com/css?family=Seaweed+Script);
+body {
+  background-color: #222;
+}
+.plate {
+    width: auto;
+  margin: 10% auto;
+}
+.shadow {
+  color: rgb(153, 111, 150);
+  font-family: 'Noot', serif !important;
+ 
+  text-shadow: 
+  5px 1px 0px #000,
+   4px 5px 0px #000,
+   1px 5px 0px #000,
+  2px  0px 0px #000,
+   1px  0px 0px #000,
+  -1px  5px 0px #000,
+   2px  1px 0px #000,
+   1px  1px 0px #000;
+  -webkit-transform: scaleY(0.7);
+  -moz-transform: scaleY(0.7);
+  margin:0;
+  text-align: center;
+}
+
+@font-face {
+  font-family: 'Noot';
+  font-weight: 400;
+  font-style: normal;
+  src: url('http://s3-eu-west-1.amazonaws.com/fonts-project/fonts/Noot/400.woff') format('woff');
+}
+.text1 {
+  font-size: 60px;
+  overflow: hidden !important;
+  color:  rgb(153, 111, 150) !important;
+  font-family: 'Noot', serif !important;
+}
+/* end of title */
+
+header {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transform-style: preserve-3d;
+  perspective: 100px;
+}
+
+header:before {
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.8)),
+              url(https://cssanimation.rocks/levelup/public/images/background.jpg) no-repeat bottom;
+  background-size: cover;
+  content: "";
+  position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  z-index: -1;
+}
+
+header:after {
+  background: #F9FCFF;
+  content: "";
+  height: 40rem;
+  left: -5%;
+  position: absolute;
+    right: -5%;
+    top: 90%;
+  transform-origin: 0 0;
+  transform: rotateZ(-4deg);
+  z-index: 0;
+}
+
+.header-title, .header-subtitle {
+  color: #fff;
+}
+
+.header-subtitle {
+  text-transform: uppercase;
+  margin-bottom: 5rem;
+}
+
+.header-button {
+  transform: translateZ(.1px);
+  position: relative;
+  z-index: 10;
+}
+
+.animate-pop-in {
+  animation: pop-in .6s ease-out forwards;
+  opacity: 0;
+}
+
+.rocky-dashed {
+  animation-delay: 1s;
+}
+
+.header-title {
+  animation-delay: 1.2s;
+}
+
+.header-subtitle {
+  animation-delay: 1.4s;
+}
+
+.header-button {
+  animation-delay: 1.6s;
+}
+
+
+/* Animations */
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem) scale(.8);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
