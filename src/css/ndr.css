@@ -7,12 +7,12 @@
   body {
     /* background: -webkit-linear-gradient( #c6cbef, #E4E9FD ) no-repeat fixed; */
     background-color: #DADADA !important;
-  background: url("../images/background1.jpg") no-repeat center center fixed !important;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover !important;
-  background-size: cover !important;
-    
+    background: url("../images/background1.jpg") no-repeat center center fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+
     text-align: center;
   }
 
@@ -74,9 +74,8 @@
   }
 
   input::placeholder,
-  textarea::placeholder
-  {
-    color:rgb(0, 0, 0) !important;
+  textarea::placeholder {
+    color: rgb(0, 0, 0) !important;
     /* font-weight: normal; */
   }
 
@@ -105,25 +104,28 @@
     font-size: 30px;
   }
 
-h2
-{
-  font-family: 'Shuneet', serif !important;
-  font-size:20px;
-}
+  h2 {
+    font-family: 'Shuneet', serif !important;
+    font-size: 20px;
+  }
 
-.ui.search>.results .result .title {
+  .ui.search>.results .result .title {
 
-  font-size: 1.7em !important;
+    font-size: 1.7em !important;
 
-}
+  }
 
-.ui.search>.results .result .description {
-  font-size: 1.3em !important;
-}
+  .ui.search>.results .result .description {
+    font-size: 1.3em !important;
+  }
+
+  .ui.button.purple{
+    background-color: #866ec7;
+  }
 
 
 
-/* for add-Member.html
+  /* for add-Member.html
 #adultProffesion{
 
   -top: 24px;
