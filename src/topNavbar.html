@@ -12,6 +12,38 @@
 		text-align: right !important;
 	}
 
+
+	#logoutBtn:hover,
+	#logoutBtn:focus {
+		box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover);
+	}
+
+	#logoutBtn {
+		--color: red;
+		--hover: #f84932;
+	}
+
+	#logoutBtn {
+		font-weight: bolder !important;
+		font-size: 13px !important;
+		border-radius: 10px;
+		color: var(--color);
+		transition: 0.5s;
+		background: none;
+		border: 2px solid;
+		font: inherit;
+		line-height: 1;
+		padding: 0.8em;
+	}
+
+
+	#logoutBtn:hover,
+	#logoutBtn:focus {
+		cursor: pointer;
+		border-color: var(--hover);
+		background-color: var(--hover) !important;
+		color: #fff;
+	}
 </style>
 
 <!-- 
