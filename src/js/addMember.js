@@ -58,12 +58,7 @@ function setGroups(groupsData) {
     }
 
 }
-
-/** update the memeberList that located in the sessionStorage - add the new memeber  */
-function updateSession(TheNewMemeber) {
-
-    console.log("we gonna add this 1 to the sesstion: ")
-    console.log(TheNewMemeber);
+function updateMemberSession(TheNewMemeber){
     if (sessionStorage.getItem("memberList") === null) // there is nothing in the session so no need to update
         return;
 
@@ -88,7 +83,41 @@ function updateSession(TheNewMemeber) {
         AdultProffesion: TheNewMemeber.AdultProffesion
     });
     sessionStorage.setItem('memberList', JSON.stringify(memberList));
-    console.log("session updated with the new member!");
+}
+
+function updateAdultSession(TheNewMemeber){
+    if (sessionStorage.getItem("adltList") === null) // there is nothing in the session so no need to update
+        return;
+
+    let adltList = JSON.parse(sessionStorage.getItem('memberList'));
+    adltList.push({
+        AnotherEducation: TheNewMemeber.AnotherEducation,
+        Comments: TheNewMemeber.Comments,
+        Date: TheNewMemeber.Date,
+        FinancialMonitoring: TheNewMemeber.FinancialMonitoring,
+        First: TheNewMemeber.First,
+        Grade: TheNewMemeber.Grade,
+        Group: TheNewMemeber.Group,
+        Key: TheNewMemeber.Key,
+        IsInstructor: TheNewMemeber.IsInstructor,
+        Last: TheNewMemeber.Last,
+        ParentPhoneNum: TheNewMemeber.ParentPhoneNum,
+        PersonalTracking: TheNewMemeber.PersonalTracking,
+        PhoneNum: TheNewMemeber.PhoneNum,
+        School: TheNewMemeber.School,
+        YouthMovement: TheNewMemeber.YouthMovement,
+        IsAdult: TheNewMemeber.IsAdult,
+        AdultProffesion: TheNewMemeber.AdultProffesion
+    });
+    sessionStorage.setItem('adltList', JSON.stringify(adltList));
+}
+/** update the memeberList that located in the sessionStorage - add the new memeber  */
+function updateSession(TheNewMemeber) {
+    if(TheNewMemeber.isAdult === "true")
+        updateAdultSession(TheNewMemeber);
+    else
+        updateMemberSession(TheNewMemeber);
+    
 }
 /** add the Id to the member that we just added to firebase  */
 function addId(docRef, TheNewMemeber) {
@@ -167,7 +196,7 @@ function addNewMemeber() {
         isInstructor = "false";
     const isAdult = $("#isAdult").val();
     let adultProffesion;
-    if (isAdult === true)
+    if (isAdult === "true")
         adultProffesion = $("#adultProffesion").val();
     else
         adultProffesion = "";
