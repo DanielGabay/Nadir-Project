@@ -59,10 +59,6 @@ body {
   background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../images/homePageImg (10).jpg") no-repeat center center fixed;
 }
 
-.slide11 {
-  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../images/homePageImg (11).jpg") no-repeat center center fixed;
-}
-
 /*slideshow based off Jonathan Snook's tutorial:
 http://snook.ca/archives/javascript/simplest-jquery-slideshow */
 

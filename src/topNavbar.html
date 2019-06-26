@@ -46,7 +46,7 @@
 	}
 </style>
 
-<!-- 
+
 <script>
 	/*check if user is loged in. in case of a problem/user logout, delte session and go to login page*/
 	firebase.auth().onAuthStateChanged(function (user) {
@@ -60,7 +60,7 @@
 			document.location.href = "login-ndr.html";
 		}
 	});
-</script> -->
+</script>
 
 
 
@@ -102,11 +102,10 @@
 <script>
 	$("#logoutBtn").click(function (e) {
 		e.preventDefault();
-		// logoutActions(); //delete this!
 		firebase.auth().signOut().then(function () {
 			logoutActions();
 		}, function (error) {
-			logoutActions(); //delete this!		
+			// logoutActions(); //delete this!		
 			console.log(error);
 		});
 	});
