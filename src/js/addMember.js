@@ -3,7 +3,6 @@ const firestore = firebase.firestore();
 /*when document is ready*/
 $(document).ready(function () {
 
-
     $('input, textarea').focus(function () {
         $(this).parents('.form-group').addClass('focused');
     });
