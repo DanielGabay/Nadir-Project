@@ -258,7 +258,7 @@ function deleteFunc() {
         sessionStorage.setItem('adltList', JSON.stringify(adltList)); //save to session after delete 
         firestore.collection("Members").doc(selectedPersonKey).delete().
         then(function () {
-          document.location.href = "homePage.html";
+          document.location.href = "searchAdult.html";
         });
       }
     });

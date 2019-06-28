@@ -32,7 +32,7 @@ $(document).ready(function () {
         $("#form-Add").submit(function (event) {
             event.preventDefault();
             /* attach html elements*/
-            addNewMemeber();
+            addNewMember();
         });
     })
 
@@ -59,77 +59,81 @@ function setGroups(groupsData) {
 
 }
 
-function updateMemberSession(TheNewMemeber) {
+function updateMemberSession(TheNewMember) {
+    console.log("memberlist session")
     if (sessionStorage.getItem("memberList") === null) // there is nothing in the session so no need to update
         return;
 
     let memberList = JSON.parse(sessionStorage.getItem('memberList'));
     memberList.push({
-        AnotherEducation: TheNewMemeber.AnotherEducation,
-        Comments: TheNewMemeber.Comments,
-        Date: TheNewMemeber.Date,
-        FinancialMonitoring: TheNewMemeber.FinancialMonitoring,
-        First: TheNewMemeber.First,
-        Grade: TheNewMemeber.Grade,
-        Group: TheNewMemeber.Group,
-        Key: TheNewMemeber.Key,
-        IsInstructor: TheNewMemeber.IsInstructor,
-        Last: TheNewMemeber.Last,
-        ParentPhoneNum: TheNewMemeber.ParentPhoneNum,
-        PersonalTracking: TheNewMemeber.PersonalTracking,
-        PhoneNum: TheNewMemeber.PhoneNum,
-        School: TheNewMemeber.School,
-        YouthMovement: TheNewMemeber.YouthMovement,
-        IsAdult: TheNewMemeber.IsAdult,
-        AdultProffesion: TheNewMemeber.AdultProffesion
+        AnotherEducation: TheNewMember.AnotherEducation,
+        Comments: TheNewMember.Comments,
+        Date: TheNewMember.Date,
+        FinancialMonitoring: TheNewMember.FinancialMonitoring,
+        First: TheNewMember.First,
+        Grade: TheNewMember.Grade,
+        Group: TheNewMember.Group,
+        Key: TheNewMember.Key,
+        IsInstructor: TheNewMember.IsInstructor,
+        Last: TheNewMember.Last,
+        ParentPhoneNum: TheNewMember.ParentPhoneNum,
+        PersonalTracking: TheNewMember.PersonalTracking,
+        PhoneNum: TheNewMember.PhoneNum,
+        School: TheNewMember.School,
+        YouthMovement: TheNewMember.YouthMovement,
+        IsAdult: TheNewMember.IsAdult,
+        AdultProffesion: TheNewMember.AdultProffesion
     });
     sessionStorage.setItem('memberList', JSON.stringify(memberList));
 }
 
-function updateAdultSession(TheNewMemeber) {
+function updateAdultSession(TheNewMember) {
+    console.log("adult session")
     if (sessionStorage.getItem("adltList") === null) // there is nothing in the session so no need to update
         return;
 
-    let adltList = JSON.parse(sessionStorage.getItem('memberList'));
+    let adltList = JSON.parse(sessionStorage.getItem('adltList'));
     adltList.push({
-        AnotherEducation: TheNewMemeber.AnotherEducation,
-        Comments: TheNewMemeber.Comments,
-        Date: TheNewMemeber.Date,
-        FinancialMonitoring: TheNewMemeber.FinancialMonitoring,
-        First: TheNewMemeber.First,
-        Grade: TheNewMemeber.Grade,
-        Group: TheNewMemeber.Group,
-        Key: TheNewMemeber.Key,
-        IsInstructor: TheNewMemeber.IsInstructor,
-        Last: TheNewMemeber.Last,
-        ParentPhoneNum: TheNewMemeber.ParentPhoneNum,
-        PersonalTracking: TheNewMemeber.PersonalTracking,
-        PhoneNum: TheNewMemeber.PhoneNum,
-        School: TheNewMemeber.School,
-        YouthMovement: TheNewMemeber.YouthMovement,
-        IsAdult: TheNewMemeber.IsAdult,
-        AdultProffesion: TheNewMemeber.AdultProffesion
+        AnotherEducation: TheNewMember.AnotherEducation,
+        Comments: TheNewMember.Comments,
+        Date: TheNewMember.Date,
+        FinancialMonitoring: TheNewMember.FinancialMonitoring,
+        First: TheNewMember.First,
+        Grade: TheNewMember.Grade,
+        Group: TheNewMember.Group,
+        Key: TheNewMember.Key,
+        IsInstructor: TheNewMember.IsInstructor,
+        Last: TheNewMember.Last,
+        ParentPhoneNum: TheNewMember.ParentPhoneNum,
+        PersonalTracking: TheNewMember.PersonalTracking,
+        PhoneNum: TheNewMember.PhoneNum,
+        School: TheNewMember.School,
+        YouthMovement: TheNewMember.YouthMovement,
+        IsAdult: TheNewMember.IsAdult,
+        AdultProffesion: TheNewMember.AdultProffesion
     });
     sessionStorage.setItem('adltList', JSON.stringify(adltList));
 }
 /** update the memeberList that located in the sessionStorage - add the new memeber  */
-function updateSession(TheNewMemeber) {
-    if (TheNewMemeber.isAdult === "true")
-        updateAdultSession(TheNewMemeber);
+function updateSession(TheNewMember) {
+    console.log(TheNewMember);
+    console.log(TheNewMember.IsAdult);
+    if (TheNewMember.IsAdult === "true")
+        updateAdultSession(TheNewMember);
     else
-        updateMemberSession(TheNewMemeber);
+        updateMemberSession(TheNewMember);
 
 }
 /** add the Id to the member that we just added to firebase  */
-function addId(docRef, TheNewMemeber) {
+function addId(docRef, TheNewMember) {
     firestore.collection("Members").doc(docRef.id).set({
             Key: docRef.id // add the key of firebase to the data.
         }, {
             merge: true
         })
         .then(function () {
-            TheNewMemeber.Key = docRef.id // update TheNewMemeber object
-            updateSession(TheNewMemeber);
+            TheNewMember.Key = docRef.id // update TheNewMember object
+            updateSession(TheNewMember);
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
@@ -176,7 +180,7 @@ function getGroupsData() {
 
 }
 
-function addNewMemeber() {
+function addNewMember() {
     const firstName = $("#first-name").val();
     const lastName = $("#last-name").val();
     const date = $("#date").val();
@@ -200,13 +204,12 @@ function addNewMemeber() {
     if (isAdult === "true") {
         adultProffesion = $("#adultProffesion").val();
         console.log(adultProffesion);
-
     } else
         adultProffesion = "";
     let personalTracking = [];
     let financialMonitoring = [];
 
-    let TheNewMemeber = {
+    let TheNewMember = {
         AnotherEducation: anotherEducation,
         Comments: comments,
         Date: date,
@@ -245,7 +248,7 @@ function addNewMemeber() {
         AdultProffesion: adultProffesion
 
     }).then(function (docRef) {
-        addId(docRef, TheNewMemeber);
+        addId(docRef, TheNewMember);
 
         $('#successfully-add').modal('setting', 'closable', false)
             .modal('show');

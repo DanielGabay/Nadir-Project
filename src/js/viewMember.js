@@ -275,7 +275,7 @@ function deleteFunc() {
         sessionStorage.setItem('memberList', JSON.stringify(memberList)); //save to session after delete
         firestore.collection("Members").doc(selectedPersonKey).delete().
         then(function () {
-          document.location.href = "homePage.html";
+          document.location.href = "searchMember.html";
         });
       }
     });
@@ -291,7 +291,7 @@ function deleteFunc() {
         sessionStorage.setItem('memberList', JSON.stringify(memberList)); //save to session after delete 
         firestore.collection("Members").doc(selectedPersonKey).delete().
         then(function () {
-          document.location.href = "homePage.html";
+          document.location.href = "searchMember.html";
         });
       }
     });

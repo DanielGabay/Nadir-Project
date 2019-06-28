@@ -9,7 +9,6 @@ app.on('ready', function () {
         width: 1300,
         height: 1000
     });
-    //  mainWindow.loadURL(`file://${__dirname}/src/homePage.html`);
     mainWindow.loadURL(`file://${__dirname}/src/login-ndr.html`);
     // mainWindow.setMenu(null);
     // mainWindow.webContents.on("devtools-opened", () => {
