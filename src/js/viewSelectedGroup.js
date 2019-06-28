@@ -192,7 +192,7 @@ function addToDataBase() {
 
         addKeyToGroup(docRef);
         $('#successfully-add').modal('show');
-        $("#popUpText").text("הקבוצה הוספה בהצלחה!");
+        $("#popUpText").text("הקבוצה נוספה בהצלחה!");
         $(".add-btn").modal({
             closable: true
         });
@@ -488,7 +488,7 @@ function deleteGroup() {
         firestore.collection("Groups").doc(selectedGroup.Key).delete().
             then(function () {
                 changeGroupName(groupName, noGroupName);
-                document.location.href = "homePage.html";
+                document.location.href = "groups.html";
             });
     }
 }

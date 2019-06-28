@@ -58,7 +58,8 @@ function setGroups(groupsData) {
     }
 
 }
-function updateMemberSession(TheNewMemeber){
+
+function updateMemberSession(TheNewMemeber) {
     if (sessionStorage.getItem("memberList") === null) // there is nothing in the session so no need to update
         return;
 
@@ -85,7 +86,7 @@ function updateMemberSession(TheNewMemeber){
     sessionStorage.setItem('memberList', JSON.stringify(memberList));
 }
 
-function updateAdultSession(TheNewMemeber){
+function updateAdultSession(TheNewMemeber) {
     if (sessionStorage.getItem("adltList") === null) // there is nothing in the session so no need to update
         return;
 
@@ -113,11 +114,11 @@ function updateAdultSession(TheNewMemeber){
 }
 /** update the memeberList that located in the sessionStorage - add the new memeber  */
 function updateSession(TheNewMemeber) {
-    if(TheNewMemeber.isAdult === "true")
+    if (TheNewMemeber.isAdult === "true")
         updateAdultSession(TheNewMemeber);
     else
         updateMemberSession(TheNewMemeber);
-    
+
 }
 /** add the Id to the member that we just added to firebase  */
 function addId(docRef, TheNewMemeber) {
@@ -196,9 +197,11 @@ function addNewMemeber() {
         isInstructor = "false";
     const isAdult = $("#isAdult").val();
     let adultProffesion;
-    if (isAdult === "true")
+    if (isAdult === "true") {
         adultProffesion = $("#adultProffesion").val();
-    else
+        console.log(adultProffesion);
+
+    } else
         adultProffesion = "";
     let personalTracking = [];
     let financialMonitoring = [];

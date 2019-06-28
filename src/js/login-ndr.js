@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // $('.logo')
-    //     .transition('set looping')
-    //     .transition('pulse', '6000ms');
+        // .transition('set looping')
+        // .transition('tada', '8000ms');
 
     $("#signInBtn").click(signIn);
     /*ENTER key listener when password input is focused*/
@@ -46,9 +46,9 @@ function signIn() {
             $('#loader').removeClass('active');
             $('#errorPlaceHolder').addClass("ui error message");
             if (err.code === "auth/invalid-email") {
-                $('#errorPlaceHolder').text("כתובת המייל לא תקינה");
+                $('#errorPlaceHolder').text("כתובת המייל אינה תקינה");
             } else if (err.code === "auth/wrong-password") {
-                $('#errorPlaceHolder').text("הסיסמא לא נכונה");
+                $('#errorPlaceHolder').text("הסיסמא שגויה");
             } else if (err.code === "auth/user-not-found") {
                 $('#errorPlaceHolder').text("המשתמש לא נמצא");
             } else {
